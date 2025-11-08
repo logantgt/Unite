@@ -57,7 +57,7 @@ PanelWindow {
         color: Theme.taskbar_borderColor
 
         Behavior on opacity {
-            NumberAnimation { duration: 100 }
+            NumberAnimation { duration: Theme.dash_animationDuration }
         }
     }
 
@@ -68,7 +68,7 @@ PanelWindow {
         anchors.rightMargin: Config.taskbarPosition == "left" ? Theme.taskbar_borderWidth : 0
         anchors.leftMargin: Config.taskbarPosition == "right" ? Theme.taskbar_borderWidth : 0
         implicitWidth: Theme.taskbar_width
-        color: Config.useBlurMask ? "transparent" : Config.accentColor
+        color: "transparent"
         opacity: Theme.taskbar_opacity
 
         MouseArea {
@@ -104,7 +104,7 @@ PanelWindow {
                     opacity: 1
 
                     Behavior on opacity {
-                        NumberAnimation { duration: 100 }
+                        NumberAnimation { duration: Theme.dash_animationDuration }
                     }
 
                     Connections {

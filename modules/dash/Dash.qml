@@ -64,7 +64,7 @@ PanelWindow {
             property: "opacity"
             from: 0
             to: 1
-            duration: 100
+            duration: Theme.dash_animationDuration
         }
 
         NumberAnimation {
@@ -73,14 +73,14 @@ PanelWindow {
             property: "opacity"
             from: 1
             to: 0
-            duration: 100
+            duration: Theme.dash_animationDuration
         }
 
         Rectangle {
             id: dashBase
             implicitWidth: bestDashSize().width
             implicitHeight: bestDashSize().height
-            color: Config.useBlurMask ? "transparent" : Config.accentColor
+            color: "transparent"
 
             function bestDashSize() {
                 this.width = 0;

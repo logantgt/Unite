@@ -25,7 +25,7 @@ PanelWindow {
         source: Config.themePath + "/menubarShadow.svg"
         opacity: (shouldShow == false || (ToplevelManager.activeToplevel != null && ToplevelManager.activeToplevel.maximized == true && ToplevelManager.activeToplevel.minimized == false)) ? 0 : 1
         Behavior on opacity {
-            NumberAnimation { duration: 100 }
+            NumberAnimation { duration: Theme.dash_animationDuration }
         }
     }
 

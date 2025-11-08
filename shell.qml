@@ -12,19 +12,24 @@ ShellRoot {
 
         Item {
             Loader {
-                active: Config.useBlurMask
-                sourceComponent: BlurMask {
-                    id: mask
-                }
+                id: blurMask
+                active: true
+                sourceComponent: BlurMask { }
             }
-            Menubar {
+            Loader {
                 id: menubar
+                active: blurMask.sourceComponent.backingWindowVisible
+                sourceComponent: Menubar { }
             }
-            Taskbar {
+            Loader {
                 id: taskbar
+                active: menubar.sourceComponent.backingWindowVisible
+                sourceComponent: Taskbar { }
             }
-            MenubarShadow {
+            Loader {
                 id: menubarShadow
+                active: taskbar.sourceComponent.backingWindowVisible
+                sourceComponent: MenubarShadow { }
             }
         }
     }

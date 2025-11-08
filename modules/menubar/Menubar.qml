@@ -22,7 +22,7 @@ PanelWindow {
     Rectangle {
         id: bar
         anchors.fill: parent
-        color: Config.useBlurMask ? "transparent" : Config.accentColor
+        color: "transparent"
 
         Behavior on color {
             ColorAnimation { duration: 0 }
@@ -34,7 +34,7 @@ PanelWindow {
             source: Config.themePath + "/menubar.svg"
             opacity: Theme.menubar_opacity
             Behavior on opacity {
-                NumberAnimation { duration: 100 }
+                NumberAnimation { duration: Theme.dash_animationDuration }
             }
         }
 
@@ -85,7 +85,7 @@ PanelWindow {
             }
 
             Behavior on opacity {
-                NumberAnimation { duration: 100 }
+                NumberAnimation { duration: Theme.dash_animationDuration }
             }
         }
 
@@ -109,7 +109,7 @@ PanelWindow {
                 renderTypeQuality: 60
 
                 Behavior on opacity {
-                    NumberAnimation { duration: 100 }
+                    NumberAnimation { duration: Theme.dash_animationDuration }
                 }
             }
 
