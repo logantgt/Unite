@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="launcher.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="126.04178"
+     inkscape:cy="109.248"
+     inkscape:window-width="1644"
+     inkscape:window-height="1220"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="lattice2"
+       gridpoint0="-6.0126006,-14.989597"
+       gridpoint1="36.388746,-14.989597"
+       gridpoint2="-6.0126006,28.652722"
+       gridpoint3="36.388746,28.652722"
+       gridpoint4="4.587736,-14.989597"
+       gridpoint5="25.788409,-14.989597"
+       gridpoint6="4.587736,28.652722"
+       gridpoint7="25.788409,28.652722"
+       gridpoint8x9="15.188073,-14.989597"
+       gridpoint10x11="15.188073,28.652722"
+       gridpoint12="-6.0126006,-4.0790172"
+       gridpoint13="36.388746,-4.0790172"
+       gridpoint14="-6.0126006,17.742142"
+       gridpoint15="36.388746,17.742142"
+       gridpoint16="4.587736,-4.0790172"
+       gridpoint17="25.788409,-4.0790172"
+       gridpoint18="4.587736,17.742142"
+       gridpoint19="25.788409,17.742142"
+       gridpoint20x21="15.188073,-4.0790172"
+       gridpoint22x23="15.188073,17.742142"
+       gridpoint24x26="-6.0126006,6.8315625"
+       gridpoint25x27="36.388746,6.8315625"
+       gridpoint28x30="4.587736,6.8315625"
+       gridpoint29x31="25.788409,6.8315625"
+       gridpoint32x33x34x35="15.188073,6.8315625"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       perimetral="false"
+       live_update="true" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="M -6.0126006,6.8315625 H 36.388746"
+       prop_scale="1.29"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false" />
+    <inkscape:path-effect
+       effect="knot"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       switcher_size="18.1"
+       interruption_width="3"
+       prop_to_stroke_width="true"
+       add_stroke_width="inkscape_1.0_and_up"
+       both="false"
+       inverse_width="false"
+       add_other_stroke_width="inkscape_1.0_and_up"
+       crossing_points_vector="" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath7">
+      <path
+         id="path7"
+         style="fill:#00ff00;fill-opacity:1;stroke-width:0.268695"
+         inkscape:label="shadowBase"
+         d="M 0,0 V 67.733332 H 67.733332 V 0 Z M 8.4671833,4.2333333 H 59.26615 c 2.34546,0 4.233849,1.8883894 4.233849,4.23385 V 59.26615 c 0,2.34546 -1.888389,4.233849 -4.233849,4.233849 H 8.4671833 c -2.3454606,0 -4.23385,-1.888389 -4.23385,-4.233849 V 8.4671833 c 0,-2.3454606 1.8883894,-4.23385 4.23385,-4.23385 z" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:#f9f9f9;stroke-width:0.264583"
+       id="path3"
+       inkscape:flatsided="false"
+       sodipodi:sides="4"
+       sodipodi:cx="0.46772167"
+       sodipodi:cy="0.280633"
+       sodipodi:r1="8.9924278"
+       sodipodi:r2="4.4962139"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="2.3561945"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 0.46772191,9.2730608 -2.7115817,3.4599363 -8.5247062,0.28063324 -2.7115816,-2.8986704 0.46772143,-8.7117948 3.647025,-2.8986703 9.4601495,0.28063276 3.647025,3.4599364 Z"
+       transform="matrix(2.9422903,0,0,2.9422903,32.490493,33.040963)" />
+  </g>
+</svg>

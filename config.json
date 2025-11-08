@@ -1,0 +1,17 @@
+{
+    "accentColor": "#d0430f10",
+    "dashFullHeight": false,
+    "dashMaximized": false,
+    "dashRecentItems": null,
+    "dashShelfItemSize": 148,
+    "desktopName": "Ubuntu Desktop",
+    "taskbarPinnedItems": [
+        "org.mozilla.firefox",
+        "org.kde.dolphin",
+        "org.kde.konsole"
+    ],
+    "taskbarPosition": "left",
+    "theme": "ambiance",
+    "useBlurMask": false,
+    "wallpaper": "default"
+}

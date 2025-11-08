@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="taskItemFocused.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="1.9999999"
+     inkscape:cx="42.250002"
+     inkscape:cy="128.00001"
+     inkscape:window-width="1644"
+     inkscape:window-height="1220"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath7">
+      <path
+         id="path7"
+         style="fill:#00ff00;fill-opacity:1;stroke-width:0.268695"
+         inkscape:label="shadowBase"
+         d="M 0,0 V 67.733332 H 67.733332 V 0 Z M 8.4671833,4.2333333 H 59.26615 c 2.34546,0 4.233849,1.8883894 4.233849,4.23385 V 59.26615 c 0,2.34546 -1.888389,4.233849 -4.233849,4.233849 H 8.4671833 c -2.3454606,0 -4.23385,-1.888389 -4.23385,-4.233849 V 8.4671833 c 0,-2.3454606 1.8883894,-4.23385 4.23385,-4.23385 z" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#d3d3d3;stroke-width:0.181633"
+       id="rect1"
+       width="4.2333331"
+       height="24.694445"
+       x="1.5875"
+       y="21.519444"
+       rx="2.1166666"
+       ry="2.1166666" />
+  </g>
+</svg>
