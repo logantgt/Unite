@@ -94,6 +94,24 @@ PanelWindow {
                 left: taskbarMask.right
             }
 
+            NumberAnimation {
+                id: dashOpenAnimation
+                target: dashMask
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: Theme.dash_animationDuration
+            }
+
+            NumberAnimation {
+                id: dashCloseAnimation
+                target: dashMask
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: Theme.dash_animationDuration
+            }
+
             function bestDashSize() {
                 this.width = 0;
                 this.height = 0;
@@ -217,10 +235,10 @@ PanelWindow {
     Connections {
         target: GlobalState
         onDashOpened: {
-            dashMask.opacity = 1;
+            dashOpenAnimation.start();
         }
-        onDashClosed: {
-            dashMask.opacity = 0;
+        onCloseDash: {
+            dashCloseAnimation.start();
         }
     }
 }

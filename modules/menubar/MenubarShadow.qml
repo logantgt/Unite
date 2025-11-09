@@ -32,6 +32,6 @@ PanelWindow {
     Connections {
         target: GlobalState
         onDashOpened: { shouldShow = false; }
-        onDashClosed: { shouldShow = true; }
+        onCloseDash: { shouldShow = true; }
     }
 }

@@ -17,7 +17,7 @@ PanelWindow {
     Image {
         id: wallpaper
         anchors.fill: parent
-        source: Config.wallpaper == "default" ? Config.themePath + "/default" : Config.wallpaper
+        source: Config.wallpaper
         fillMode: Image.PreserveAspectCrop
         sourceSize.width: width / 8
         sourceSize.height: height / 8

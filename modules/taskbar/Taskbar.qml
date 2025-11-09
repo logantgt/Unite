@@ -110,7 +110,7 @@ PanelWindow {
                     Connections {
                         target: GlobalState
                         onDashOpened: { taskbarBorder.opacity = 0; }
-                        onDashClosed: { taskList.opacity = 1; taskbarBorder.opacity = 1; }
+                        onCloseDash: { taskList.opacity = 1; taskbarBorder.opacity = 1; }
                     }
                 }
             }

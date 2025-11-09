@@ -11,6 +11,16 @@ ShellRoot {
         model: Quickshell.screens
 
         Item {
+            id: root
+            required property var modelData
+            Loader {
+                id: wallpaper
+                active: Config.wallpaperEnabled
+                sourceComponent: Item {
+                    OverviewWallpaper { modelData: root.modelData }
+                    Wallpaper { modelData: root.modelData }
+                }
+            }
             Loader {
                 id: blurMask
                 active: true
@@ -32,15 +42,5 @@ ShellRoot {
                 sourceComponent: MenubarShadow { }
             }
         }
-    }
-
-    Variants {
-        model: Quickshell.screens
-        OverviewWallpaper {}
-    }
-
-    Variants {
-        model: Quickshell.screens
-        Wallpaper {}
     }
 }

@@ -13,5 +13,6 @@
     ],
     "taskbarPosition": "left",
     "theme": "ambiance",
-    "wallpaper": "default"
+    "wallpaper": "default",
+    "wallpaperEnabled": true
 }

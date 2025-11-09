@@ -8,6 +8,7 @@ Singleton {
     property string theme: config.theme
     property string themePath: Quickshell.shellDir + "/themes/" + config.theme
     property string wallpaper: config.wallpaper == "default" ? Config.themePath + "/default" : config.wallpaper
+    property bool wallpaperEnabled: config.wallpaperEnabled
     property bool autoAccentColor: config.autoAccentColor
     property color accentColor: config.autoAccentColor ? "#55000000" : config.accentColor
     property list<string> taskbarPinnedItems: config.taskbarPinnedItems
@@ -47,6 +48,7 @@ Singleton {
             id: config
             property string theme: "default"
             property string wallpaper: ""
+            property bool wallpaperEnabled: true
             property bool autoAccentColor: true
             property color accentColor: "#f0410b0b"
             property list<string> taskbarPinnedItems: [ "" ]

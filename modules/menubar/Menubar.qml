@@ -46,7 +46,7 @@ PanelWindow {
                 contentColorize.colorizationColor = "white";
                 windowButtons.opacity = 1;
             }
-            onDashClosed: {
+            onCloseDash: {
                 texture.opacity = Theme.menubar_opacity;
                 windowTitleLabel.opacity = 1;
                 contentColorize.colorizationColor = Theme.menubar_fontColor;
