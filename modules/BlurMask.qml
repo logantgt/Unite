@@ -152,7 +152,7 @@ PanelWindow {
             opacity: 0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: Theme.dash_animationDuration / 10
+                    duration: Theme.dash_animationDuration
                 }
             }
             color: "white"
