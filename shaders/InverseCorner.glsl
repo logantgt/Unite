@@ -32,7 +32,7 @@ void main() {
     float dist = distance(uv, corner);
 
     // Fixed edge width for anti-aliasing
-    float edgeWidth = 0.035; // tweak this value for smoother or sharper edges
+    float edgeWidth = 0.1; // tweak this value for smoother or sharper edges
 
     // Anti-aliased circular mask: transparent inside the radius, filled outside
     float mask = smoothstep(ubuf.curveRadius - edgeWidth, ubuf.curveRadius + edgeWidth, dist);

@@ -7,8 +7,9 @@ import Quickshell.Io
 Singleton {
     property string theme: config.theme
     property string themePath: Quickshell.shellDir + "/themes/" + config.theme
-    property string wallpaper: config.wallpaper
-    property color accentColor: config.accentColor
+    property string wallpaper: config.wallpaper == "default" ? Config.themePath + "/default" : config.wallpaper
+    property bool autoAccentColor: config.autoAccentColor
+    property color accentColor: config.autoAccentColor ? "#55000000" : config.accentColor
     property list<string> taskbarPinnedItems: config.taskbarPinnedItems
     property string taskbarPosition: config.taskbarPosition
     property string desktopName: config.desktopName
@@ -46,6 +47,7 @@ Singleton {
             id: config
             property string theme: "default"
             property string wallpaper: ""
+            property bool autoAccentColor: true
             property color accentColor: "#f0410b0b"
             property list<string> taskbarPinnedItems: [ "" ]
             property string taskbarPosition: "left"

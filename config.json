@@ -1,5 +1,6 @@
 {
     "accentColor": "#d0430f10",
+    "autoAccentColor": true,
     "dashFullHeight": false,
     "dashMaximized": false,
     "dashRecentItems": null,
@@ -12,5 +13,5 @@
     ],
     "taskbarPosition": "left",
     "theme": "ambiance",
-    "wallpaper": "default"
+    "wallpaper": "/home/logan/Pictures/Wallpapers/Clannad1"
 }

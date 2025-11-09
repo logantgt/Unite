@@ -84,8 +84,8 @@ Item {
 
         implicitHeight: 40
         color: Qt.darker(Config.accentColor, 1.3)
-        bottomRightRadius: 6
-        topLeftRadius: 6
+        bottomRightRadius: Theme.dash_outerCornerRadius
+        topLeftRadius: Theme.dash_cornerRadius
         onLensChanged: (page) => {
             stack.currentIndex = page;
             if(page == 0) { home.active = true; }

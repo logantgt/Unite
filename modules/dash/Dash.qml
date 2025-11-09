@@ -134,7 +134,7 @@ PanelWindow {
                 return this;
             }
 
-            bottomRightRadius: 8
+            bottomRightRadius: Theme.dash_cornerRadius
 
             DashContent {
                 anchors.fill: parent
@@ -144,52 +144,12 @@ PanelWindow {
 
         Rectangle {
             anchors {
-                top: parent.top
-                left: dashBase.right
-            }
-
-            implicitWidth: 8
-            implicitHeight: 8
-
-            color: "transparent"
-
-            ShaderEffect {
-                anchors.fill: parent
-                property var baseColor: Config.accentColor
-                property real curveRadius: 1
-                property int curveOrientation: 3
-                fragmentShader: "../../shaders/InverseCorner.frag"
-            }
-        }
-
-        Rectangle {
-            anchors {
                 top: dashBase.bottom
                 left: parent.left
             }
 
-            implicitWidth: 8
-            implicitHeight: 8
-
-            color: "transparent"
-
-            ShaderEffect {
-                anchors.fill: parent
-                property var baseColor: Config.accentColor
-                property real curveRadius: 1
-                property int curveOrientation: 3
-                fragmentShader: "../../shaders/InverseCorner.frag"
-            }
-        }
-
-        Rectangle {
-            anchors {
-                top: dashBase.bottom
-                left: parent.left
-            }
-
-            implicitWidth: 8
-            implicitHeight: 8
+            implicitWidth: Theme.dash_cornerRadius
+            implicitHeight: Theme.dash_cornerRadius
 
             color: "transparent"
 

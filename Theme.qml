@@ -71,6 +71,8 @@ Singleton {
     }
 
     property int dash_animationDuration: dashConfig.animationDuration
+    property int dash_cornerRadius: dashConfig.innerCornerRadius
+    property int dash_outerCornerRadius: dashConfig.outerCornerRadius
 
     FileView {
         path: Config.themePath + "/dash.json"
@@ -82,6 +84,8 @@ Singleton {
         JsonAdapter {
             id: dashConfig
             property int animationDuration: 100
+            property int innerCornerRadius: 10
+            property int outerCornerRadius: 6
         }
     }
 }

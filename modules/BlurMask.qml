@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import qs
@@ -17,10 +18,48 @@ PanelWindow {
     color: "transparent"
     WlrLayershell.namespace: "unityShellBlurMask"
 
+    ShaderEffectSource {
+        id: wallpaperQuantize
+        sourceItem: {
+            if(Config.autoAccentColor) {
+                return Qt.createQmlObject(`
+                import QtQuick
+                import QtQuick.Effects
+                import qs
+
+                ShaderEffect {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    property var source: Image { source: Config.wallpaper }
+                    property real saturation: 1
+                    property real value: 1
+                    fragmentShader: "../shaders/Quantize.frag"
+                    visible: false
+                }
+                `, root, "wallpaperQuantize.qml")
+            } else {
+                return Qt.createQmlObject(`
+                import QtQuick
+                import qs
+
+                Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: Config.accentColor
+                    layer.enabled: true
+                    visible: false
+                }
+                `, root, "accentColor.qml")
+            }
+        }
+    }
+
     Item {
         id: maskLayer
+        visible: false
         anchors.fill: parent
         layer.enabled: true
+
         // Taskbar rectangle
         Rectangle {
             id: taskbarMask
@@ -31,7 +70,7 @@ PanelWindow {
             }
 
             implicitWidth: Theme.taskbar_width
-            color: Config.accentColor
+            color: "white"
         }
 
         // Menubar rectangle
@@ -44,7 +83,7 @@ PanelWindow {
             }
 
             implicitHeight: Theme.menubar_height
-            color: Config.accentColor
+            color: "white"
         }
 
         // Dash rectangle
@@ -109,15 +148,70 @@ PanelWindow {
 
             implicitWidth: bestDashSize().width
             implicitHeight: bestDashSize().height
-            bottomRightRadius: 8
+            bottomRightRadius: Theme.dash_outerCornerRadius
             opacity: 0
             Behavior on opacity {
                 NumberAnimation {
                     duration: Theme.dash_animationDuration / 10
                 }
             }
-            color: Config.accentColor
+            color: "white"
         }
+
+        Rectangle {
+            anchors {
+                top: menubarMask.bottom
+                left: dashMask.right
+            }
+
+            implicitWidth: Theme.dash_cornerRadius
+            implicitHeight: Theme.dash_cornerRadius
+
+            color: "transparent"
+
+            ShaderEffect {
+                anchors.fill: parent
+                property color baseColor: "white"
+                property real curveRadius: 1
+                property int curveOrientation: 3
+                fragmentShader: "../shaders/InverseCorner.frag"
+                opacity: dashMask.opacity
+            }
+        }
+
+        Rectangle {
+            anchors {
+                top: dashMask.bottom
+                left: taskbarMask.right
+            }
+
+            implicitWidth: Theme.dash_cornerRadius
+            implicitHeight: Theme.dash_cornerRadius
+
+            color: "transparent"
+
+            ShaderEffect {
+                anchors.fill: parent
+                property color baseColor: "white"
+                property real curveRadius: 1
+                property int curveOrientation: 3
+                fragmentShader: "../shaders/InverseCorner.frag"
+                opacity: dashMask.opacity
+            }
+        }
+    }
+
+    MultiEffect {
+        anchors.fill: parent
+        source: wallpaperQuantize
+        maskEnabled: true
+        maskSource: maskLayer
+        maskSpreadAtMin: 1
+        maskSpreadAtMax: 1
+        maskThresholdMin: 0.5
+        opacity: Config.autoAccentColor ? 0.75 : 1
+        brightness: Config.autoAccentColor ? -0.25 : 0
+        saturation: Config.autoAccentColor ? -0.75 : 0
     }
 
     Connections {

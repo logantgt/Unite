@@ -1,3 +1,5 @@
 {
-    "animationDuration": 100
+    "animationDuration": 100,
+    "innerCornerRadius": 9,
+    "outerCornerRadius": 6
 }

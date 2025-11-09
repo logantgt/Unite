@@ -23,7 +23,7 @@ Item {
             implicitWidth: 1
             implicitHeight: 1
             property var source: Image { source: taskIcon.source }
-            property real saturation: 2
+            property real saturation: 0.75
             fragmentShader: "../../shaders/Quantize.frag"
             visible: false
         }

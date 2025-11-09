@@ -15,12 +15,37 @@ Item {
     // color background
     ShaderEffectSource {
         id: backgroundSource
-        sourceItem: Rectangle {
-            implicitWidth: 1
-            implicitHeight: 1
-            anchors.fill: parent
-            color: Qt.lighter(Qt.rgba(Config.accentColor.r, Config.accentColor.g, Config.accentColor.b, 1), 3.5)
-            visible: false
+        sourceItem: {
+            if(Config.autoAccentColor) {
+                return Qt.createQmlObject(`
+                import QtQuick
+                import QtQuick.Effects
+                import qs
+
+                ShaderEffect {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    property var source: Image { source: Config.wallpaper }
+                    property real saturation: 0.65
+                    property real value: 1
+                    fragmentShader: "../../shaders/Quantize.frag"
+                    visible: false
+                }
+                `, root, "wallpaperQuantize.qml")
+            } else {
+                return Qt.createQmlObject(`
+                import QtQuick
+                import qs
+
+                Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: Qt.lighter(Qt.rgba(Config.accentColor.r, Config.accentColor.g, Config.accentColor.b, 1), 3.5)
+                    layer.enabled: true
+                    visible: false
+                }
+                `, root, "accentColor.qml")
+            }
         }
     }
 
