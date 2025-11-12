@@ -167,11 +167,11 @@ PanelWindow {
             anchors {
                 top: parent.top
                 left: dashBase.right
-                topMargin: -10
-                leftMargin: -10
+                topMargin: -Theme.dash_borderDistance
+                leftMargin: -Theme.dash_borderDistance
             }
 
-            source: Config.themePath + "/dash/dash_top_right_corner"
+            source: Config.themePath + "/dash/dash_top_right_corner.svg"
             smooth: false
         }
 
@@ -181,12 +181,12 @@ PanelWindow {
                 top: dash_top_right_corner.bottom
                 left: dashBase.right
                 bottom: dashBase.botttom
-                leftMargin: -10
+                leftMargin: -Theme.dash_borderDistance
             }
 
             height: dashBase.height - dash_top_right_corner.height
 
-            source: Config.themePath + "/dash/dash_right_border_tile"
+            source: Config.themePath + "/dash/dash_right_border_tile.svg"
             fillMode: Image.TileVertically
             smooth: false
         }
@@ -197,9 +197,9 @@ PanelWindow {
                 top: parent.top
                 left: dash_top_right_corner.right
                 right: parent.right
-                topMargin: -10
+                topMargin: -Theme.dash_borderDistance
             }
-            source: Config.themePath + "/dash/dash_top_tile"
+            source: Config.themePath + "/dash/dash_top_tile.svg"
             fillMode: Image.TileHorizontally
             smooth: false
         }
@@ -209,11 +209,11 @@ PanelWindow {
             anchors {
                 top: dashBase.bottom
                 left: parent.left
-                topMargin: -10
-                leftMargin: -10
+                topMargin: -Theme.dash_borderDistance
+                leftMargin: -Theme.dash_borderDistance
             }
 
-            source: Config.themePath + "/dash/dash_bottom_left_corner"
+            source: Config.themePath + "/dash/dash_bottom_left_corner.svg"
             smooth: false
         }
 
@@ -223,12 +223,12 @@ PanelWindow {
                 top: dashBase.bottom
                 left: dash_bottom_left_corner.right
                 bottom: dash_bottom_left_corner.botttom
-                topMargin: -10
+                topMargin: -Theme.dash_borderDistance
             }
 
             width: dashBase.width - dash_bottom_left_corner.width
 
-            source: Config.themePath + "/dash/dash_bottom_border_tile"
+            source: Config.themePath + "/dash/dash_bottom_border_tile.svg"
             fillMode: Image.TileHorizontally
             smooth: false
         }
@@ -240,7 +240,7 @@ PanelWindow {
                 left: dash_bottom_border_tile.right
             }
 
-            source: Config.themePath + "/dash/dash_bottom_right_corner"
+            source: Config.themePath + "/dash/dash_bottom_right_corner.svg"
             smooth: false
         }
 
@@ -250,9 +250,9 @@ PanelWindow {
                 top: dash_bottom_left_corner.bottom
                 left: parent.left
                 bottom: parent.bottom
-                leftMargin: -10
+                leftMargin: -Theme.dash_borderDistance
             }
-            source: Config.themePath + "/dash/dash_left_tile"
+            source: Config.themePath + "/dash/dash_left_tile.svg"
             fillMode: Image.TileVertically
             smooth: false
         }

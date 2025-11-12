@@ -1,6 +1,7 @@
 {
     "animationDuration": 100,
+    "borderDistance": 10,
     "innerCornerRadius": 9,
     "innerSurfaceOpacity": 1,
-    "outerCornerRadius": 6
+    "outerCornerRadius": 4
 }
