@@ -73,6 +73,7 @@ Singleton {
     property int dash_animationDuration: dashConfig.animationDuration
     property int dash_cornerRadius: dashConfig.innerCornerRadius
     property int dash_outerCornerRadius: dashConfig.outerCornerRadius
+    property real dash_innerSurfaceOpacity: dashConfig.innerSurfaceOpacity
 
     FileView {
         path: Config.themePath + "/dash.json"
@@ -86,6 +87,7 @@ Singleton {
             property int animationDuration: 100
             property int innerCornerRadius: 10
             property int outerCornerRadius: 6
+            property real innerSurfaceOpacity: 1
         }
     }
 }

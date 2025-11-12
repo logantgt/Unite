@@ -173,7 +173,7 @@ PanelWindow {
                     duration: Theme.dash_animationDuration
                 }
             }
-            color: "white"
+            color: "transparent"
         }
 
         Rectangle {
@@ -189,7 +189,7 @@ PanelWindow {
 
             ShaderEffect {
                 anchors.fill: parent
-                property color baseColor: "white"
+                property color baseColor: dashMask.color
                 property real curveRadius: 1
                 property int curveOrientation: 3
                 fragmentShader: "../shaders/InverseCorner.frag"
@@ -210,7 +210,29 @@ PanelWindow {
 
             ShaderEffect {
                 anchors.fill: parent
-                property color baseColor: "white"
+                property color baseColor: dashMask.color
+                property real curveRadius: 1
+                property int curveOrientation: 3
+                fragmentShader: "../shaders/InverseCorner.frag"
+                opacity: dashMask.opacity
+            }
+        }
+
+        // "modern" inner curve
+        Rectangle {
+            anchors {
+                top: menubarMask.bottom
+                left: taskbarMask.right
+            }
+
+            implicitWidth: Theme.dash_cornerRadius
+            implicitHeight: Theme.dash_cornerRadius
+
+            color: "transparent"
+
+            ShaderEffect {
+                anchors.fill: parent
+                property color baseColor: dashMask.color == "transparent" ? "transparent" : taskbarMask.color
                 property real curveRadius: 1
                 property int curveOrientation: 3
                 fragmentShader: "../shaders/InverseCorner.frag"
@@ -235,10 +257,14 @@ PanelWindow {
     Connections {
         target: GlobalState
         onDashOpened: {
+            dashMask.color = Qt.rgba(1, 1, 1, Theme.dash_innerSurfaceOpacity);
             dashOpenAnimation.start();
         }
         onCloseDash: {
             dashCloseAnimation.start();
+        }
+        onDashClosed: {
+            dashMask.color = "transparent";
         }
     }
 }

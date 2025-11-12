@@ -1,5 +1,6 @@
 {
     "animationDuration": 100,
     "innerCornerRadius": 9,
+    "innerSurfaceOpacity": 1,
     "outerCornerRadius": 6
 }
