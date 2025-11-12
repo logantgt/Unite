@@ -27,7 +27,7 @@ Item {
 
         height: dashBase.height - dash_top_right_corner.height
 
-        source: Config.themePath + "/dash/dash_right_border_tile"
+        source: Config.themePath + "/dash/dash_right_border_tile.svg"
         fillMode: Image.TileVertically
         smooth: false
     }
@@ -39,7 +39,7 @@ Item {
             right: parent.right
             topMargin: -10
         }
-        source: Config.themePath + "/dash/dash_top_tile"
+        source: Config.themePath + "/dash/dash_top_tile.svg"
         fillMode: Image.TileHorizontally
         smooth: false
     }
@@ -67,8 +67,7 @@ Item {
         }
 
         width: dashBase.width - dash_bottom_left_corner.width
-
-        source: Config.themePath + "/dash/dash_bottom_border_tile"
+        source: Config.themePath + "/dash/dash_bottom_border_tile.svg"
         fillMode: Image.TileHorizontally
         smooth: false
     }
@@ -90,7 +89,7 @@ Item {
             bottom: parent.bottom
             leftMargin: -10
         }
-        source: Config.themePath + "/dash/dash_left_tile"
+        source: Config.themePath + "/dash/dash_left_tile.svg"
         fillMode: Image.TileVertically
         smooth: false
     }
