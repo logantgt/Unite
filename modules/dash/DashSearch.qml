@@ -10,10 +10,61 @@ Item {
     property var placeholderText
 
     Rectangle {
+        id: hoverHighlight
+        color: "white"
+        radius: 3
+        anchors {
+            top: parent.top
+            left: searchBase.right
+            right: parent.right
+            bottom: parent.bottom
+            leftMargin: 6
+            rightMargin: 6
+            topMargin: 18
+            bottomMargin: 10
+        }
+        opacity: 0
+    }
+
+    Text {
+        id: headerText
+        anchors.fill: hoverHighlight
+        leftPadding: 8
+        text: "Filter results   ▸  "
+        color: "white"
+        font.family: "Ubuntu"
+        font.pointSize: 12
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignRight
+    }
+
+    MouseArea {
         anchors.fill: parent
-        anchors.topMargin: 12
-        anchors.leftMargin: 10
-        anchors.rightMargin: 10
+        hoverEnabled: true
+
+        onEntered: {
+            hoverHighlight.opacity = 0.25
+        }
+
+        onExited: {
+            hoverHighlight.opacity = 0
+        }
+
+        onClicked: {
+            root.clicked();
+        }
+    }
+
+    Rectangle {
+        id: searchBase
+        anchors {
+            top: parent.top
+            left: parent.left
+            bottom: parent.bottom
+            topMargin: 12
+            leftMargin: 10
+            rightMargin: 10
+        }
 
         TextField {
             id: searchbox
@@ -40,6 +91,6 @@ Item {
         radius: 5
         border.color: "#B0ffffff"
         border.width: 1
-        implicitWidth: parent.width * (1 / 1.61803398875)
+        implicitWidth: parent.width * (1 / 1.5)
     }
 }
