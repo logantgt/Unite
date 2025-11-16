@@ -171,6 +171,8 @@ PanelWindow {
                 leftMargin: -Theme.dash_borderDistance
             }
 
+            sourceSize.width: width
+            sourceSize.height: height
             source: Config.themePath + "/dash/dash_top_right_corner.svg"
             smooth: false
         }
@@ -186,6 +188,7 @@ PanelWindow {
 
             height: dashBase.height - dash_top_right_corner.height
 
+            sourceSize.width: width
             source: Config.themePath + "/dash/dash_right_border_tile.svg"
             fillMode: Image.TileVertically
             smooth: false
@@ -199,6 +202,7 @@ PanelWindow {
                 right: parent.right
                 topMargin: -Theme.dash_borderDistance
             }
+            sourceSize.height: height
             source: Config.themePath + "/dash/dash_top_tile.svg"
             fillMode: Image.TileHorizontally
             smooth: false
@@ -213,6 +217,8 @@ PanelWindow {
                 leftMargin: -Theme.dash_borderDistance
             }
 
+            sourceSize.width: width
+            sourceSize.height: height
             source: Config.themePath + "/dash/dash_bottom_left_corner.svg"
             smooth: false
         }
@@ -228,6 +234,7 @@ PanelWindow {
 
             width: dashBase.width - dash_bottom_left_corner.width
 
+            sourceSize.height: height
             source: Config.themePath + "/dash/dash_bottom_border_tile.svg"
             fillMode: Image.TileHorizontally
             smooth: false
@@ -240,6 +247,8 @@ PanelWindow {
                 left: dash_bottom_border_tile.right
             }
 
+            sourceSize.width: width
+            sourceSize.height: height
             source: Config.themePath + "/dash/dash_bottom_right_corner.svg"
             smooth: false
         }
@@ -252,6 +261,8 @@ PanelWindow {
                 bottom: parent.bottom
                 leftMargin: -Theme.dash_borderDistance
             }
+
+            sourceSize.width: width
             source: Config.themePath + "/dash/dash_left_tile.svg"
             fillMode: Image.TileVertically
             smooth: false
