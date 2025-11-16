@@ -66,13 +66,26 @@ Item {
             rightMargin: 10
         }
 
+        Image {
+            id: searchIcon
+            anchors {
+                left: parent.left
+                verticalCenter: parent.verticalCenter
+            }
+            source: Config.themePath + "/dash/search.svg"
+            smooth: true
+            width: 40
+            height: width
+
+        }
+
         TextField {
             id: searchbox
             anchors {
                 top: parent.top
-                left: parent.left
+                left: searchIcon.right
                 bottom: parent.bottom
-                verticalCenter: parent.verticalCenter
+                leftMargin: -10
             }
 
             background: Item {}
