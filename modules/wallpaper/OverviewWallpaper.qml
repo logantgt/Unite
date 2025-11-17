@@ -14,20 +14,13 @@ PanelWindow {
         bottom: true
     }
 
-    Image {
-        id: wallpaper
-        anchors.fill: parent
-        source: Config.wallpaper
-        fillMode: Image.PreserveAspectCrop
-        sourceSize.width: width / 8
-        sourceSize.height: height / 8
-        visible: false
-    }
-
     MultiEffect {
-        id: wallpaperBlur
-        anchors.fill: wallpaper
-        source: wallpaper
+        anchors.fill: parent
+        source: WallpaperSource {
+            resolution: Qt.size(modelData.width, modelData.height)
+            textureSize.width: parent.width / 4
+            textureSize.height: parent.height / 4
+        }
         autoPaddingEnabled: false
         blurEnabled: true
         blur: 1.0

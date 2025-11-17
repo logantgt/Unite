@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 
 Singleton {
+    id: root
     property string theme: config.theme
     property string themePath: Quickshell.shellDir + "/themes/" + config.theme
     property string wallpaper: config.wallpaper == "default" ? Config.themePath + "/default" : config.wallpaper
@@ -18,6 +19,12 @@ Singleton {
     property bool dashFullHeight: config.dashFullHeight
     property int dashShelfItemSize: config.dashShelfItemSize
     property list<DesktopEntry> dashRecentItems: config.dashRecentItems
+
+    Binding {
+        target: config
+        property: "wallpaper"
+        value: root.wallpaper
+    }
 
     function dashAddRecentItem(item) {
         // item should be a DesktopEntry

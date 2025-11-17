@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import qs
@@ -13,11 +14,14 @@ PanelWindow {
         bottom: true
     }
 
-    Image {
-        id: wallpaper
+    // this is dumb
+    MultiEffect {
         anchors.fill: parent
-        source: Config.wallpaper
-        fillMode: Image.PreserveAspectCrop
+        source: WallpaperSource {
+            resolution: Qt.size(modelData.width, modelData.height)
+        }
+        autoPaddingEnabled: false
+        blurEnabled: false
     }
 
     WlrLayershell.layer: WlrLayer.Background

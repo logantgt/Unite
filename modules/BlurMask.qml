@@ -3,6 +3,7 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import qs
+import qs.modules.wallpaper
 
 PanelWindow {
     id: root
@@ -26,11 +27,14 @@ PanelWindow {
                 import QtQuick
                 import QtQuick.Effects
                 import qs
+                import qs.modules.wallpaper
 
                 ShaderEffect {
                     implicitWidth: 1
                     implicitHeight: 1
-                    property var source: Image { source: Config.wallpaper }
+                    property var source: WallpaperSource {
+                        resolution: Qt.size(root.width / 8, root.height / 8)
+                    }
                     property real saturation: 1
                     property real value: 1
                     fragmentShader: "../shaders/Quantize.frag"
