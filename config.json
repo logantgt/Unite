@@ -1,11 +1,13 @@
 {
     "accentColor": "#d0430f10",
     "autoAccentColor": true,
+    "autoSelectionColor": false,
     "dashFullHeight": false,
     "dashMaximized": false,
     "dashRecentItems": null,
     "dashShelfItemSize": 148,
     "desktopName": "Ubuntu Desktop",
+    "selectionColor": "#e95420",
     "taskbarPinnedItems": [
         "org.mozilla.firefox",
         "org.kde.dolphin",

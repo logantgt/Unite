@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import qs
 
@@ -18,12 +19,72 @@ Rectangle {
 
     implicitHeight: 24
 
-    BorderImage {
-        id: background
+    // color background
+    ShaderEffectSource {
+        id: backgroundSource
+        sourceItem: {
+            if(Config.autoSelectionColor) {
+                return Qt.createQmlObject(`
+                import QtQuick
+                import QtQuick.Effects
+                import qs
+                import qs.modules.wallpaper
+
+                ShaderEffect {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    property var source: WallpaperSource {
+                        resolution: Qt.size(root.width / 8, root.height / 8)
+                    }
+                    property real saturation: 0.65
+                    property real value: 0.95
+                    fragmentShader: "../../shaders/Quantize.frag"
+                    visible: false
+                }
+                `, root, "wallpaperQuantize.qml")
+            } else {
+                return Qt.createQmlObject(`
+                import QtQuick
+                import qs
+
+                Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: Config.selectionColor
+                    layer.enabled: true
+                    visible: false
+                }
+                `, root, "selectionColor.qml")
+            }
+        }
+    }
+
+    Rectangle {
+        id: backingRect
         anchors.fill: parent
-        source: Config.themePath + "/menu_item_hover.svg"
-        border { left: 10; top: 12; right: 10; bottom: 12 }
+        anchors.margins: 1
         opacity: 0
+        color: "white"
+
+        BorderImage {
+            id: backgroundImg
+            layer.enabled: true
+            anchors.fill: parent
+            source: Config.themePath + "/menu_item_hover.svg"
+            border { left: 10; top: 12; right: 10; bottom: 12 }
+            visible: false
+        }
+
+        MultiEffect {
+            id: background
+            source: backgroundSource
+            anchors.fill: parent
+            maskEnabled: true
+            maskSource: backgroundImg
+            maskSpreadAtMin: 1
+            maskSpreadAtMax: 1
+            maskThresholdMin: 0.5
+        }
     }
 
     Image {
@@ -112,8 +173,8 @@ Rectangle {
         hoverEnabled: true
         propagateComposedEvents: true
 
-        onEntered: { if(root.modelData.interactive) { background.opacity = 1; } }
-        onExited: { if(root.modelData.interactive) { background.opacity = 0; } }
+        onEntered: { if(root.modelData.interactive) { backingRect.opacity = 1; } }
+        onExited: { if(root.modelData.interactive) { backingRect.opacity = 0; } }
         onClicked: { if(root.modelData.interactive) { root.modelData.action(); GlobalState.sendCloseMenu(); } }
     }
 }

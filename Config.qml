@@ -12,6 +12,8 @@ Singleton {
     property bool wallpaperEnabled: config.wallpaperEnabled
     property bool autoAccentColor: config.autoAccentColor
     property color accentColor: config.autoAccentColor ? "#55000000" : config.accentColor
+    property color selectionColor: config.selectionColor
+    property bool autoSelectionColor: config.autoSelectionColor
     property list<string> taskbarPinnedItems: config.taskbarPinnedItems
     property string taskbarPosition: config.taskbarPosition
     property string desktopName: config.desktopName
@@ -58,6 +60,8 @@ Singleton {
             property bool wallpaperEnabled: true
             property bool autoAccentColor: true
             property color accentColor: "#f0410b0b"
+            property bool autoSelectionColor: false
+            property color selectionColor: "#e95420"
             property list<string> taskbarPinnedItems: [ "" ]
             property string taskbarPosition: "left"
             property string desktopName: "Ubuntu Desktop"
