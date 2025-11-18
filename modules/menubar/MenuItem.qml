@@ -115,7 +115,7 @@ Rectangle {
 
     Image {
         id: icon
-        source: root.modelData.icon == "" ? "" : Quickshell.iconPath(root.modelData.icon)
+        source: root.modelData.icon
         anchors {
             verticalCenter: parent.verticalCenter
             left: checkedIndicator.right

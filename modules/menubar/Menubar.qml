@@ -29,7 +29,7 @@ PanelWindow {
             { text: "System Settings", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
             { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
             { text: "Lock", hint: "Ctrl+Alt+L", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
-            { text: "古河 渚", hint: "", icon: "user-symbolic", selected: true, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "古河 渚", hint: "", icon: Quickshell.iconPath("user-symbolic"), selected: true, checked: false, source: null,  interactive: true, action: () => {} },
             { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
             { text: "Log Out...", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
             { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
@@ -160,6 +160,11 @@ PanelWindow {
                 Layout.fillWidth: true
             }
 
+            MenubarSystemTray {
+                width: 300
+                height: Theme.menubar_height
+            }
+
             Spacer {
                 size: 6
             }
@@ -235,6 +240,7 @@ PanelWindow {
                 }
 
                 onClicked: {
+                    GlobalState.sendCloseMenu();
                     if(!menuLoader.active) {
                         menuLoader.loading = true;
                     } else {
@@ -244,7 +250,7 @@ PanelWindow {
             }
 
             Spacer {
-                size: 3
+                size: 1
             }
         }
     }
