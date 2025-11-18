@@ -16,4 +16,6 @@ Button {
         height: parent.height
         opacity: parent.pressed || root.menuOpen ? 1 : 0
     }
+
+    onClicked: { GlobalState.sendCloseDash() }
 }
