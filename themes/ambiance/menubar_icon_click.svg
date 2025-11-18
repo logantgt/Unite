@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30"
+   height="24"
+   viewBox="0 0 7.9374999 6.35"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="menubar_icon_click.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="64"
+     inkscape:cx="27.140625"
+     inkscape:cy="-0.296875"
+     inkscape:window-width="1519"
+     inkscape:window-height="1220"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="rect3"
+       style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#30302d;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+       d="M 1.0588501 0 C 0.47482185 0 0 0.47482185 0 1.0588501 L 0 6.35 L 0.2635498 6.35 L 0.2635498 1.0588501 C 0.2635498 0.61682427 0.61682427 0.2635498 1.0588501 0.2635498 L 6.8786499 0.2635498 C 7.3206758 0.2635498 7.6739501 0.61682427 7.6739501 1.0588501 L 7.6739501 6.35 L 7.9374999 6.35 L 7.9374999 1.0588501 C 7.9374999 0.47482185 7.4626782 0 6.8786499 0 L 1.0588501 0 z " /><path
+       style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#626055;stroke-width:1;enable-background:accumulate;stop-color:#000000;stop-opacity:1;fill-opacity:1"
+       d="m 1.0598834,0.26458332 c -0.44202607,0 -0.79530007,0.35114748 -0.79530007,0.79374998 0,-0.29056643 0.250772,-0.52985618 0.578259,-0.52985618 H 7.0951739 c 0.3066256,0 0.5459203,0.20976829 0.5751587,0.47500788 C 7.6425786,0.58720263 7.3036947,0.26458332 6.8801999,0.26458332 Z"
+       id="rect3-7-2" /></g></svg>

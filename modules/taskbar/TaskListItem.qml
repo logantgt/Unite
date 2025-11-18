@@ -160,7 +160,8 @@ Item {
             flashAnimationBase.start();
             flashAnimationGlow.start();
 
-            GlobalState.sendCloseDash()
+            GlobalState.sendCloseMenu();
+            GlobalState.sendCloseDash();
         }
     }
 }

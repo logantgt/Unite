@@ -89,6 +89,7 @@ PanelWindow {
                         anchors.fill: parent
                         onClicked: {
                             if(!dashLoader.active) {
+                                GlobalState.sendCloseMenu();
                                 dashLoader.loading = true;
                             }
                             else { GlobalState.sendCloseDash() }

@@ -20,19 +20,21 @@ PanelWindow {
     mask: Region {}
 
     // Menu Models
-    ListModel {
-        id: sessionMenuModel
-        ListElement { text: "About This Computer"; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
-        ListElement { text: "Ubuntu Help..."; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
-        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
-        ListElement { text: "System Settings"; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
-        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
-        ListElement { text: "Lock"; hint: "Ctrl+Alt+L"; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
-        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
-        ListElement { text: "Log Out..."; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
-        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
-        ListElement { text: "Suspend"; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
-        ListElement { text: "Shut Down..."; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+    function getSessionMenu() {
+        return [
+            { text: "About This Computer", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "Ubuntu Help...", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
+            { text: "System Settings", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
+            { text: "Lock", hint: "Ctrl+Alt+L", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "古河 渚", hint: "", icon: "user-symbolic", selected: true, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
+            { text: "Log Out...", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
+            { text: "Suspend", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "Shut Down...", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+        ]
     }
 
     // Menu Loader
@@ -40,7 +42,7 @@ PanelWindow {
         id: menuLoader
         loading: false
         Menu {
-            items: sessionMenuModel
+            items: getSessionMenu()
             menuWidth: 250
         }
     }
@@ -155,34 +157,68 @@ PanelWindow {
                 size: 6
             }
 
-            SystemClock {
-                id: clock
-                precision: SystemClock.Seconds
-            }
+            Item {
+                implicitWidth: clockLabel.width + 7
+                implicitHeight: Theme.menubar_height
+                BorderImage {
+                    id: clockBorder
+                    source: Config.themePath + "/menubar_icon_click.svg"
+                    border { left: 7; top: 7; right: 7; bottom: 7 }
+                    width: parent.width
+                    height: Theme.menubar_height
+                    opacity: 0
+                }
 
-            Text {
-                id: clockLabel
-                font.family: "Ubuntu"
-                text: Qt.formatDateTime(clock.date, "h:mm AP")
-                color: Theme.menubar_fontColor
-                font.pointSize: 11.5
-                styleColor: "black"
-                style: Text.Outline
-                renderType: Text.QtRendering
-                renderTypeQuality: 60
+                SystemClock {
+                    id: clock
+                    precision: SystemClock.Seconds
+                }
+
+                Text {
+                    anchors {
+                        top: clockBorder.top
+                        bottom: clockBorder.bottom
+                        centerIn: clockBorder
+                    }
+
+                    id: clockLabel
+                    font.family: "Ubuntu"
+                    text: Qt.formatDateTime(clock.date, "h:mm AP")
+                    color: Theme.menubar_fontColor
+                    font.pointSize: 11.5
+                    styleColor: "black"
+                    style: Text.Outline
+                    renderType: Text.QtRendering
+                    renderTypeQuality: 60
+                }
             }
 
             Spacer {
-                size: 6
+                size: 2
             }
 
             Item {
-                implicitWidth: Theme.menubar_height
+                implicitWidth: sessionIcon.width + 7
                 implicitHeight: Theme.menubar_height
+                BorderImage {
+                    id: outline
+                    source: Config.themePath + "/menubar_icon_click.svg"
+                    border { left: 7; top: 7; right: 7; bottom: 7 }
+                    width: parent.width
+                    height: Theme.menubar_height
+                    opacity: 0
+                }
+
                 Image {
                     id: sessionIcon
                     source: Config.themePath + "/session.svg"
-                    anchors.fill: parent
+                    anchors {
+                        top: outline.top
+                        bottom: outline.bottom
+                        horizontalCenter: outline.horizontalCenter
+                    }
+
+                    width: height
                     anchors.margins: 2
                 }
 
