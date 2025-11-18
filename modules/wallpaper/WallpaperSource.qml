@@ -12,6 +12,7 @@ ShaderEffectSource {
         Image {
             id: wallpaperBack
             anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
             source: Config.wallpaper
         }
 

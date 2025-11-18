@@ -103,6 +103,8 @@ PanelWindow {
                         verticalCenter: parent.verticalCenter
                     }
                     source: Config.themePath + "/icons/close_dash.svg"
+                    sourceSize.width: width
+                    sourceSize.height: height
                 }
 
                 Image {
@@ -110,6 +112,8 @@ PanelWindow {
                         verticalCenter: parent.verticalCenter
                     }
                     source: Config.themePath + "/icons/minimize_dash_disabled.svg"
+                    sourceSize.width: width
+                    sourceSize.height: height
                 }
 
                 Image {
@@ -117,6 +121,8 @@ PanelWindow {
                         verticalCenter: parent.verticalCenter
                     }
                     source: Config.dashMaximized ? Config.themePath + "/icons/unmaximize_dash.svg" : Config.themePath + "/icons/unmaximize_dash.svg"
+                    sourceSize.width: width
+                    sourceSize.height: height
                 }
             }
 
