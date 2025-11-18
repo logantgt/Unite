@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
@@ -8,6 +9,7 @@ import qs
 import qs.modules
 
 PanelWindow {
+    id: root
     anchors {
         top: true
         left: true
@@ -17,7 +19,6 @@ PanelWindow {
     implicitHeight: Theme.menubar_height
 
     color: "transparent"
-    mask: Region {}
 
     // Menu Models
     function getSessionMenu() {
@@ -41,7 +42,7 @@ PanelWindow {
     LazyLoader {
         id: menuLoader
         loading: false
-        Menu {
+        MenubarMenu {
             items: getSessionMenu()
             menuWidth: 250
         }
@@ -197,25 +198,18 @@ PanelWindow {
                 size: 2
             }
 
-            Item {
-                implicitWidth: sessionIcon.width + 7
+            MenubarButton {
+                implicitWidth: 28
                 implicitHeight: Theme.menubar_height
-                BorderImage {
-                    id: outline
-                    source: Config.themePath + "/menubar_icon_click.svg"
-                    border { left: 7; top: 7; right: 7; bottom: 7 }
-                    width: parent.width
-                    height: Theme.menubar_height
-                    opacity: 0
-                }
+                menuOpen: menuLoader.active
 
                 Image {
                     id: sessionIcon
                     source: Config.themePath + "/session.svg"
                     anchors {
-                        top: outline.top
-                        bottom: outline.bottom
-                        horizontalCenter: outline.horizontalCenter
+                        top: parent.top
+                        bottom: parent.bottom
+                        horizontalCenter: parent.horizontalCenter
                     }
 
                     width: height
@@ -231,6 +225,14 @@ PanelWindow {
 
                     Behavior on colorizationColor {
                         ColorAnimation { duration: Theme.dash_animationDuration }
+                    }
+                }
+
+                onClicked: {
+                    if(!menuLoader.active) {
+                        menuLoader.loading = true;
+                    } else {
+                        menuLoader.active = false;
                     }
                 }
             }

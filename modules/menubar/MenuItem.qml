@@ -62,6 +62,7 @@ Rectangle {
         }
         height: parent.height - 6
         width: height
+        mipmap: true
     }
 
     Text {
