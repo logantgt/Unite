@@ -19,6 +19,39 @@ PanelWindow {
     color: "transparent"
     mask: Region {}
 
+    // Menu Models
+    ListModel {
+        id: sessionMenuModel
+        ListElement { text: "About This Computer"; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+        ListElement { text: "Ubuntu Help..."; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
+        ListElement { text: "System Settings"; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
+        ListElement { text: "Lock"; hint: "Ctrl+Alt+L"; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
+        ListElement { text: "Log Out..."; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+        ListElement { text: ""; hint: ""; icon: ""; selected: false; checked: false; source: "MenuSplitter.qml";  interactive: false; action: () => {}; }
+        ListElement { text: "Suspend"; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+        ListElement { text: "Shut Down..."; hint: ""; icon: ""; selected: false; checked: false; source: null;  interactive: true; action: () => {}; }
+    }
+
+    // Menu Loader
+    LazyLoader {
+        id: menuLoader
+        loading: false
+        Menu {
+            items: sessionMenuModel
+            menuWidth: 250
+        }
+    }
+
+    Connections {
+        target: GlobalState
+        onCloseMenu: {
+            menuLoader.active = false;
+        }
+    }
+
     Rectangle {
         id: bar
         anchors.fill: parent

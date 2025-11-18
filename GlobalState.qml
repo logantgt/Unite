@@ -26,6 +26,12 @@ Singleton {
         closeDash()
     }
 
+    signal closeMenu()
+
+    function sendCloseMenu() {
+        closeMenu()
+    }
+
     signal setWallpaper(image: string)
 
     function sendSetWallpaper(image) {

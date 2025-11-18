@@ -137,17 +137,23 @@ Item {
     MouseArea {
         anchors.fill: parent
         propagateComposedEvents: true
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        onClicked: {
-            if(root.modelData.toplevels.length > 0) {
-                if(root.modelData.activeIndex > -1 && root.modelData.activeIndex + 1 < root.modelData.toplevels.length) {
-                    root.modelData.toplevels[root.modelData.activeIndex + 1].activate();
+        onClicked: (mouse) => {
+            if(mouse.button == Qt.LeftButton) {
+                if(root.modelData.toplevels.length > 0) {
+                    if(root.modelData.activeIndex > -1 && root.modelData.activeIndex + 1 < root.modelData.toplevels.length) {
+                        root.modelData.toplevels[root.modelData.activeIndex + 1].activate();
+                    }
+                    else {
+                        root.modelData.toplevels[0].activate();
+                    }
                 }
                 else {
-                    root.modelData.toplevels[0].activate();
+                    DesktopEntries.heuristicLookup(modelData.appId).execute();
                 }
             }
-            else {
+            else if(mouse.button == Qt.RightButton && root.modelData.toplevels.length > 0) {
                 DesktopEntries.heuristicLookup(modelData.appId).execute();
             }
 
