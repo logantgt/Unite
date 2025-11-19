@@ -16,6 +16,11 @@ PanelWindow {
         right: true
     }
 
+    SystemClock {
+        id: clock
+        precision: SystemClock.Minutes
+    }
+
     implicitHeight: Theme.menubar_height
 
     color: "transparent"
@@ -38,6 +43,17 @@ PanelWindow {
         ]
     }
 
+    function getClockMenu() {
+        return [
+            { text: Qt.formatDateTime(clock.date, "dddd, d MMMM yyyy"), hint: "", icon: Quickshell.iconPath("office-calendar"), selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenubarCalendar.qml",  interactive: false, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
+            { text: Qt.formatDateTime(clock.date, "t"), hint: Qt.formatDateTime(clock.date, "h:mm AP"), icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+            { text: "", hint: "", icon: "", selected: false, checked: false, source: "MenuSplitter.qml",  interactive: false, action: () => {} },
+            { text: "Time & Date settings...", hint: "", icon: "", selected: false, checked: false, source: null,  interactive: true, action: () => {} },
+        ]
+    }
+
     // Menu Loader
     LazyLoader {
         id: menuLoader
@@ -48,10 +64,21 @@ PanelWindow {
         }
     }
 
+    // Clock Menu Loader
+    Loader {
+        id: clockMenuLoader
+        active: false
+        sourceComponent: MenubarMenu {
+            items: getClockMenu()
+            menuWidth: 280
+        }
+    }
+
     Connections {
         target: GlobalState
         onCloseMenu: {
             menuLoader.active = false;
+            clockMenuLoader.active = false;
         }
     }
 
@@ -169,39 +196,23 @@ PanelWindow {
                 size: 6
             }
 
-            Item {
-                implicitWidth: clockLabel.width + 7
+            MenubarButton {
+                implicitWidth: clockLabel.width + 10
                 implicitHeight: Theme.menubar_height
-                BorderImage {
-                    id: clockBorder
-                    source: Config.themePath + "/menubar_icon_click.svg"
-                    border { left: 7; top: 7; right: 7; bottom: 7 }
-                    width: parent.width
-                    height: Theme.menubar_height
-                    opacity: 0
-                }
+                menuOpen: clockMenuLoader.active
 
-                SystemClock {
-                    id: clock
-                    precision: SystemClock.Seconds
-                }
-
-                Text {
-                    anchors {
-                        top: clockBorder.top
-                        bottom: clockBorder.bottom
-                        centerIn: clockBorder
-                    }
-
+                MenubarClock {
                     id: clockLabel
-                    font.family: "Ubuntu"
-                    text: Qt.formatDateTime(clock.date, "h:mm AP")
-                    color: Theme.menubar_fontColor
-                    font.pointSize: 11.5
-                    styleColor: "black"
-                    style: Text.Outline
-                    renderType: Text.QtRendering
-                    renderTypeQuality: 60
+                }
+
+                onClicked: {
+                    if(!clockMenuLoader.active) {
+                        GlobalState.sendCloseMenu();
+                        clockMenuLoader.active = true;
+                    } else {
+                        GlobalState.sendCloseMenu();
+                        clockMenuLoader.active = false;
+                    }
                 }
             }
 
@@ -240,10 +251,11 @@ PanelWindow {
                 }
 
                 onClicked: {
-                    GlobalState.sendCloseMenu();
                     if(!menuLoader.active) {
+                        GlobalState.sendCloseMenu();
                         menuLoader.loading = true;
                     } else {
+                        GlobalState.sendCloseMenu();
                         menuLoader.active = false;
                     }
                 }

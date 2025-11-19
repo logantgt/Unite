@@ -16,20 +16,25 @@ Item {
         anchors.fill: parent
         menuOpen: menuLoader.active
 
-        Image {
-            anchors.fill: parent
-            anchors.margins: 2
-            source: modelData.icon
-            sourceSize.width: width
-            sourceSize.height: height
+        Item {
+            anchors.centerIn: parent
+            width: parent.height - 3
+            height: parent.height - 3
+            Image {
+                anchors.fill: parent
+                source: modelData.icon
+                sourceSize.width: width
+                sourceSize.height: height
+            }
         }
 
         onClicked: (mouse) => {
-            GlobalState.sendCloseMenu();
             if(modelData.hasMenu) {
                 if(!menuLoader.active) {
+                    GlobalState.sendCloseMenu();
                     menuLoader.loading = true;
                 } else {
+                    GlobalState.sendCloseMenu();
                     menuLoader.active = false;
                 }
             }
@@ -55,7 +60,7 @@ Item {
             if(!appliedAction && root.modelData.onlyMenu == false) {
                 items.push({
                     text: root.modelData.tooltipTitle,
-                    hint: "Go",
+                    hint: "▸",
                     icon: root.modelData.icon,
                     selected: false,
                     checked: false,

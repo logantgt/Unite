@@ -123,7 +123,8 @@ Rectangle {
         }
         height: parent.height - 6
         width: height
-        mipmap: true
+        sourceSize.width: width
+        sourceSize.height: height
     }
 
     Text {
@@ -162,7 +163,7 @@ Rectangle {
             left: parent.left
             right: parent.right
         }
-        source: root.modelData.source
+        source: root.modelData.source == null ? "" : root.modelData.source
         active: root.modelData.source == null ? false : true
 
         onLoaded: { root.implicitHeight = childLoader.item.height }
@@ -172,6 +173,7 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         propagateComposedEvents: true
+        visible: root.modelData.interactive
 
         onEntered: { if(root.modelData.interactive) { backingRect.opacity = 1; } }
         onExited: { if(root.modelData.interactive) { backingRect.opacity = 0; } }
