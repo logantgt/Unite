@@ -7,6 +7,7 @@ import Quickshell.Io
 import Quickshell.Wayland
 import qs
 import qs.modules
+import Quickshell.Services.UPower
 
 PanelWindow {
     id: root
@@ -54,6 +55,13 @@ PanelWindow {
         ]
     }
 
+    function getBatteryMenu() {
+        return [
+            { text: Math.round(UPower.displayDevice.percentage * 100) + "%", hint: UPowerDeviceState.toString(UPower.displayDevice.state), icon: Quickshell.iconPath(UPower.displayDevice.iconName), selected: false, checked: false, source: null,  interactive: true, action: () => {} }
+
+        ]
+    }
+
     // Menu Loader
     LazyLoader {
         id: menuLoader
@@ -74,11 +82,21 @@ PanelWindow {
         }
     }
 
+    Loader {
+        id: batteryMenuLoader
+        active: false
+        sourceComponent: MenubarMenu {
+            items: getBatteryMenu()
+            menuWidth: 250
+        }
+    }
+
     Connections {
         target: GlobalState
         onCloseMenu: {
             menuLoader.active = false;
             clockMenuLoader.active = false;
+            batteryMenuLoader.active = false;
         }
     }
 
@@ -192,11 +210,49 @@ PanelWindow {
                 height: Theme.menubar_height
             }
 
+            MenubarButton {
+                implicitWidth: 30
+                implicitHeight: Theme.menubar_height
+                menuOpen: menuLoader.active
+
+                Item {
+                    anchors {
+                        fill: parent
+                        leftMargin: 4
+                    }
+
+                    Image {
+                        id: batteryIcon
+                        source: Quickshell.iconPath(UPower.displayDevice.iconName)
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+
+                        width: height
+                        sourceSize.width: width
+                        sourceSize.height: height
+                        anchors.margins: 2
+                    }
+                }
+
+                onClicked: {
+                    if(!batteryMenuLoader.active) {
+                        GlobalState.sendCloseMenu();
+                        batteryMenuLoader.active = true;
+                    } else {
+                        GlobalState.sendCloseMenu();
+                        batteryMenuLoader.active = false;
+                    }
+                }
+            }
+
             Spacer {
-                size: 6
+                size: 2
             }
 
             MenubarButton {
+                visible: UPower.displayDevice.isLaptopBattery
                 implicitWidth: clockLabel.width + 10
                 implicitHeight: Theme.menubar_height
                 menuOpen: clockMenuLoader.active
