@@ -245,17 +245,49 @@ PanelWindow {
         }
     }
 
+    Rectangle {
+        id: tintedSrc
+        anchors.fill: parent
+        color: "transparent"
+        layer.enabled: true
+        visible: false
+
+        MultiEffect {
+            anchors.fill: parent
+            source: WallpaperSource {
+                resolution: Qt.size(root.width, root.height)
+                textureSize.width: parent.width / 8
+                textureSize.height: parent.height / 8
+            }
+            autoPaddingEnabled: false
+            blurEnabled: true
+            blur: 0.75
+            blurMax: 64
+            opacity: ToplevelManager.toplevels.values.length == 0 && Config.fakeBlur == true ? 1 : 0
+
+            Behavior on opacity {
+                NumberAnimation { duration: 500 }
+            }
+        }
+
+
+        MultiEffect {
+            anchors.fill: parent
+            source: wallpaperQuantize
+            opacity: Config.autoAccentColor ? 0.75 : 1
+            brightness: Config.autoAccentColor ? -0.25 : 0
+            saturation: Config.autoAccentColor ? -0.75 : 0
+        }
+    }
+
     MultiEffect {
         anchors.fill: parent
-        source: wallpaperQuantize
+        source: tintedSrc
         maskEnabled: true
         maskSource: maskLayer
         maskSpreadAtMin: 1
         maskSpreadAtMax: 1
         maskThresholdMin: 0.5
-        opacity: Config.autoAccentColor ? 0.75 : 1
-        brightness: Config.autoAccentColor ? -0.25 : 0
-        saturation: Config.autoAccentColor ? -0.75 : 0
     }
 
     Connections {

@@ -21,6 +21,7 @@ Singleton {
     property bool dashFullHeight: config.dashFullHeight
     property int dashShelfItemSize: config.dashShelfItemSize
     property list<DesktopEntry> dashRecentItems: config.dashRecentItems
+    property bool fakeBlur: config.fakeBlur
 
     Binding {
         target: config
@@ -69,6 +70,7 @@ Singleton {
             property bool dashFullHeight: false
             property int dashShelfItemSize: 148
             property list<DesktopEntry> dashRecentItems // this is not writing. idk why.
+            property bool fakeBlur: false
         }
     }
 }

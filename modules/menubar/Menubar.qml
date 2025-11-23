@@ -213,7 +213,7 @@ PanelWindow {
             MenubarButton {
                 implicitWidth: 30
                 implicitHeight: Theme.menubar_height
-                menuOpen: menuLoader.active
+                menuOpen: batteryMenuLoader.active
 
                 Item {
                     anchors {
