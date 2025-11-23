@@ -7,7 +7,7 @@ import Quickshell.Io
 Singleton {
     id: root
     property string theme: config.theme
-    property string themePath: "~/.config/quickshell-unite/themes/" + config.theme
+    property string themePath: Quickshell.shellDir + "/../quickshell-unite/themes/" + config.theme
     property string wallpaper: config.wallpaper == "default" ? Config.themePath + "/default" : config.wallpaper
     property bool wallpaperEnabled: config.wallpaperEnabled
     property bool autoAccentColor: config.autoAccentColor
@@ -48,7 +48,7 @@ Singleton {
     }
 
     FileView {
-        path: "~/.config/quickshell-unite/config.json"
+        path: Quickshell.shellDir + "/../quickshell-unite/config.json"
         watchChanges: true
         onFileChanged: reload()
         onAdapterUpdated: writeAdapter()
