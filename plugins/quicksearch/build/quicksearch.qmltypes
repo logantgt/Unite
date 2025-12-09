@@ -159,9 +159,9 @@ Module {
             isReadonly: true
         }
         Property {
-            name: "name"
+            name: "fileName"
             type: "QString"
-            read: "name"
+            read: "fileName"
             index: 2
             isReadonly: true
             isPropertyConstant: true
@@ -231,9 +231,9 @@ Module {
             isPropertyConstant: true
         }
         Property {
-            name: "appName"
+            name: "name"
             type: "QString"
-            read: "appName"
+            read: "name"
             index: 11
             isReadonly: true
             isPropertyConstant: true
@@ -255,9 +255,9 @@ Module {
             isPropertyConstant: true
         }
         Property {
-            name: "appIcon"
+            name: "icon"
             type: "QString"
-            read: "appIcon"
+            read: "icon"
             index: 14
             isReadonly: true
             isPropertyConstant: true
@@ -344,6 +344,7 @@ Module {
             isPropertyConstant: true
         }
         Signal { name: "relativePathChanged" }
+        Method { name: "execute" }
     }
     Component {
         file: "filesystemmodel.hpp"
@@ -389,12 +390,28 @@ Module {
             index: 3
         }
         Property {
+            name: "sort"
+            type: "bool"
+            read: "sort"
+            write: "setSort"
+            notify: "sortChanged"
+            index: 4
+        }
+        Property {
+            name: "sortProperty"
+            type: "QString"
+            read: "sortProperty"
+            write: "setSortProperty"
+            notify: "sortPropertyChanged"
+            index: 5
+        }
+        Property {
             name: "sortReverse"
             type: "bool"
             read: "sortReverse"
             write: "setSortReverse"
             notify: "sortReverseChanged"
-            index: 4
+            index: 6
         }
         Property {
             name: "filter"
@@ -402,7 +419,7 @@ Module {
             read: "filter"
             write: "setFilter"
             notify: "filterChanged"
-            index: 5
+            index: 7
         }
         Property {
             name: "nameFilters"
@@ -410,7 +427,7 @@ Module {
             read: "nameFilters"
             write: "setNameFilters"
             notify: "nameFiltersChanged"
-            index: 6
+            index: 8
         }
         Property {
             name: "query"
@@ -418,7 +435,7 @@ Module {
             read: "query"
             write: "setQuery"
             notify: "queryChanged"
-            index: 7
+            index: 9
         }
         Property {
             name: "minScore"
@@ -426,7 +443,7 @@ Module {
             read: "minScore"
             write: "setMinScore"
             notify: "minScoreChanged"
-            index: 8
+            index: 10
         }
         Property {
             name: "maxDepth"
@@ -434,7 +451,7 @@ Module {
             read: "maxDepth"
             write: "setMaxDepth"
             notify: "maxDepthChanged"
-            index: 9
+            index: 11
         }
         Property {
             name: "maxResults"
@@ -442,7 +459,7 @@ Module {
             read: "maxResults"
             write: "setMaxResults"
             notify: "maxResultsChanged"
-            index: 10
+            index: 12
         }
         Property {
             name: "entries"
@@ -450,13 +467,15 @@ Module {
             isList: true
             read: "entries"
             notify: "entriesChanged"
-            index: 11
+            index: 13
             isReadonly: true
         }
         Signal { name: "pathChanged" }
         Signal { name: "recursiveChanged" }
         Signal { name: "watchChangesChanged" }
         Signal { name: "showHiddenChanged" }
+        Signal { name: "sortChanged" }
+        Signal { name: "sortPropertyChanged" }
         Signal { name: "sortReverseChanged" }
         Signal { name: "filterChanged" }
         Signal { name: "nameFiltersChanged" }

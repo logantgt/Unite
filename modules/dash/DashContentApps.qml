@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import qs
+import QuickSearch
 
 Item {
     id: root
@@ -41,13 +42,15 @@ Item {
                     iconSource: Config.themePath + "/icons/lens-nav-app.svg"
                     headerInteractive: false
                     expanded: false
-                    model: DesktopEntries.applications.values
-                    .filter(entry => !entry.noDisplay)
-                    .sort((a, b) => {
-                        const nameA = a.name.toLowerCase();
-                        const nameB = b.name.toLowerCase();
-                        return nameA.localeCompare(nameB);
-                    });
+                    model: FileSystemModel {
+                        filter: FileSystemModel.Applications
+                        showHidden: false
+                        query: searchBar.text
+                        minScore: 0.6
+                        sort: true
+                        sortReverse: false
+                        sortProperty: "name"
+                    }
                     shelfItemSize: root.dashShelfItemSize
                 }
             }

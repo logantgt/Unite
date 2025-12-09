@@ -84,7 +84,7 @@ Rectangle {
 
                             Text {
                                 anchors.centerIn: parent
-                                text: modelData.appIcon || "?"
+                                text: modelData.icon || "?"
                                 font.pixelSize: 12
                                 font.family: "monospace"
                                 color: "white"
@@ -101,7 +101,7 @@ Rectangle {
                             spacing: 4
 
                             Label {
-                                text: modelData.appName
+                                text: modelData.name
                                 font.bold: true
                                 font.pointSize: 12
                                 Layout.fillWidth: true
@@ -172,10 +172,10 @@ Rectangle {
 
                     onClicked: {
                         console.log("=== Application Details ===")
-                        console.log("Name:", modelData.appName)
+                        console.log("Name:", modelData.name)
                         console.log("Generic Name:", modelData.genericName)
                         console.log("Comment:", modelData.comment)
-                        console.log("Icon:", modelData.appIcon)
+                        console.log("Icon:", modelData.icon)
                         console.log("Exec String:", modelData.execString)
                         console.log("Command:", modelData.command)
                         console.log("Categories:", modelData.categories)

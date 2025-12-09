@@ -48,9 +48,10 @@ template <> constexpr inline auto quicksearch::models::FileSystemEntry::qt_creat
         "odel",
         "relativePathChanged",
         "",
+        "execute",
         "path",
         "relativePath",
-        "name",
+        "fileName",
         "baseName",
         "parentDir",
         "suffix",
@@ -59,10 +60,10 @@ template <> constexpr inline auto quicksearch::models::FileSystemEntry::qt_creat
         "isImage",
         "mimeType",
         "isDesktopEntry",
-        "appName",
+        "name",
         "genericName",
         "comment",
-        "appIcon",
+        "icon",
         "command",
         "execString",
         "categories",
@@ -79,58 +80,60 @@ template <> constexpr inline auto quicksearch::models::FileSystemEntry::qt_creat
     QtMocHelpers::UintData qt_methods {
         // Signal 'relativePathChanged'
         QtMocHelpers::SignalData<void()>(7, 8, QMC::AccessPublic, QMetaType::Void),
+        // Method 'execute'
+        QtMocHelpers::MethodData<void()>(9, 8, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'path'
-        QtMocHelpers::PropertyData<QString>(9, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<QString>(10, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'relativePath'
-        QtMocHelpers::PropertyData<QString>(10, QMetaType::QString, QMC::DefaultPropertyFlags, 0),
-        // property 'name'
-        QtMocHelpers::PropertyData<QString>(11, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'baseName'
+        QtMocHelpers::PropertyData<QString>(11, QMetaType::QString, QMC::DefaultPropertyFlags, 0),
+        // property 'fileName'
         QtMocHelpers::PropertyData<QString>(12, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'parentDir'
+        // property 'baseName'
         QtMocHelpers::PropertyData<QString>(13, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'suffix'
+        // property 'parentDir'
         QtMocHelpers::PropertyData<QString>(14, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'suffix'
+        QtMocHelpers::PropertyData<QString>(15, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'size'
-        QtMocHelpers::PropertyData<qint64>(15, QMetaType::LongLong, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<qint64>(16, QMetaType::LongLong, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'isDir'
-        QtMocHelpers::PropertyData<bool>(16, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'isImage'
         QtMocHelpers::PropertyData<bool>(17, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'isImage'
+        QtMocHelpers::PropertyData<bool>(18, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'mimeType'
-        QtMocHelpers::PropertyData<QString>(18, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<QString>(19, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'isDesktopEntry'
-        QtMocHelpers::PropertyData<bool>(19, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'appName'
-        QtMocHelpers::PropertyData<QString>(20, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'genericName'
+        QtMocHelpers::PropertyData<bool>(20, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'name'
         QtMocHelpers::PropertyData<QString>(21, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'comment'
+        // property 'genericName'
         QtMocHelpers::PropertyData<QString>(22, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'appIcon'
+        // property 'comment'
         QtMocHelpers::PropertyData<QString>(23, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'icon'
+        QtMocHelpers::PropertyData<QString>(24, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'command'
-        QtMocHelpers::PropertyData<QStringList>(24, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<QStringList>(25, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'execString'
-        QtMocHelpers::PropertyData<QString>(25, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<QString>(26, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'categories'
-        QtMocHelpers::PropertyData<QStringList>(26, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'keywords'
         QtMocHelpers::PropertyData<QStringList>(27, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'keywords'
+        QtMocHelpers::PropertyData<QStringList>(28, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'actions'
-        QtMocHelpers::PropertyData<QQmlListProperty<quicksearch::models::DesktopAction>>(28, 0x80000000 | 29, QMC::DefaultPropertyFlags | QMC::EnumOrFlag | QMC::Constant),
+        QtMocHelpers::PropertyData<QQmlListProperty<quicksearch::models::DesktopAction>>(29, 0x80000000 | 30, QMC::DefaultPropertyFlags | QMC::EnumOrFlag | QMC::Constant),
         // property 'desktopId'
-        QtMocHelpers::PropertyData<QString>(30, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<QString>(31, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'noDisplay'
-        QtMocHelpers::PropertyData<bool>(31, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'runInTerminal'
         QtMocHelpers::PropertyData<bool>(32, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'runInTerminal'
+        QtMocHelpers::PropertyData<bool>(33, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'workingDirectory'
-        QtMocHelpers::PropertyData<QString>(33, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
-        // property 'startupClass'
         QtMocHelpers::PropertyData<QString>(34, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'startupClass'
+        QtMocHelpers::PropertyData<QString>(35, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -159,6 +162,7 @@ void quicksearch::models::FileSystemEntry::qt_static_metacall(QObject *_o, QMeta
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->relativePathChanged(); break;
+        case 1: _t->execute(); break;
         default: ;
         }
     }
@@ -171,7 +175,7 @@ void quicksearch::models::FileSystemEntry::qt_static_metacall(QObject *_o, QMeta
         switch (_id) {
         case 0: *reinterpret_cast<QString*>(_v) = _t->path(); break;
         case 1: *reinterpret_cast<QString*>(_v) = _t->relativePath(); break;
-        case 2: *reinterpret_cast<QString*>(_v) = _t->name(); break;
+        case 2: *reinterpret_cast<QString*>(_v) = _t->fileName(); break;
         case 3: *reinterpret_cast<QString*>(_v) = _t->baseName(); break;
         case 4: *reinterpret_cast<QString*>(_v) = _t->parentDir(); break;
         case 5: *reinterpret_cast<QString*>(_v) = _t->suffix(); break;
@@ -180,10 +184,10 @@ void quicksearch::models::FileSystemEntry::qt_static_metacall(QObject *_o, QMeta
         case 8: *reinterpret_cast<bool*>(_v) = _t->isImage(); break;
         case 9: *reinterpret_cast<QString*>(_v) = _t->mimeType(); break;
         case 10: *reinterpret_cast<bool*>(_v) = _t->isDesktopEntry(); break;
-        case 11: *reinterpret_cast<QString*>(_v) = _t->appName(); break;
+        case 11: *reinterpret_cast<QString*>(_v) = _t->name(); break;
         case 12: *reinterpret_cast<QString*>(_v) = _t->genericName(); break;
         case 13: *reinterpret_cast<QString*>(_v) = _t->comment(); break;
-        case 14: *reinterpret_cast<QString*>(_v) = _t->appIcon(); break;
+        case 14: *reinterpret_cast<QString*>(_v) = _t->icon(); break;
         case 15: *reinterpret_cast<QStringList*>(_v) = _t->command(); break;
         case 16: *reinterpret_cast<QString*>(_v) = _t->execString(); break;
         case 17: *reinterpret_cast<QStringList*>(_v) = _t->categories(); break;
@@ -218,14 +222,14 @@ int quicksearch::models::FileSystemEntry::qt_metacall(QMetaObject::Call _c, int 
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
+        _id -= 2;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
@@ -257,6 +261,8 @@ template <> constexpr inline auto quicksearch::models::FileSystemModel::qt_creat
         "recursiveChanged",
         "watchChangesChanged",
         "showHiddenChanged",
+        "sortChanged",
+        "sortPropertyChanged",
         "sortReverseChanged",
         "filterChanged",
         "nameFiltersChanged",
@@ -269,6 +275,8 @@ template <> constexpr inline auto quicksearch::models::FileSystemModel::qt_creat
         "recursive",
         "watchChanges",
         "showHidden",
+        "sort",
+        "sortProperty",
         "sortReverse",
         "filter",
         "Filter",
@@ -295,57 +303,65 @@ template <> constexpr inline auto quicksearch::models::FileSystemModel::qt_creat
         QtMocHelpers::SignalData<void()>(6, 4, QMC::AccessPublic, QMetaType::Void),
         // Signal 'showHiddenChanged'
         QtMocHelpers::SignalData<void()>(7, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'sortReverseChanged'
+        // Signal 'sortChanged'
         QtMocHelpers::SignalData<void()>(8, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'filterChanged'
+        // Signal 'sortPropertyChanged'
         QtMocHelpers::SignalData<void()>(9, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'nameFiltersChanged'
+        // Signal 'sortReverseChanged'
         QtMocHelpers::SignalData<void()>(10, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'queryChanged'
+        // Signal 'filterChanged'
         QtMocHelpers::SignalData<void()>(11, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'minScoreChanged'
+        // Signal 'nameFiltersChanged'
         QtMocHelpers::SignalData<void()>(12, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'maxDepthChanged'
+        // Signal 'queryChanged'
         QtMocHelpers::SignalData<void()>(13, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'maxResultsChanged'
+        // Signal 'minScoreChanged'
         QtMocHelpers::SignalData<void()>(14, 4, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'entriesChanged'
+        // Signal 'maxDepthChanged'
         QtMocHelpers::SignalData<void()>(15, 4, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'maxResultsChanged'
+        QtMocHelpers::SignalData<void()>(16, 4, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'entriesChanged'
+        QtMocHelpers::SignalData<void()>(17, 4, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'path'
-        QtMocHelpers::PropertyData<QString>(16, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 0),
+        QtMocHelpers::PropertyData<QString>(18, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 0),
         // property 'recursive'
-        QtMocHelpers::PropertyData<bool>(17, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 1),
+        QtMocHelpers::PropertyData<bool>(19, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 1),
         // property 'watchChanges'
-        QtMocHelpers::PropertyData<bool>(18, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 2),
+        QtMocHelpers::PropertyData<bool>(20, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 2),
         // property 'showHidden'
-        QtMocHelpers::PropertyData<bool>(19, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 3),
+        QtMocHelpers::PropertyData<bool>(21, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 3),
+        // property 'sort'
+        QtMocHelpers::PropertyData<bool>(22, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 4),
+        // property 'sortProperty'
+        QtMocHelpers::PropertyData<QString>(23, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 5),
         // property 'sortReverse'
-        QtMocHelpers::PropertyData<bool>(20, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 4),
+        QtMocHelpers::PropertyData<bool>(24, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 6),
         // property 'filter'
-        QtMocHelpers::PropertyData<enum Filter>(21, 0x80000000 | 22, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet, 5),
+        QtMocHelpers::PropertyData<enum Filter>(25, 0x80000000 | 26, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet, 7),
         // property 'nameFilters'
-        QtMocHelpers::PropertyData<QStringList>(23, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 6),
+        QtMocHelpers::PropertyData<QStringList>(27, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 8),
         // property 'query'
-        QtMocHelpers::PropertyData<QString>(24, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 7),
+        QtMocHelpers::PropertyData<QString>(28, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
         // property 'minScore'
-        QtMocHelpers::PropertyData<double>(25, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 8),
+        QtMocHelpers::PropertyData<double>(29, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 10),
         // property 'maxDepth'
-        QtMocHelpers::PropertyData<int>(26, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
+        QtMocHelpers::PropertyData<int>(30, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
         // property 'maxResults'
-        QtMocHelpers::PropertyData<int>(27, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 10),
+        QtMocHelpers::PropertyData<int>(31, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 12),
         // property 'entries'
-        QtMocHelpers::PropertyData<QQmlListProperty<quicksearch::models::FileSystemEntry>>(28, 0x80000000 | 29, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 11),
+        QtMocHelpers::PropertyData<QQmlListProperty<quicksearch::models::FileSystemEntry>>(32, 0x80000000 | 33, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 13),
     };
     QtMocHelpers::UintData qt_enums {
         // enum 'Filter'
-        QtMocHelpers::EnumData<enum Filter>(22, 22, QMC::EnumFlags{}).add({
-            {   30, Filter::NoFilter },
-            {   31, Filter::Images },
-            {   32, Filter::Files },
-            {   33, Filter::Dirs },
-            {   34, Filter::Applications },
+        QtMocHelpers::EnumData<enum Filter>(26, 26, QMC::EnumFlags{}).add({
+            {   34, Filter::NoFilter },
+            {   35, Filter::Images },
+            {   36, Filter::Files },
+            {   37, Filter::Dirs },
+            {   38, Filter::Applications },
         }),
     };
     QtMocHelpers::UintData qt_constructors {};
@@ -374,14 +390,16 @@ void quicksearch::models::FileSystemModel::qt_static_metacall(QObject *_o, QMeta
         case 1: _t->recursiveChanged(); break;
         case 2: _t->watchChangesChanged(); break;
         case 3: _t->showHiddenChanged(); break;
-        case 4: _t->sortReverseChanged(); break;
-        case 5: _t->filterChanged(); break;
-        case 6: _t->nameFiltersChanged(); break;
-        case 7: _t->queryChanged(); break;
-        case 8: _t->minScoreChanged(); break;
-        case 9: _t->maxDepthChanged(); break;
-        case 10: _t->maxResultsChanged(); break;
-        case 11: _t->entriesChanged(); break;
+        case 4: _t->sortChanged(); break;
+        case 5: _t->sortPropertyChanged(); break;
+        case 6: _t->sortReverseChanged(); break;
+        case 7: _t->filterChanged(); break;
+        case 8: _t->nameFiltersChanged(); break;
+        case 9: _t->queryChanged(); break;
+        case 10: _t->minScoreChanged(); break;
+        case 11: _t->maxDepthChanged(); break;
+        case 12: _t->maxResultsChanged(); break;
+        case 13: _t->entriesChanged(); break;
         default: ;
         }
     }
@@ -394,21 +412,25 @@ void quicksearch::models::FileSystemModel::qt_static_metacall(QObject *_o, QMeta
             return;
         if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::showHiddenChanged, 3))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::sortReverseChanged, 4))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::sortChanged, 4))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::filterChanged, 5))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::sortPropertyChanged, 5))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::nameFiltersChanged, 6))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::sortReverseChanged, 6))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::queryChanged, 7))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::filterChanged, 7))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::minScoreChanged, 8))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::nameFiltersChanged, 8))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::maxDepthChanged, 9))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::queryChanged, 9))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::maxResultsChanged, 10))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::minScoreChanged, 10))
             return;
-        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::entriesChanged, 11))
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::maxDepthChanged, 11))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::maxResultsChanged, 12))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (FileSystemModel::*)()>(_a, &FileSystemModel::entriesChanged, 13))
             return;
     }
     if (_c == QMetaObject::ReadProperty) {
@@ -418,14 +440,16 @@ void quicksearch::models::FileSystemModel::qt_static_metacall(QObject *_o, QMeta
         case 1: *reinterpret_cast<bool*>(_v) = _t->recursive(); break;
         case 2: *reinterpret_cast<bool*>(_v) = _t->watchChanges(); break;
         case 3: *reinterpret_cast<bool*>(_v) = _t->showHidden(); break;
-        case 4: *reinterpret_cast<bool*>(_v) = _t->sortReverse(); break;
-        case 5: *reinterpret_cast<enum Filter*>(_v) = _t->filter(); break;
-        case 6: *reinterpret_cast<QStringList*>(_v) = _t->nameFilters(); break;
-        case 7: *reinterpret_cast<QString*>(_v) = _t->query(); break;
-        case 8: *reinterpret_cast<double*>(_v) = _t->minScore(); break;
-        case 9: *reinterpret_cast<int*>(_v) = _t->maxDepth(); break;
-        case 10: *reinterpret_cast<int*>(_v) = _t->maxResults(); break;
-        case 11: *reinterpret_cast<QQmlListProperty<quicksearch::models::FileSystemEntry>*>(_v) = _t->entries(); break;
+        case 4: *reinterpret_cast<bool*>(_v) = _t->sort(); break;
+        case 5: *reinterpret_cast<QString*>(_v) = _t->sortProperty(); break;
+        case 6: *reinterpret_cast<bool*>(_v) = _t->sortReverse(); break;
+        case 7: *reinterpret_cast<enum Filter*>(_v) = _t->filter(); break;
+        case 8: *reinterpret_cast<QStringList*>(_v) = _t->nameFilters(); break;
+        case 9: *reinterpret_cast<QString*>(_v) = _t->query(); break;
+        case 10: *reinterpret_cast<double*>(_v) = _t->minScore(); break;
+        case 11: *reinterpret_cast<int*>(_v) = _t->maxDepth(); break;
+        case 12: *reinterpret_cast<int*>(_v) = _t->maxResults(); break;
+        case 13: *reinterpret_cast<QQmlListProperty<quicksearch::models::FileSystemEntry>*>(_v) = _t->entries(); break;
         default: break;
         }
     }
@@ -436,13 +460,15 @@ void quicksearch::models::FileSystemModel::qt_static_metacall(QObject *_o, QMeta
         case 1: _t->setRecursive(*reinterpret_cast<bool*>(_v)); break;
         case 2: _t->setWatchChanges(*reinterpret_cast<bool*>(_v)); break;
         case 3: _t->setShowHidden(*reinterpret_cast<bool*>(_v)); break;
-        case 4: _t->setSortReverse(*reinterpret_cast<bool*>(_v)); break;
-        case 5: _t->setFilter(*reinterpret_cast<enum Filter*>(_v)); break;
-        case 6: _t->setNameFilters(*reinterpret_cast<QStringList*>(_v)); break;
-        case 7: _t->setQuery(*reinterpret_cast<QString*>(_v)); break;
-        case 8: _t->setMinScore(*reinterpret_cast<double*>(_v)); break;
-        case 9: _t->setMaxDepth(*reinterpret_cast<int*>(_v)); break;
-        case 10: _t->setMaxResults(*reinterpret_cast<int*>(_v)); break;
+        case 4: _t->setSort(*reinterpret_cast<bool*>(_v)); break;
+        case 5: _t->setSortProperty(*reinterpret_cast<QString*>(_v)); break;
+        case 6: _t->setSortReverse(*reinterpret_cast<bool*>(_v)); break;
+        case 7: _t->setFilter(*reinterpret_cast<enum Filter*>(_v)); break;
+        case 8: _t->setNameFilters(*reinterpret_cast<QStringList*>(_v)); break;
+        case 9: _t->setQuery(*reinterpret_cast<QString*>(_v)); break;
+        case 10: _t->setMinScore(*reinterpret_cast<double*>(_v)); break;
+        case 11: _t->setMaxDepth(*reinterpret_cast<int*>(_v)); break;
+        case 12: _t->setMaxResults(*reinterpret_cast<int*>(_v)); break;
         default: break;
         }
     }
@@ -467,20 +493,20 @@ int quicksearch::models::FileSystemModel::qt_metacall(QMetaObject::Call _c, int 
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 14;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 14)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 12;
+        _id -= 14;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 14;
     }
     return _id;
 }
@@ -510,50 +536,62 @@ void quicksearch::models::FileSystemModel::showHiddenChanged()
 }
 
 // SIGNAL 4
-void quicksearch::models::FileSystemModel::sortReverseChanged()
+void quicksearch::models::FileSystemModel::sortChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 
 // SIGNAL 5
-void quicksearch::models::FileSystemModel::filterChanged()
+void quicksearch::models::FileSystemModel::sortPropertyChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 5, nullptr);
 }
 
 // SIGNAL 6
-void quicksearch::models::FileSystemModel::nameFiltersChanged()
+void quicksearch::models::FileSystemModel::sortReverseChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
 }
 
 // SIGNAL 7
-void quicksearch::models::FileSystemModel::queryChanged()
+void quicksearch::models::FileSystemModel::filterChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
 }
 
 // SIGNAL 8
-void quicksearch::models::FileSystemModel::minScoreChanged()
+void quicksearch::models::FileSystemModel::nameFiltersChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
 }
 
 // SIGNAL 9
-void quicksearch::models::FileSystemModel::maxDepthChanged()
+void quicksearch::models::FileSystemModel::queryChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
 }
 
 // SIGNAL 10
-void quicksearch::models::FileSystemModel::maxResultsChanged()
+void quicksearch::models::FileSystemModel::minScoreChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 10, nullptr);
 }
 
 // SIGNAL 11
-void quicksearch::models::FileSystemModel::entriesChanged()
+void quicksearch::models::FileSystemModel::maxDepthChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 11, nullptr);
+}
+
+// SIGNAL 12
+void quicksearch::models::FileSystemModel::maxResultsChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 12, nullptr);
+}
+
+// SIGNAL 13
+void quicksearch::models::FileSystemModel::entriesChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 13, nullptr);
 }
 QT_WARNING_POP

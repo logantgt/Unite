@@ -397,7 +397,7 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/qt6/QtCore/QVector /usr/include/qt6/QtCore/qvector.h \
  /usr/include/qt6/QtCore/qdiriterator.h /usr/include/qt6/QtCore/qdir.h \
  /usr/include/qt6/QtCore/qfuturewatcher.h \
- /usr/include/qt6/QtCore/qfuture.h \
+ /usr/include/qt6/QtCore/qfuture.h /usr/include/qt6/QtCore/qprocess.h \
  /usr/include/qt6/QtConcurrent/qtconcurrentrun.h \
  /usr/include/qt6/QtConcurrent/qtconcurrentcompilertest.h \
  /usr/include/qt6/QtConcurrent/qtconcurrent_global.h \

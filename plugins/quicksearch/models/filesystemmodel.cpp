@@ -6,6 +6,7 @@
 
 #include <qdiriterator.h>
 #include <qfuturewatcher.h>
+#include <qprocess.h>
 #include <qtconcurrentrun.h>
 
 namespace quicksearch::models {
@@ -27,7 +28,7 @@ namespace quicksearch::models {
         return m_relativePath;
     };
 
-    QString FileSystemEntry::name() const {
+    QString FileSystemEntry::fileName() const {
         return m_fileInfo.fileName();
     };
 
@@ -86,7 +87,7 @@ namespace quicksearch::models {
         return m_desktopData.has_value();
     }
 
-    QString FileSystemEntry::appName() const {
+    QString FileSystemEntry::name() const {
         ensureDesktopDataLoaded();
         return m_desktopData.has_value() ? m_desktopData->name : QString();
     }
@@ -101,7 +102,7 @@ namespace quicksearch::models {
         return m_desktopData.has_value() ? m_desktopData->comment : QString();
     }
 
-    QString FileSystemEntry::appIcon() const {
+    QString FileSystemEntry::icon() const {
         ensureDesktopDataLoaded();
         return m_desktopData.has_value() ? m_desktopData->icon : QString();
     }
@@ -166,6 +167,28 @@ namespace quicksearch::models {
         return m_desktopData.has_value() ? m_desktopData->startupClass : QString();
     }
 
+    void FileSystemEntry::execute() {
+        ensureDesktopDataLoaded();
+
+        if (!m_desktopData.has_value()) {
+            qWarning() << "Cannot execute: not a desktop entry:" << m_path;
+            return;
+        }
+
+        const QStringList& cmd = m_desktopData->command;
+        if (cmd.isEmpty()) {
+            qWarning() << "Cannot execute: empty command:" << m_path;
+            return;
+        }
+
+        const QString& workDir = m_desktopData->workingDirectory;
+
+        // Execute the command detached (like Quickshell.execDetached)
+        if (!QProcess::startDetached(cmd[0], cmd.mid(1), workDir.isEmpty() ? QDir::homePath() : workDir)) {
+            qWarning() << "Failed to execute:" << cmd.join(" ");
+        }
+    }
+
     void FileSystemEntry::updateRelativePath(const QDir& dir) {
         const auto relPath = dir.relativeFilePath(m_path);
         if (m_relativePath != relPath) {
@@ -179,6 +202,8 @@ namespace quicksearch::models {
     , m_recursive(false)
     , m_watchChanges(true)
     , m_showHidden(false)
+    , m_sort(true)
+    , m_sortProperty("relativePath")
     , m_filter(NoFilter)
     , m_minScore(0.3)
     , m_maxDepth(-1)
@@ -271,6 +296,46 @@ namespace quicksearch::models {
         update();
     }
 
+    bool FileSystemModel::sort() const {
+        return m_sort;
+    }
+
+    void FileSystemModel::setSort(bool sort) {
+        if (m_sort == sort) {
+            return;
+        }
+
+        m_sort = sort;
+        emit sortChanged();
+
+        // Re-sort existing entries when enabling sort
+        if (m_sort) {
+            resortEntries();
+        }
+
+        update();
+    }
+
+    QString FileSystemModel::sortProperty() const {
+        return m_sortProperty;
+    }
+
+    void FileSystemModel::setSortProperty(const QString& sortProperty) {
+        if (m_sortProperty == sortProperty) {
+            return;
+        }
+
+        m_sortProperty = sortProperty;
+        emit sortPropertyChanged();
+
+        // Re-sort existing entries if sorting is enabled
+        if (m_sort) {
+            resortEntries();
+        }
+
+        update();
+    }
+
     bool FileSystemModel::sortReverse() const {
         return m_sortReverse;
     }
@@ -282,6 +347,11 @@ namespace quicksearch::models {
 
         m_sortReverse = sortReverse;
         emit sortReverseChanged();
+
+        // Re-sort existing entries if sorting is enabled
+        if (m_sort) {
+            resortEntries();
+        }
 
         update();
     }
@@ -328,6 +398,15 @@ namespace quicksearch::models {
         m_query = query;
         m_scoreCache.clear();
         emit queryChanged();
+
+        // Clear existing entries to force a full refresh
+        // This ensures proper sorting after query changes
+        if (!m_entries.isEmpty()) {
+            beginResetModel();
+            qDeleteAll(m_entries);
+            m_entries.clear();
+            endResetModel();
+        }
 
         update();
     }
@@ -694,49 +773,80 @@ namespace quicksearch::models {
         for (const auto& path : addedPaths) {
             newEntries << new FileSystemEntry(path, m_dir.relativeFilePath(path), this);
         }
-        std::sort(newEntries.begin(), newEntries.end(), [this](const FileSystemEntry* a, const FileSystemEntry* b) {
-            return compareEntries(a, b);
-        });
+
+        // Only sort if sorting is enabled
+        if (m_sort) {
+            std::sort(newEntries.begin(), newEntries.end(), [this](const FileSystemEntry* a, const FileSystemEntry* b) {
+                return compareEntries(a, b);
+            });
+        }
 
         // Batch insert new entries
-        int insertStart = -1;
-        QList<FileSystemEntry*> batchItems;
-        for (const auto& entry : std::as_const(newEntries)) {
-            const auto it = std::lower_bound(
-                m_entries.begin(), m_entries.end(), entry, [this](const FileSystemEntry* a, const FileSystemEntry* b) {
-                    return compareEntries(a, b);
-                });
-            const auto row = static_cast<int>(it - m_entries.begin());
+        if (m_sort) {
+            // Insert entries in sorted order using binary search
+            int insertStart = -1;
+            QList<FileSystemEntry*> batchItems;
+            for (const auto& entry : std::as_const(newEntries)) {
+                const auto it = std::lower_bound(
+                    m_entries.begin(), m_entries.end(), entry, [this](const FileSystemEntry* a, const FileSystemEntry* b) {
+                        return compareEntries(a, b);
+                    });
+                const auto row = static_cast<int>(it - m_entries.begin());
 
-            if (insertStart == -1) {
-                insertStart = row;
-                batchItems << entry;
-            } else if (row == insertStart + batchItems.size()) {
-                batchItems << entry;
-            } else {
+                if (insertStart == -1) {
+                    insertStart = row;
+                    batchItems << entry;
+                } else if (row == insertStart + batchItems.size()) {
+                    batchItems << entry;
+                } else {
+                    beginInsertRows(QModelIndex(), insertStart, insertStart + static_cast<int>(batchItems.size()) - 1);
+                    for (int i = 0; i < batchItems.size(); ++i) {
+                        m_entries.insert(insertStart + i, batchItems[i]);
+                    }
+                    endInsertRows();
+
+                    insertStart = row;
+                    batchItems.clear();
+                    batchItems << entry;
+                }
+            }
+            if (!batchItems.isEmpty()) {
                 beginInsertRows(QModelIndex(), insertStart, insertStart + static_cast<int>(batchItems.size()) - 1);
                 for (int i = 0; i < batchItems.size(); ++i) {
                     m_entries.insert(insertStart + i, batchItems[i]);
                 }
                 endInsertRows();
-
-                insertStart = row;
-                batchItems.clear();
-                batchItems << entry;
             }
-        }
-        if (!batchItems.isEmpty()) {
-            beginInsertRows(QModelIndex(), insertStart, insertStart + static_cast<int>(batchItems.size()) - 1);
-            for (int i = 0; i < batchItems.size(); ++i) {
-                m_entries.insert(insertStart + i, batchItems[i]);
+        } else {
+            // Just append entries to the end without sorting
+            if (!newEntries.isEmpty()) {
+                const int startRow = m_entries.size();
+                beginInsertRows(QModelIndex(), startRow, startRow + newEntries.size() - 1);
+                m_entries.append(newEntries);
+                endInsertRows();
             }
-            endInsertRows();
         }
 
         emit entriesChanged();
     }
 
+    void FileSystemModel::resortEntries() {
+        if (!m_entries.isEmpty() && m_sort) {
+            beginResetModel();
+            std::sort(m_entries.begin(), m_entries.end(), [this](const FileSystemEntry* a, const FileSystemEntry* b) {
+                return compareEntries(a, b);
+            });
+            endResetModel();
+            emit entriesChanged();
+        }
+    }
+
     bool FileSystemModel::compareEntries(const FileSystemEntry* a, const FileSystemEntry* b) const {
+        // If sorting is disabled, maintain insertion order
+        if (!m_sort) {
+            return false;
+        }
+
         // If query is set, sort by fuzzy match score first
         if (!m_query.isEmpty()) {
             double scoreA;
@@ -751,7 +861,7 @@ namespace quicksearch::models {
                     scoreA = m_scoreCache[keyA];
                 } else {
                     // Build composite search text
-                    QString textA = a->appName() + " " +
+                    QString textA = a->name() + " " +
                                    a->genericName() + " " +
                                    a->comment() + " " +
                                    a->keywords().join(' ');
@@ -762,7 +872,7 @@ namespace quicksearch::models {
                 if (m_scoreCache.contains(keyB)) {
                     scoreB = m_scoreCache[keyB];
                 } else {
-                    QString textB = b->appName() + " " +
+                    QString textB = b->name() + " " +
                                    b->genericName() + " " +
                                    b->comment() + " " +
                                    b->keywords().join(' ');
@@ -771,18 +881,18 @@ namespace quicksearch::models {
                 }
             } else {
                 // For other filters, use file name
-                if (m_scoreCache.contains(a->name())) {
-                    scoreA = m_scoreCache[a->name()];
+                if (m_scoreCache.contains(a->fileName())) {
+                    scoreA = m_scoreCache[a->fileName()];
                 } else {
-                    scoreA = FuzzySearch::calculateScore(m_query, a->name());
-                    m_scoreCache[a->name()] = scoreA;
+                    scoreA = FuzzySearch::calculateScore(m_query, a->fileName());
+                    m_scoreCache[a->fileName()] = scoreA;
                 }
 
-                if (m_scoreCache.contains(b->name())) {
-                    scoreB = m_scoreCache[b->name()];
+                if (m_scoreCache.contains(b->fileName())) {
+                    scoreB = m_scoreCache[b->fileName()];
                 } else {
-                    scoreB = FuzzySearch::calculateScore(m_query, b->name());
-                    m_scoreCache[b->name()] = scoreB;
+                    scoreB = FuzzySearch::calculateScore(m_query, b->fileName());
+                    m_scoreCache[b->fileName()] = scoreB;
                 }
             }
 
@@ -795,7 +905,16 @@ namespace quicksearch::models {
         if (a->isDir() != b->isDir()) {
             return m_sortReverse ^ a->isDir();
         }
-        const auto cmp = a->relativePath().localeAwareCompare(b->relativePath());
+
+        // Use the specified sort property for comparison
+        QVariant valueA = a->property(m_sortProperty.toUtf8().constData());
+        QVariant valueB = b->property(m_sortProperty.toUtf8().constData());
+
+        // Convert to strings for comparison
+        QString strA = valueA.toString();
+        QString strB = valueB.toString();
+
+        const auto cmp = strA.localeAwareCompare(strB);
         return m_sortReverse ? cmp > 0 : cmp < 0;
     }
 

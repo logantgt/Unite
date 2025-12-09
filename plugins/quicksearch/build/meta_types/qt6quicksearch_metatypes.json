@@ -324,6 +324,14 @@
                 ],
                 "className": "FileSystemEntry",
                 "lineNumber": 21,
+                "methods": [
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "execute",
+                        "returnType": "void"
+                    }
+                ],
                 "object": true,
                 "properties": [
                     {
@@ -358,8 +366,8 @@
                         "designable": true,
                         "final": false,
                         "index": 2,
-                        "name": "name",
-                        "read": "name",
+                        "name": "fileName",
+                        "read": "fileName",
                         "required": false,
                         "scriptable": true,
                         "stored": true,
@@ -475,8 +483,8 @@
                         "designable": true,
                         "final": false,
                         "index": 11,
-                        "name": "appName",
-                        "read": "appName",
+                        "name": "name",
+                        "read": "name",
                         "required": false,
                         "scriptable": true,
                         "stored": true,
@@ -514,8 +522,8 @@
                         "designable": true,
                         "final": false,
                         "index": 14,
-                        "name": "appIcon",
-                        "read": "appIcon",
+                        "name": "icon",
+                        "read": "icon",
                         "required": false,
                         "scriptable": true,
                         "stored": true,
@@ -691,7 +699,7 @@
                         ]
                     }
                 ],
-                "lineNumber": 108,
+                "lineNumber": 110,
                 "object": true,
                 "properties": [
                     {
@@ -759,6 +767,36 @@
                         "designable": true,
                         "final": false,
                         "index": 4,
+                        "name": "sort",
+                        "notify": "sortChanged",
+                        "read": "sort",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setSort"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 5,
+                        "name": "sortProperty",
+                        "notify": "sortPropertyChanged",
+                        "read": "sortProperty",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false,
+                        "write": "setSortProperty"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 6,
                         "name": "sortReverse",
                         "notify": "sortReverseChanged",
                         "read": "sortReverse",
@@ -773,7 +811,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 5,
+                        "index": 7,
                         "name": "filter",
                         "notify": "filterChanged",
                         "read": "filter",
@@ -788,7 +826,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 6,
+                        "index": 8,
                         "name": "nameFilters",
                         "notify": "nameFiltersChanged",
                         "read": "nameFilters",
@@ -803,7 +841,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 7,
+                        "index": 9,
                         "name": "query",
                         "notify": "queryChanged",
                         "read": "query",
@@ -818,7 +856,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 8,
+                        "index": 10,
                         "name": "minScore",
                         "notify": "minScoreChanged",
                         "read": "minScore",
@@ -833,7 +871,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 9,
+                        "index": 11,
                         "name": "maxDepth",
                         "notify": "maxDepthChanged",
                         "read": "maxDepth",
@@ -848,7 +886,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 10,
+                        "index": 12,
                         "name": "maxResults",
                         "notify": "maxResultsChanged",
                         "read": "maxResults",
@@ -863,7 +901,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 11,
+                        "index": 13,
                         "name": "entries",
                         "notify": "entriesChanged",
                         "read": "entries",
@@ -903,48 +941,60 @@
                     {
                         "access": "public",
                         "index": 4,
-                        "name": "sortReverseChanged",
+                        "name": "sortChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 5,
-                        "name": "filterChanged",
+                        "name": "sortPropertyChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 6,
-                        "name": "nameFiltersChanged",
+                        "name": "sortReverseChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 7,
-                        "name": "queryChanged",
+                        "name": "filterChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 8,
-                        "name": "minScoreChanged",
+                        "name": "nameFiltersChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 9,
-                        "name": "maxDepthChanged",
+                        "name": "queryChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 10,
-                        "name": "maxResultsChanged",
+                        "name": "minScoreChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 11,
+                        "name": "maxDepthChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 12,
+                        "name": "maxResultsChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 13,
                         "name": "entriesChanged",
                         "returnType": "void"
                     }

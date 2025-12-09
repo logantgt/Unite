@@ -25,7 +25,7 @@ namespace quicksearch::models {
 
         Q_PROPERTY(QString path READ path CONSTANT)
         Q_PROPERTY(QString relativePath READ relativePath NOTIFY relativePathChanged)
-        Q_PROPERTY(QString name READ name CONSTANT)
+        Q_PROPERTY(QString fileName READ fileName CONSTANT)
         Q_PROPERTY(QString baseName READ baseName CONSTANT)
         Q_PROPERTY(QString parentDir READ parentDir CONSTANT)
         Q_PROPERTY(QString suffix READ suffix CONSTANT)
@@ -36,10 +36,10 @@ namespace quicksearch::models {
 
         // Desktop entry properties
         Q_PROPERTY(bool isDesktopEntry READ isDesktopEntry CONSTANT)
-        Q_PROPERTY(QString appName READ appName CONSTANT)
+        Q_PROPERTY(QString name READ name CONSTANT)
         Q_PROPERTY(QString genericName READ genericName CONSTANT)
         Q_PROPERTY(QString comment READ comment CONSTANT)
-        Q_PROPERTY(QString appIcon READ appIcon CONSTANT)
+        Q_PROPERTY(QString icon READ icon CONSTANT)
         Q_PROPERTY(QStringList command READ command CONSTANT)
         Q_PROPERTY(QString execString READ execString CONSTANT)
         Q_PROPERTY(QStringList categories READ categories CONSTANT)
@@ -56,7 +56,7 @@ namespace quicksearch::models {
 
         [[nodiscard]] QString path() const;
         [[nodiscard]] QString relativePath() const;
-        [[nodiscard]] QString name() const;
+        [[nodiscard]] QString fileName() const;
         [[nodiscard]] QString baseName() const;
         [[nodiscard]] QString parentDir() const;
         [[nodiscard]] QString suffix() const;
@@ -67,10 +67,10 @@ namespace quicksearch::models {
 
         // Desktop entry getters
         [[nodiscard]] bool isDesktopEntry() const;
-        [[nodiscard]] QString appName() const;
+        [[nodiscard]] QString name() const;
         [[nodiscard]] QString genericName() const;
         [[nodiscard]] QString comment() const;
-        [[nodiscard]] QString appIcon() const;
+        [[nodiscard]] QString icon() const;
         [[nodiscard]] QStringList command() const;
         [[nodiscard]] QString execString() const;
         [[nodiscard]] QStringList categories() const;
@@ -81,6 +81,8 @@ namespace quicksearch::models {
         [[nodiscard]] bool runInTerminal() const;
         [[nodiscard]] QString workingDirectory() const;
         [[nodiscard]] QString startupClass() const;
+
+        Q_INVOKABLE void execute();
 
         void updateRelativePath(const QDir& dir);
 
@@ -113,6 +115,8 @@ namespace quicksearch::models {
         Q_PROPERTY(bool recursive READ recursive WRITE setRecursive NOTIFY recursiveChanged)
         Q_PROPERTY(bool watchChanges READ watchChanges WRITE setWatchChanges NOTIFY watchChangesChanged)
         Q_PROPERTY(bool showHidden READ showHidden WRITE setShowHidden NOTIFY showHiddenChanged)
+        Q_PROPERTY(bool sort READ sort WRITE setSort NOTIFY sortChanged)
+        Q_PROPERTY(QString sortProperty READ sortProperty WRITE setSortProperty NOTIFY sortPropertyChanged)
         Q_PROPERTY(bool sortReverse READ sortReverse WRITE setSortReverse NOTIFY sortReverseChanged)
         Q_PROPERTY(Filter filter READ filter WRITE setFilter NOTIFY filterChanged)
         Q_PROPERTY(QStringList nameFilters READ nameFilters WRITE setNameFilters NOTIFY nameFiltersChanged)
@@ -151,6 +155,12 @@ namespace quicksearch::models {
         [[nodiscard]] bool showHidden() const;
         void setShowHidden(bool showHidden);
 
+        [[nodiscard]] bool sort() const;
+        void setSort(bool sort);
+
+        [[nodiscard]] QString sortProperty() const;
+        void setSortProperty(const QString& sortProperty);
+
         [[nodiscard]] bool sortReverse() const;
         void setSortReverse(bool sortReverse);
 
@@ -179,6 +189,8 @@ namespace quicksearch::models {
         void recursiveChanged();
         void watchChangesChanged();
         void showHiddenChanged();
+        void sortChanged();
+        void sortPropertyChanged();
         void sortReverseChanged();
         void filterChanged();
         void nameFiltersChanged();
@@ -198,6 +210,8 @@ namespace quicksearch::models {
         bool m_recursive;
         bool m_watchChanges;
         bool m_showHidden;
+        bool m_sort;
+        QString m_sortProperty;
         bool m_sortReverse;
         Filter m_filter;
         QStringList m_nameFilters;
@@ -214,6 +228,7 @@ namespace quicksearch::models {
         void updateEntries();
         void updateEntriesForDir(const QString& dir);
         void applyChanges(const QSet<QString>& removedPaths, const QSet<QString>& addedPaths);
+        void resortEntries();
         [[nodiscard]] bool compareEntries(const FileSystemEntry* a, const FileSystemEntry* b) const;
         [[nodiscard]] bool matchesQuery(const QString& path) const;
     };
