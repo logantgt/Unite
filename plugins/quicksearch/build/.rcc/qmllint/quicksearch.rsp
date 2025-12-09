@@ -1,0 +1,5 @@
+--bare
+-I
+/usr/lib64/qt6/qml
+--resource
+/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/.qt/rcc/qmake_QuickSearch.qrc

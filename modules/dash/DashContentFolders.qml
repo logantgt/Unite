@@ -67,6 +67,15 @@ Item {
                     top: parent.top
                 }
 
+                QuickSearchTest {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    implicitHeight: 500
+                }
+
                 DashShelf {
                     anchors {
                         left: parent.left

@@ -1,0 +1,4 @@
+set(__QT_DEPLOY_TARGET_quicksearch_FILE /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/libquicksearch.so)
+set(__QT_DEPLOY_TARGET_quicksearch_TYPE SHARED_LIBRARY)
+set(__QT_DEPLOY_TARGET_quicksearchplugin_FILE /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/libquicksearchplugin.so)
+set(__QT_DEPLOY_TARGET_quicksearchplugin_TYPE MODULE_LIBRARY)

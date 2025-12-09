@@ -2,6 +2,7 @@
 // Original work by soramane, caelestia-dots/shell, licensed under GPL-3.0, thank you for your hard work!
 
 #include "filesystemmodel.hpp"
+#include "fuzzysearch.hpp"
 
 #include <qdiriterator.h>
 #include <qfuturewatcher.h>
@@ -80,7 +81,10 @@ namespace quicksearch::models {
     , m_recursive(false)
     , m_watchChanges(true)
     , m_showHidden(false)
-    , m_filter(NoFilter) {
+    , m_filter(NoFilter)
+    , m_minScore(0.3)
+    , m_maxDepth(-1)
+    , m_maxResults(-1) {
         connect(&m_watcher, &QFileSystemWatcher::directoryChanged, this, &FileSystemModel::watchDirIfRecursive);
         connect(&m_watcher, &QFileSystemWatcher::directoryChanged, this, &FileSystemModel::updateEntriesForDir);
     }
@@ -214,6 +218,67 @@ namespace quicksearch::models {
         update();
     }
 
+    QString FileSystemModel::query() const {
+        return m_query;
+    }
+
+    void FileSystemModel::setQuery(const QString& query) {
+        if (m_query == query) {
+            return;
+        }
+
+        m_query = query;
+        m_scoreCache.clear();
+        emit queryChanged();
+
+        update();
+    }
+
+    double FileSystemModel::minScore() const {
+        return m_minScore;
+    }
+
+    void FileSystemModel::setMinScore(double minScore) {
+        if (qFuzzyCompare(m_minScore, minScore)) {
+            return;
+        }
+
+        m_minScore = minScore;
+        emit minScoreChanged();
+
+        update();
+    }
+
+    int FileSystemModel::maxDepth() const {
+        return m_maxDepth;
+    }
+
+    void FileSystemModel::setMaxDepth(int maxDepth) {
+        if (m_maxDepth == maxDepth) {
+            return;
+        }
+
+        m_maxDepth = maxDepth;
+        emit maxDepthChanged();
+
+        update();
+    }
+
+    int FileSystemModel::maxResults() const {
+        return m_maxResults;
+    }
+
+    void FileSystemModel::setMaxResults(int maxResults) {
+        if (m_maxResults == maxResults) {
+            return;
+        }
+
+        m_maxResults = maxResults;
+        emit maxResultsChanged();
+
+        update();
+    }
+
     QQmlListProperty<FileSystemEntry> FileSystemModel::entries() {
         return QQmlListProperty<FileSystemEntry>(this, &m_entries);
     }
@@ -292,6 +357,10 @@ namespace quicksearch::models {
         const auto showHidden = m_showHidden;
         const auto filter = m_filter;
         const auto nameFilters = m_nameFilters;
+        const auto query = m_query;
+        const auto minScore = m_minScore;
+        const auto maxDepth = m_maxDepth;
+        const auto maxResults = m_maxResults;
 
         QSet<QString> oldPaths;
         for (const auto& entry : std::as_const(m_entries)) {
@@ -339,17 +408,46 @@ namespace quicksearch::models {
             }
 
             QSet<QString> newPaths;
+
+            // For efficient depth checking
+            const QString baseDir = dir.endsWith('/') ? dir : dir + '/';
+            const int baseDirDepth = baseDir.count('/');
+
             while (iter->hasNext()) {
                 if (promise.isCanceled()) {
                     return;
                 }
 
+                // Check if we've reached max results
+                if (maxResults > 0 && newPaths.size() >= maxResults) {
+                    break;
+                }
+
                 QString path = iter->next();
+
+                // Check depth limit if recursive and maxDepth is set
+                if (recursive && maxDepth >= 0) {
+                    int currentDepth = path.count('/') - baseDirDepth;
+                    if (currentDepth > maxDepth) {
+                        continue;
+                    }
+                }
 
                 if (filter == Images) {
                     QImageReader reader(path);
                     if (!reader.canRead()) {
                         continue;
+                    }
+                }
+
+                // Apply fuzzy search filter if query is set
+                if (!query.isEmpty()) {
+                    QFileInfo fileInfo(path);
+                    QString fileName = fileInfo.fileName();
+                    FuzzyMatch match = FuzzySearch::match(query, fileName);
+
+                    if (!match.isMatch || match.score < minScore) {
+                        continue; // Skip files that don't match the query
                     }
                 }
 
@@ -472,11 +570,48 @@ namespace quicksearch::models {
     }
 
     bool FileSystemModel::compareEntries(const FileSystemEntry* a, const FileSystemEntry* b) const {
+        // If query is set, sort by fuzzy match score first
+        if (!m_query.isEmpty()) {
+            // Use cached scores to avoid recalculation
+            double scoreA;
+            if (m_scoreCache.contains(a->name())) {
+                scoreA = m_scoreCache[a->name()];
+            } else {
+                scoreA = FuzzySearch::calculateScore(m_query, a->name());
+                m_scoreCache[a->name()] = scoreA;
+            }
+
+            double scoreB;
+            if (m_scoreCache.contains(b->name())) {
+                scoreB = m_scoreCache[b->name()];
+            } else {
+                scoreB = FuzzySearch::calculateScore(m_query, b->name());
+                m_scoreCache[b->name()] = scoreB;
+            }
+
+            if (!qFuzzyCompare(scoreA, scoreB)) {
+                return m_sortReverse ? scoreA < scoreB : scoreA > scoreB;
+            }
+        }
+
+        // Fall back to directory/name sorting
         if (a->isDir() != b->isDir()) {
             return m_sortReverse ^ a->isDir();
         }
         const auto cmp = a->relativePath().localeAwareCompare(b->relativePath());
         return m_sortReverse ? cmp > 0 : cmp < 0;
+    }
+
+    bool FileSystemModel::matchesQuery(const QString& path) const {
+        if (m_query.isEmpty()) {
+            return true;
+        }
+
+        QFileInfo fileInfo(path);
+        QString fileName = fileInfo.fileName();
+        FuzzyMatch match = FuzzySearch::match(m_query, fileName);
+
+        return match.isMatch && match.score >= m_minScore;
     }
 
 } // namespace quicksearch::models

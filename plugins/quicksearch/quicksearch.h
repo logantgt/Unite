@@ -3,6 +3,11 @@
 #include <QStringList>
 #include <QtQml/qqml.h>
 
+// Include model headers to ensure proper MOC compilation
+#include "models/filesystemmodel.hpp"
+#include "models/fuzzysearch.hpp"
+#include "internal/cachingimagemanager.hpp"
+
 class QuickSearch : public QObject {
     Q_OBJECT
     QML_ELEMENT

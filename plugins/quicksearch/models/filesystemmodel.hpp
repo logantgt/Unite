@@ -74,6 +74,10 @@ namespace quicksearch::models {
         Q_PROPERTY(bool sortReverse READ sortReverse WRITE setSortReverse NOTIFY sortReverseChanged)
         Q_PROPERTY(Filter filter READ filter WRITE setFilter NOTIFY filterChanged)
         Q_PROPERTY(QStringList nameFilters READ nameFilters WRITE setNameFilters NOTIFY nameFiltersChanged)
+        Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
+        Q_PROPERTY(double minScore READ minScore WRITE setMinScore NOTIFY minScoreChanged)
+        Q_PROPERTY(int maxDepth READ maxDepth WRITE setMaxDepth NOTIFY maxDepthChanged)
+        Q_PROPERTY(int maxResults READ maxResults WRITE setMaxResults NOTIFY maxResultsChanged)
 
         Q_PROPERTY(QQmlListProperty<quicksearch::models::FileSystemEntry> entries READ entries NOTIFY entriesChanged)
 
@@ -113,6 +117,18 @@ namespace quicksearch::models {
         [[nodiscard]] QStringList nameFilters() const;
         void setNameFilters(const QStringList& nameFilters);
 
+        [[nodiscard]] QString query() const;
+        void setQuery(const QString& query);
+
+        [[nodiscard]] double minScore() const;
+        void setMinScore(double minScore);
+
+        [[nodiscard]] int maxDepth() const;
+        void setMaxDepth(int maxDepth);
+
+        [[nodiscard]] int maxResults() const;
+        void setMaxResults(int maxResults);
+
         [[nodiscard]] QQmlListProperty<FileSystemEntry> entries();
 
     signals:
@@ -123,6 +139,10 @@ namespace quicksearch::models {
         void sortReverseChanged();
         void filterChanged();
         void nameFiltersChanged();
+        void queryChanged();
+        void minScoreChanged();
+        void maxDepthChanged();
+        void maxResultsChanged();
         void entriesChanged();
 
     private:
@@ -138,6 +158,12 @@ namespace quicksearch::models {
         bool m_sortReverse;
         Filter m_filter;
         QStringList m_nameFilters;
+        QString m_query;
+        double m_minScore;
+        int m_maxDepth;
+        int m_maxResults;
+
+        mutable QHash<QString, double> m_scoreCache;
 
         void watchDirIfRecursive(const QString& path);
         void update();
@@ -146,6 +172,7 @@ namespace quicksearch::models {
         void updateEntriesForDir(const QString& dir);
         void applyChanges(const QSet<QString>& removedPaths, const QSet<QString>& addedPaths);
         [[nodiscard]] bool compareEntries(const FileSystemEntry* a, const FileSystemEntry* b) const;
+        [[nodiscard]] bool matchesQuery(const QString& path) const;
     };
 
 } // namespace quicksearch::models
