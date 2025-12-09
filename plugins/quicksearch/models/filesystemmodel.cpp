@@ -16,7 +16,8 @@ namespace quicksearch::models {
     , m_path(path)
     , m_relativePath(relativePath)
     , m_isImageInitialised(false)
-    , m_mimeTypeInitialised(false) {}
+    , m_mimeTypeInitialised(false)
+    , m_desktopDataInitialised(false) {}
 
     QString FileSystemEntry::path() const {
         return m_path;
@@ -66,6 +67,103 @@ namespace quicksearch::models {
             m_mimeTypeInitialised = true;
         }
         return m_mimeType;
+    }
+
+    void FileSystemEntry::ensureDesktopDataLoaded() const {
+        if (m_desktopDataInitialised) {
+            return;
+        }
+
+        m_desktopDataInitialised = true;
+
+        if (m_fileInfo.suffix() == "desktop") {
+            m_desktopData = DesktopEntryParser::parse(m_path);
+        }
+    }
+
+    bool FileSystemEntry::isDesktopEntry() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value();
+    }
+
+    QString FileSystemEntry::appName() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->name : QString();
+    }
+
+    QString FileSystemEntry::genericName() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->genericName : QString();
+    }
+
+    QString FileSystemEntry::comment() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->comment : QString();
+    }
+
+    QString FileSystemEntry::appIcon() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->icon : QString();
+    }
+
+    QStringList FileSystemEntry::command() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->command : QStringList();
+    }
+
+    QString FileSystemEntry::execString() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->execString : QString();
+    }
+
+    QStringList FileSystemEntry::categories() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->categories : QStringList();
+    }
+
+    QStringList FileSystemEntry::keywords() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->keywords : QStringList();
+    }
+
+    QQmlListProperty<DesktopAction> FileSystemEntry::actions() const {
+        ensureDesktopDataLoaded();
+        if (m_desktopData.has_value()) {
+            return QQmlListProperty<DesktopAction>(
+                const_cast<FileSystemEntry*>(this),
+                const_cast<QList<DesktopAction*>*>(&m_desktopData->actions)
+            );
+        }
+        static QList<DesktopAction*> empty;
+        return QQmlListProperty<DesktopAction>(
+            const_cast<FileSystemEntry*>(this),
+            &empty
+        );
+    }
+
+    QString FileSystemEntry::desktopId() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->id : QString();
+    }
+
+    bool FileSystemEntry::noDisplay() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->noDisplay : false;
+    }
+
+    bool FileSystemEntry::runInTerminal() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->runInTerminal : false;
+    }
+
+    QString FileSystemEntry::workingDirectory() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->workingDirectory : QString();
+    }
+
+    QString FileSystemEntry::startupClass() const {
+        ensureDesktopDataLoaded();
+        return m_desktopData.has_value() ? m_desktopData->startupClass : QString();
     }
 
     void FileSystemEntry::updateRelativePath(const QDir& dir) {
@@ -332,7 +430,7 @@ namespace quicksearch::models {
     }
 
     void FileSystemModel::updateEntries() {
-        if (m_path.isEmpty()) {
+        if (m_path.isEmpty() && m_filter != Applications) {
             if (!m_entries.isEmpty()) {
                 beginResetModel();
                 qDeleteAll(m_entries);
@@ -349,7 +447,8 @@ namespace quicksearch::models {
         }
         m_futures.clear();
 
-        updateEntriesForDir(m_path);
+        // For Applications filter, use empty string as dir (will be ignored anyway)
+        updateEntriesForDir(m_filter == Applications ? QString() : m_path);
     }
 
     void FileSystemModel::updateEntriesForDir(const QString& dir) {
@@ -368,6 +467,74 @@ namespace quicksearch::models {
         }
 
         const auto future = QtConcurrent::run([=](QPromise<QPair<QSet<QString>, QSet<QString>>>& promise) {
+            // Handle Applications filter separately
+            if (filter == Applications) {
+                // Get XDG directories
+                QStringList xdgDirs = DesktopEntryParser::resolveXdgDataDirs();
+                QSet<QString> newPaths;
+                QMap<QString, QString> seenApps; // basename -> path (deduplication)
+
+                // Iterate through each XDG directory
+                for (const QString& xdgDir : xdgDirs) {
+                    QDirIterator appIter(xdgDir, QStringList() << "*.desktop", QDir::Files);
+
+                    while (appIter.hasNext()) {
+                        if (promise.isCanceled()) {
+                            return;
+                        }
+
+                        QString path = appIter.next();
+                        QString basename = QFileInfo(path).fileName();
+
+                        // Deduplication: prefer first (higher priority)
+                        if (seenApps.contains(basename)) {
+                            continue;
+                        }
+                        seenApps[basename] = path;
+
+                        // Parse desktop file
+                        auto desktopData = DesktopEntryParser::parse(path);
+                        if (!desktopData.has_value()) {
+                            continue;
+                        }
+
+                        // Honor NoDisplay (unless showHidden)
+                        if (desktopData->noDisplay && !showHidden) {
+                            continue;
+                        }
+
+                        // Fuzzy search across multiple fields
+                        if (!query.isEmpty()) {
+                            QString searchText = desktopData->name + " " +
+                                               desktopData->genericName + " " +
+                                               desktopData->comment + " " +
+                                               desktopData->keywords.join(' ');
+                            FuzzyMatch match = FuzzySearch::match(query, searchText);
+                            if (!match.isMatch || match.score < minScore) {
+                                continue;
+                            }
+                        }
+
+                        newPaths.insert(path);
+
+                        // Check maxResults
+                        if (maxResults > 0 && newPaths.size() >= maxResults) {
+                            break;
+                        }
+                    }
+                    if (maxResults > 0 && newPaths.size() >= maxResults) {
+                        break;
+                    }
+                }
+
+                if (promise.isCanceled() || newPaths == oldPaths) {
+                    return;
+                }
+
+                promise.addResult(qMakePair(oldPaths - newPaths, newPaths - oldPaths));
+                return;
+            }
+
             const auto flags = recursive ? QDirIterator::Subdirectories : QDirIterator::NoIteratorFlags;
 
             std::optional<QDirIterator> iter;
@@ -572,21 +739,51 @@ namespace quicksearch::models {
     bool FileSystemModel::compareEntries(const FileSystemEntry* a, const FileSystemEntry* b) const {
         // If query is set, sort by fuzzy match score first
         if (!m_query.isEmpty()) {
-            // Use cached scores to avoid recalculation
             double scoreA;
-            if (m_scoreCache.contains(a->name())) {
-                scoreA = m_scoreCache[a->name()];
-            } else {
-                scoreA = FuzzySearch::calculateScore(m_query, a->name());
-                m_scoreCache[a->name()] = scoreA;
-            }
-
             double scoreB;
-            if (m_scoreCache.contains(b->name())) {
-                scoreB = m_scoreCache[b->name()];
+
+            // For Applications filter, search across multiple fields
+            if (m_filter == Applications) {
+                QString keyA = a->path();
+                QString keyB = b->path();
+
+                if (m_scoreCache.contains(keyA)) {
+                    scoreA = m_scoreCache[keyA];
+                } else {
+                    // Build composite search text
+                    QString textA = a->appName() + " " +
+                                   a->genericName() + " " +
+                                   a->comment() + " " +
+                                   a->keywords().join(' ');
+                    scoreA = FuzzySearch::calculateScore(m_query, textA);
+                    m_scoreCache[keyA] = scoreA;
+                }
+
+                if (m_scoreCache.contains(keyB)) {
+                    scoreB = m_scoreCache[keyB];
+                } else {
+                    QString textB = b->appName() + " " +
+                                   b->genericName() + " " +
+                                   b->comment() + " " +
+                                   b->keywords().join(' ');
+                    scoreB = FuzzySearch::calculateScore(m_query, textB);
+                    m_scoreCache[keyB] = scoreB;
+                }
             } else {
-                scoreB = FuzzySearch::calculateScore(m_query, b->name());
-                m_scoreCache[b->name()] = scoreB;
+                // For other filters, use file name
+                if (m_scoreCache.contains(a->name())) {
+                    scoreA = m_scoreCache[a->name()];
+                } else {
+                    scoreA = FuzzySearch::calculateScore(m_query, a->name());
+                    m_scoreCache[a->name()] = scoreA;
+                }
+
+                if (m_scoreCache.contains(b->name())) {
+                    scoreB = m_scoreCache[b->name()];
+                } else {
+                    scoreB = FuzzySearch::calculateScore(m_query, b->name());
+                    m_scoreCache[b->name()] = scoreB;
+                }
             }
 
             if (!qFuzzyCompare(scoreA, scoreB)) {

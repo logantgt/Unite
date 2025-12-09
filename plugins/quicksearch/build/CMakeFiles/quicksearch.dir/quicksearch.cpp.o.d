@@ -398,8 +398,11 @@ CMakeFiles/quicksearch.dir/quicksearch.cpp.o: \
  /usr/include/qt6/QtCore/qmimetype.h /usr/include/qt6/QtCore/qobject.h \
  /usr/include/qt6/QtQmlIntegration/qqmlintegration.h \
  /usr/include/qt6/QtQml/qqmllist.h \
- /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/fuzzysearch.hpp \
+ /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.hpp \
  /usr/include/qt6/QtCore/QString /usr/include/qt6/QtCore/qstring.h \
+ /usr/include/qt6/QtCore/QList /usr/include/qt6/QtCore/qlist.h \
+ /usr/include/qt6/QtCore/QSettings /usr/include/qt6/QtCore/qsettings.h \
+ /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/fuzzysearch.hpp \
  /usr/include/qt6/QtCore/QVector /usr/include/qt6/QtCore/qvector.h \
  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.hpp \
  /usr/include/qt6/QtQuick/qquickitem.h \
@@ -408,8 +411,7 @@ CMakeFiles/quicksearch.dir/quicksearch.cpp.o: \
  /usr/include/qt6/QtQuick/qtquickexports.h \
  /usr/include/qt6/QtQml/qqmlcomponent.h \
  /usr/include/qt6/QtQml/qqmlerror.h /usr/include/qt6/QtCore/QObject \
- /usr/include/qt6/QtCore/QList /usr/include/qt6/QtCore/qlist.h \
- /usr/include/qt6/QtCore/qproperty.h \
+ /usr/include/qt6/QtCore/QList /usr/include/qt6/QtCore/qproperty.h \
  /usr/include/qt6/QtCore/qpropertyprivate.h \
  /usr/include/c++/15/experimental/source_location \
  /usr/include/qt6/QtGui/qevent.h /usr/include/qt6/QtGui/qeventpoint.h \

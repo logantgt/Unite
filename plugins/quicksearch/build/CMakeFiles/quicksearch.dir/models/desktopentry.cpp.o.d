@@ -1,9 +1,10 @@
-CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
- /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.cpp \
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o: \
+ /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp \
  /usr/include/stdc-predef.h \
- /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.hpp \
- /usr/include/qt6/QtCore/qabstractitemmodel.h \
- /usr/include/qt6/QtCore/qcompare.h /usr/include/qt6/QtCore/qglobal.h \
+ /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.hpp \
+ /usr/include/qt6/QtCore/QObject /usr/include/qt6/QtCore/qobject.h \
+ /usr/include/qt6/QtCore/qobjectdefs.h \
+ /usr/include/qt6/QtCore/qnamespace.h /usr/include/qt6/QtCore/qglobal.h \
  /usr/include/c++/15/type_traits \
  /usr/include/c++/15/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
@@ -137,6 +138,7 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/qt6/QtCore/qtresource.h \
  /usr/include/qt6/QtCore/qttranslation.h \
  /usr/include/qt6/QtCore/qversiontagging.h \
+ /usr/include/qt6/QtCore/qcompare.h \
  /usr/include/qt6/QtCore/qstdlibdetection.h \
  /usr/include/qt6/QtCore/qcomparehelpers.h \
  /usr/include/qt6/QtCore/q20type_traits.h /usr/include/c++/15/functional \
@@ -163,25 +165,21 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/c++/15/bits/stl_vector.h \
  /usr/include/c++/15/bits/stl_bvector.h \
  /usr/include/c++/15/bits/vector.tcc /usr/include/c++/15/array \
- /usr/include/c++/15/compare /usr/include/qt6/QtCore/qhash.h \
- /usr/include/qt6/QtCore/qalgorithms.h \
- /usr/include/qt6/QtCore/qcontainertools_impl.h \
- /usr/include/qt6/QtCore/qxptype_traits.h /usr/include/c++/15/cstring \
- /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/15/iterator /usr/include/c++/15/bits/stream_iterator.h \
- /usr/include/c++/15/iosfwd /usr/include/c++/15/bits/stringfwd.h \
- /usr/include/c++/15/bits/postypes.h /usr/include/c++/15/cwchar \
- /usr/include/wchar.h \
+ /usr/include/c++/15/compare /usr/include/qt6/QtCore/qtmetamacros.h \
+ /usr/include/qt6/QtCore/qobjectdefs_impl.h \
+ /usr/include/qt6/QtCore/qfunctionaltools_impl.h \
+ /usr/include/c++/15/memory \
+ /usr/include/c++/15/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/15/bits/align.h /usr/include/c++/15/bits/unique_ptr.h \
+ /usr/include/c++/15/bits/shared_ptr.h /usr/include/c++/15/iosfwd \
+ /usr/include/c++/15/bits/stringfwd.h /usr/include/c++/15/bits/postypes.h \
+ /usr/include/c++/15/cwchar /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-redhat-linux/15/include/stdarg.h \
  /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
  /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h \
- /usr/include/c++/15/bits/streambuf_iterator.h \
- /usr/include/c++/15/streambuf /usr/include/c++/15/bits/localefwd.h \
- /usr/include/c++/15/x86_64-redhat-linux/bits/c++locale.h \
- /usr/include/c++/15/clocale /usr/include/locale.h \
- /usr/include/bits/locale.h /usr/include/c++/15/cctype \
- /usr/include/ctype.h /usr/include/c++/15/bits/ios_base.h \
+ /usr/include/c++/15/bits/shared_ptr_base.h \
+ /usr/include/c++/15/bits/allocated_ptr.h \
  /usr/include/c++/15/ext/atomicity.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/gthr.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/gthr-default.h \
@@ -199,7 +197,26 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/bits/types/struct___jmp_buf_tag.h \
  /usr/include/bits/pthread_stack_min-dynamic.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/atomic_word.h \
- /usr/include/sys/single_threaded.h \
+ /usr/include/sys/single_threaded.h /usr/include/c++/15/ext/concurrence.h \
+ /usr/include/c++/15/bits/shared_ptr_atomic.h \
+ /usr/include/c++/15/backward/auto_ptr.h \
+ /usr/include/c++/15/pstl/glue_memory_defs.h \
+ /usr/include/qt6/QtCore/qstring.h /usr/include/qt6/QtCore/qchar.h \
+ /usr/include/qt6/QtCore/qstringview.h \
+ /usr/include/qt6/QtCore/qbytearray.h /usr/include/qt6/QtCore/qrefcount.h \
+ /usr/include/qt6/QtCore/qarraydata.h /usr/include/qt6/QtCore/qpair.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/qt6/QtCore/qarraydatapointer.h \
+ /usr/include/qt6/QtCore/qarraydataops.h \
+ /usr/include/qt6/QtCore/qcontainertools_impl.h \
+ /usr/include/qt6/QtCore/qxptype_traits.h /usr/include/c++/15/cstring \
+ /usr/include/c++/15/iterator /usr/include/c++/15/bits/stream_iterator.h \
+ /usr/include/c++/15/bits/streambuf_iterator.h \
+ /usr/include/c++/15/streambuf /usr/include/c++/15/bits/localefwd.h \
+ /usr/include/c++/15/x86_64-redhat-linux/bits/c++locale.h \
+ /usr/include/c++/15/clocale /usr/include/locale.h \
+ /usr/include/bits/locale.h /usr/include/c++/15/cctype \
+ /usr/include/ctype.h /usr/include/c++/15/bits/ios_base.h \
  /usr/include/c++/15/bits/locale_classes.h /usr/include/c++/15/string \
  /usr/include/c++/15/bits/char_traits.h \
  /usr/include/c++/15/bits/ostream_insert.h \
@@ -221,25 +238,6 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/c++/15/system_error \
  /usr/include/c++/15/x86_64-redhat-linux/bits/error_constants.h \
  /usr/include/c++/15/stdexcept /usr/include/c++/15/bits/streambuf.tcc \
- /usr/include/c++/15/memory \
- /usr/include/c++/15/bits/stl_raw_storage_iter.h \
- /usr/include/c++/15/bits/align.h /usr/include/c++/15/bits/unique_ptr.h \
- /usr/include/c++/15/bits/shared_ptr.h \
- /usr/include/c++/15/bits/shared_ptr_base.h \
- /usr/include/c++/15/bits/allocated_ptr.h \
- /usr/include/c++/15/ext/concurrence.h \
- /usr/include/c++/15/bits/shared_ptr_atomic.h \
- /usr/include/c++/15/backward/auto_ptr.h \
- /usr/include/c++/15/pstl/glue_memory_defs.h \
- /usr/include/qt6/QtCore/qhashfunctions.h \
- /usr/include/qt6/QtCore/qstring.h /usr/include/qt6/QtCore/qchar.h \
- /usr/include/qt6/QtCore/qstringview.h \
- /usr/include/qt6/QtCore/qbytearray.h /usr/include/qt6/QtCore/qrefcount.h \
- /usr/include/qt6/QtCore/qnamespace.h \
- /usr/include/qt6/QtCore/qtmetamacros.h \
- /usr/include/qt6/QtCore/qarraydata.h /usr/include/qt6/QtCore/qpair.h \
- /usr/include/qt6/QtCore/qarraydatapointer.h \
- /usr/include/qt6/QtCore/qarraydataops.h \
  /usr/include/qt6/QtCore/q20functional.h \
  /usr/include/qt6/QtCore/q20memory.h /usr/include/qt6/QtCore/q17memory.h \
  /usr/include/qt6/QtCore/qbytearrayalgorithms.h \
@@ -254,15 +252,14 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/qt6/QtCore/qstringbuilder.h \
  /usr/include/qt6/QtCore/qstringconverter.h \
  /usr/include/qt6/QtCore/qstringconverter_base.h \
+ /usr/include/qt6/QtCore/qlist.h /usr/include/qt6/QtCore/qhashfunctions.h \
  /usr/include/c++/15/numeric /usr/include/c++/15/bits/stl_numeric.h \
  /usr/include/c++/15/pstl/glue_numeric_defs.h \
- /usr/include/qt6/QtCore/qiterator.h /usr/include/qt6/QtCore/qlist.h \
+ /usr/include/qt6/QtCore/qiterator.h \
  /usr/include/qt6/QtCore/qbytearraylist.h \
  /usr/include/qt6/QtCore/qstringlist.h \
+ /usr/include/qt6/QtCore/qalgorithms.h \
  /usr/include/qt6/QtCore/qstringmatcher.h \
- /usr/include/qt6/QtCore/qobject.h /usr/include/qt6/QtCore/qobjectdefs.h \
- /usr/include/qt6/QtCore/qobjectdefs_impl.h \
- /usr/include/qt6/QtCore/qfunctionaltools_impl.h \
  /usr/include/qt6/QtCore/qscopedpointer.h \
  /usr/include/qt6/QtCore/qmetatype.h \
  /usr/include/qt6/QtCore/qdatastream.h \
@@ -281,8 +278,13 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/qt6/QtCore/qobject_impl.h \
  /usr/include/qt6/QtCore/qbindingstorage.h /usr/include/c++/15/chrono \
  /usr/include/c++/15/bits/chrono.h /usr/include/c++/15/ratio \
- /usr/include/c++/15/ctime /usr/include/qt6/QtCore/qvariant.h \
- /usr/include/qt6/QtCore/qdebug.h /usr/include/qt6/QtCore/qtextstream.h \
+ /usr/include/c++/15/ctime /usr/include/qt6/QtCore/QString \
+ /usr/include/qt6/QtCore/qstring.h /usr/include/qt6/QtCore/QStringList \
+ /usr/include/qt6/QtCore/qstringlist.h /usr/include/qt6/QtCore/QList \
+ /usr/include/qt6/QtCore/qlist.h /usr/include/qt6/QtCore/QSettings \
+ /usr/include/qt6/QtCore/qsettings.h /usr/include/qt6/QtCore/qobject.h \
+ /usr/include/qt6/QtCore/qvariant.h /usr/include/qt6/QtCore/qdebug.h \
+ /usr/include/qt6/QtCore/qtextstream.h \
  /usr/include/qt6/QtCore/qcontiguouscache.h /usr/include/c++/15/climits \
  /usr/lib/gcc/x86_64-redhat-linux/15/include/limits.h \
  /usr/lib/gcc/x86_64-redhat-linux/15/include/syslimits.h \
@@ -297,15 +299,15 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/c++/15/unordered_set \
  /usr/include/c++/15/bits/unordered_set.h /usr/include/qt6/QtCore/qmap.h \
  /usr/include/qt6/QtCore/qshareddata_impl.h \
- /usr/include/qt6/QtCore/qset.h /usr/include/qt6/QtCore/qvarlengtharray.h \
+ /usr/include/qt6/QtCore/qset.h /usr/include/qt6/QtCore/qhash.h \
+ /usr/include/qt6/QtCore/qvarlengtharray.h \
  /usr/include/qt6/QtCore/q23utility.h \
- /usr/include/qt6/QtCore/q20utility.h /usr/include/qt6/QtCore/qdir.h \
- /usr/include/qt6/QtCore/qdirlisting.h \
- /usr/include/qt6/QtCore/qfiledevice.h \
+ /usr/include/qt6/QtCore/q20utility.h \
+ /usr/include/qt6/QtQmlIntegration/qqmlintegration.h \
+ /usr/include/qt6/QtCore/QFileInfo /usr/include/qt6/QtCore/qfileinfo.h \
+ /usr/include/qt6/QtCore/qfile.h /usr/include/qt6/QtCore/qfiledevice.h \
  /usr/include/qt6/QtCore/qiodevice.h /usr/include/qt6/QtCore/qspan.h \
  /usr/include/c++/15/cassert /usr/include/qt6/QtCore/q20iterator.h \
- /usr/include/qt6/QtCore/qdatetime.h /usr/include/qt6/QtCore/qcalendar.h \
- /usr/include/qt6/QtCore/qlocale.h /usr/include/qt6/QtCore/qfile.h \
  /usr/include/c++/15/filesystem /usr/include/c++/15/bits/fs_fwd.h \
  /usr/include/c++/15/bits/fs_path.h /usr/include/c++/15/locale \
  /usr/include/c++/15/bits/locale_facets.h /usr/include/c++/15/cwctype \
@@ -327,80 +329,10 @@ CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o: \
  /usr/include/c++/15/bits/istream.tcc \
  /usr/include/c++/15/bits/sstream.tcc /usr/include/c++/15/codecvt \
  /usr/include/c++/15/bits/fs_dir.h /usr/include/c++/15/bits/fs_ops.h \
- /usr/include/qt6/QtCore/qfileinfo.h /usr/include/qt6/QtCore/qtimezone.h \
- /usr/include/qt6/QtCore/qfilesystemwatcher.h \
- /usr/include/qt6/QtCore/qfuture.h \
- /usr/include/qt6/QtCore/qfutureinterface.h \
- /usr/include/qt6/QtCore/qmutex.h \
- /usr/include/qt6/QtCore/qdeadlinetimer.h \
- /usr/include/qt6/QtCore/qelapsedtimer.h \
- /usr/include/qt6/QtCore/qtsan_impl.h \
- /usr/include/qt6/QtCore/qresultstore.h \
- /usr/include/qt6/QtCore/qfuture_impl.h \
- /usr/include/qt6/QtCore/qthreadpool.h /usr/include/qt6/QtCore/qthread.h \
- /usr/include/c++/15/future /usr/include/c++/15/mutex \
- /usr/include/c++/15/bits/std_mutex.h \
- /usr/include/c++/15/bits/unique_lock.h \
- /usr/include/c++/15/condition_variable \
- /usr/include/c++/15/bits/atomic_futex.h \
- /usr/include/c++/15/bits/std_thread.h \
- /usr/include/qt6/QtCore/qrunnable.h /usr/include/qt6/QtCore/qexception.h \
- /usr/include/qt6/QtCore/qpromise.h /usr/include/qt6/QtGui/qimagereader.h \
- /usr/include/qt6/QtGui/qtguiglobal.h \
- /usr/include/qt6/QtGui/qtgui-config.h \
- /usr/include/qt6/QtGui/qtguiexports.h \
- /usr/include/qt6/QtCore/qcoreapplication.h \
- /usr/include/qt6/QtCore/qcoreevent.h \
- /usr/include/qt6/QtCore/qbasictimer.h \
- /usr/include/qt6/QtCore/qabstracteventdispatcher.h \
- /usr/include/qt6/QtCore/qeventloop.h \
- /usr/include/qt6/QtCore/qnativeinterface.h \
- /usr/include/qt6/QtCore/qcoreapplication_platform.h \
- /usr/include/qt6/QtGui/qimage.h /usr/include/qt6/QtGui/qcolor.h \
- /usr/include/qt6/QtGui/qrgb.h /usr/include/qt6/QtGui/qrgba64.h \
- /usr/include/qt6/QtGui/qpaintdevice.h \
- /usr/include/qt6/QtGui/qwindowdefs.h /usr/include/qt6/QtCore/qrect.h \
- /usr/include/qt6/QtCore/qmargins.h /usr/include/qt6/QtCore/qsize.h \
- /usr/include/qt6/QtCore/qpoint.h /usr/include/qt6/QtGui/qpixelformat.h \
- /usr/include/qt6/QtGui/qtransform.h /usr/include/qt6/QtGui/qpolygon.h \
- /usr/include/qt6/QtGui/qregion.h /usr/include/qt6/QtCore/qline.h \
- /usr/include/qt6/QtGui/qimageiohandler.h \
- /usr/include/qt6/QtCore/qplugin.h /usr/include/qt6/QtCore/qpointer.h \
- /usr/include/qt6/QtCore/qjsonobject.h \
- /usr/include/qt6/QtCore/qjsonvalue.h \
- /usr/include/qt6/QtCore/qcborvalue.h \
- /usr/include/qt6/QtCore/qcborcommon.h \
- /usr/include/qt6/QtCore/qregularexpression.h \
- /usr/include/qt6/QtCore/qurl.h /usr/include/qt6/QtCore/quuid.h \
- /usr/include/qt6/QtCore/qendian.h \
- /usr/include/qt6/QtCore/qjsondocument.h \
- /usr/include/qt6/QtCore/qjsonparseerror.h \
- /usr/include/qt6/QtCore/q20algorithm.h \
- /usr/include/qt6/QtCore/qfactoryinterface.h \
- /usr/include/qt6/QtCore/qmimedatabase.h \
- /usr/include/qt6/QtCore/qmimetype.h /usr/include/qt6/QtCore/qobject.h \
- /usr/include/qt6/QtQmlIntegration/qqmlintegration.h \
- /usr/include/qt6/QtQml/qqmllist.h /usr/include/qt6/QtQml/qtqmlglobal.h \
- /usr/include/qt6/QtQml/qtqml-config.h \
- /usr/include/qt6/QtNetwork/qtnetworkglobal.h \
- /usr/include/qt6/QtNetwork/qtnetwork-config.h \
- /usr/include/qt6/QtNetwork/qtnetworkexports.h \
- /usr/include/qt6/QtQml/qtqmlexports.h \
- /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.hpp \
- /usr/include/qt6/QtCore/QObject /usr/include/qt6/QtCore/qobject.h \
- /usr/include/qt6/QtCore/QString /usr/include/qt6/QtCore/qstring.h \
- /usr/include/qt6/QtCore/QStringList \
- /usr/include/qt6/QtCore/qstringlist.h /usr/include/qt6/QtCore/QList \
- /usr/include/qt6/QtCore/qlist.h /usr/include/qt6/QtCore/QSettings \
- /usr/include/qt6/QtCore/qsettings.h \
- /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/fuzzysearch.hpp \
- /usr/include/qt6/QtCore/QVector /usr/include/qt6/QtCore/qvector.h \
- /usr/include/qt6/QtCore/qdiriterator.h /usr/include/qt6/QtCore/qdir.h \
- /usr/include/qt6/QtCore/qfuturewatcher.h \
- /usr/include/qt6/QtCore/qfuture.h \
- /usr/include/qt6/QtConcurrent/qtconcurrentrun.h \
- /usr/include/qt6/QtConcurrent/qtconcurrentcompilertest.h \
- /usr/include/qt6/QtConcurrent/qtconcurrent_global.h \
- /usr/include/qt6/QtConcurrent/qtconcurrentexports.h \
- /usr/include/qt6/QtConcurrent/qtconcurrentrunbase.h \
- /usr/include/qt6/QtConcurrent/qtconcurrentstoredfunctioncall.h
+ /usr/include/qt6/QtCore/qdatetime.h /usr/include/qt6/QtCore/qcalendar.h \
+ /usr/include/qt6/QtCore/qlocale.h /usr/include/qt6/QtCore/qtimezone.h \
+ /usr/include/qt6/QtCore/QDir /usr/include/qt6/QtCore/qdir.h \
+ /usr/include/qt6/QtCore/qdirlisting.h \
+ /usr/include/qt6/QtCore/qfileinfo.h /usr/include/qt6/QtCore/QLocale \
+ /usr/include/qt6/QtCore/qlocale.h /usr/include/qt6/QtCore/QDebug \
+ /usr/include/qt6/QtCore/qdebug.h

@@ -57,7 +57,23 @@ template <> constexpr inline auto quicksearch::models::FileSystemEntry::qt_creat
         "size",
         "isDir",
         "isImage",
-        "mimeType"
+        "mimeType",
+        "isDesktopEntry",
+        "appName",
+        "genericName",
+        "comment",
+        "appIcon",
+        "command",
+        "execString",
+        "categories",
+        "keywords",
+        "actions",
+        "QQmlListProperty<quicksearch::models::DesktopAction>",
+        "desktopId",
+        "noDisplay",
+        "runInTerminal",
+        "workingDirectory",
+        "startupClass"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -85,6 +101,36 @@ template <> constexpr inline auto quicksearch::models::FileSystemEntry::qt_creat
         QtMocHelpers::PropertyData<bool>(17, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'mimeType'
         QtMocHelpers::PropertyData<QString>(18, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'isDesktopEntry'
+        QtMocHelpers::PropertyData<bool>(19, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'appName'
+        QtMocHelpers::PropertyData<QString>(20, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'genericName'
+        QtMocHelpers::PropertyData<QString>(21, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'comment'
+        QtMocHelpers::PropertyData<QString>(22, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'appIcon'
+        QtMocHelpers::PropertyData<QString>(23, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'command'
+        QtMocHelpers::PropertyData<QStringList>(24, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'execString'
+        QtMocHelpers::PropertyData<QString>(25, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'categories'
+        QtMocHelpers::PropertyData<QStringList>(26, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'keywords'
+        QtMocHelpers::PropertyData<QStringList>(27, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'actions'
+        QtMocHelpers::PropertyData<QQmlListProperty<quicksearch::models::DesktopAction>>(28, 0x80000000 | 29, QMC::DefaultPropertyFlags | QMC::EnumOrFlag | QMC::Constant),
+        // property 'desktopId'
+        QtMocHelpers::PropertyData<QString>(30, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'noDisplay'
+        QtMocHelpers::PropertyData<bool>(31, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'runInTerminal'
+        QtMocHelpers::PropertyData<bool>(32, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'workingDirectory'
+        QtMocHelpers::PropertyData<QString>(33, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
+        // property 'startupClass'
+        QtMocHelpers::PropertyData<QString>(34, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Constant),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -133,6 +179,21 @@ void quicksearch::models::FileSystemEntry::qt_static_metacall(QObject *_o, QMeta
         case 7: *reinterpret_cast<bool*>(_v) = _t->isDir(); break;
         case 8: *reinterpret_cast<bool*>(_v) = _t->isImage(); break;
         case 9: *reinterpret_cast<QString*>(_v) = _t->mimeType(); break;
+        case 10: *reinterpret_cast<bool*>(_v) = _t->isDesktopEntry(); break;
+        case 11: *reinterpret_cast<QString*>(_v) = _t->appName(); break;
+        case 12: *reinterpret_cast<QString*>(_v) = _t->genericName(); break;
+        case 13: *reinterpret_cast<QString*>(_v) = _t->comment(); break;
+        case 14: *reinterpret_cast<QString*>(_v) = _t->appIcon(); break;
+        case 15: *reinterpret_cast<QStringList*>(_v) = _t->command(); break;
+        case 16: *reinterpret_cast<QString*>(_v) = _t->execString(); break;
+        case 17: *reinterpret_cast<QStringList*>(_v) = _t->categories(); break;
+        case 18: *reinterpret_cast<QStringList*>(_v) = _t->keywords(); break;
+        case 19: *reinterpret_cast<QQmlListProperty<quicksearch::models::DesktopAction>*>(_v) = _t->actions(); break;
+        case 20: *reinterpret_cast<QString*>(_v) = _t->desktopId(); break;
+        case 21: *reinterpret_cast<bool*>(_v) = _t->noDisplay(); break;
+        case 22: *reinterpret_cast<bool*>(_v) = _t->runInTerminal(); break;
+        case 23: *reinterpret_cast<QString*>(_v) = _t->workingDirectory(); break;
+        case 24: *reinterpret_cast<QString*>(_v) = _t->startupClass(); break;
         default: break;
         }
     }
@@ -170,7 +231,7 @@ int quicksearch::models::FileSystemEntry::qt_metacall(QMetaObject::Call _c, int 
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 25;
     }
     return _id;
 }
@@ -221,7 +282,8 @@ template <> constexpr inline auto quicksearch::models::FileSystemModel::qt_creat
         "NoFilter",
         "Images",
         "Files",
-        "Dirs"
+        "Dirs",
+        "Applications"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -283,6 +345,7 @@ template <> constexpr inline auto quicksearch::models::FileSystemModel::qt_creat
             {   31, Filter::Images },
             {   32, Filter::Files },
             {   33, Filter::Dirs },
+            {   34, Filter::Applications },
         }),
     };
     QtMocHelpers::UintData qt_constructors {};

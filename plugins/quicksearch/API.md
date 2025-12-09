@@ -34,7 +34,8 @@ ListView {
 | Class | Type | Purpose |
 |-------|------|---------|
 | `FileSystemModel` | QAbstractListModel | Primary API - filesystem browser with fuzzy search |
-| `FileSystemEntry` | QObject (uncreatable) | File/directory entry with metadata |
+| `FileSystemEntry` | QObject (uncreatable) | File/directory entry with metadata and desktop app info |
+| `DesktopAction` | QObject (uncreatable) | Desktop action from .desktop file |
 | `QuickSearch` | QObject | Simple query/paths holder |
 | `CachingImageManager` | QObject | Image caching utility for performance |
 
@@ -54,6 +55,7 @@ Controls what types of filesystem entries to include in results.
 | `Files` | `FileSystemModel.Files` | Only show files |
 | `Dirs` | `FileSystemModel.Dirs` | Only show directories |
 | `Images` | `FileSystemModel.Images` | Only show readable image files |
+| `Applications` | `FileSystemModel.Applications` | Show installed applications from XDG directories |
 
 ## Properties
 
@@ -185,6 +187,20 @@ FileSystemModel {
 }
 ```
 
+### Search Installed Applications
+
+```qml
+FileSystemModel {
+    filter: FileSystemModel.Applications
+    query: "firefox"              // Fuzzy search across app name, description, keywords
+    showHidden: false             // Hide NoDisplay=true apps
+    maxResults: 50                // Limit results
+
+    // NOTE: path property is ignored for Applications filter
+    // Automatically searches XDG_DATA_HOME and XDG_DATA_DIRS
+}
+```
+
 ### Performance Optimization
 
 ```qml
@@ -228,6 +244,8 @@ Represents a single file or directory entry. **Cannot be created directly in QML
 
 All properties are **read-only** and computed from the filesystem.
 
+### Basic File Properties
+
 | Property | Type | Description |
 |----------|------|-------------|
 | `path` | `string` | Absolute file path |
@@ -240,6 +258,28 @@ All properties are **read-only** and computed from the filesystem.
 | `isDir` | `bool` | `true` if entry is a directory |
 | `isImage` | `bool` | `true` if entry is a readable image |
 | `mimeType` | `string` | MIME type of the file |
+
+### Desktop Entry Properties
+
+Available when `filter: FileSystemModel.Applications` and `isDesktopEntry` is `true`. Compatible with Quickshell DesktopEntry API.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `isDesktopEntry` | `bool` | `true` if this entry is a parsed .desktop file |
+| `appName` | `string` | Application name (localized) |
+| `genericName` | `string` | Generic application name (e.g., "Web Browser") |
+| `comment` | `string` | Application description/comment |
+| `appIcon` | `string` | Icon name or path |
+| `command` | `list<string>` | Parsed command array (field codes removed) |
+| `execString` | `string` | Raw Exec string from .desktop file |
+| `categories` | `list<string>` | Application categories |
+| `keywords` | `list<string>` | Search keywords (localized) |
+| `actions` | `list<DesktopAction>` | Desktop actions for this application |
+| `desktopId` | `string` | Desktop file ID (filename) |
+| `noDisplay` | `bool` | `true` if NoDisplay=true in .desktop file |
+| `runInTerminal` | `bool` | `true` if Terminal=true in .desktop file |
+| `workingDirectory` | `string` | Working directory (Path key) |
+| `startupClass` | `string` | StartupWMClass value |
 
 ## Signals
 
@@ -301,6 +341,53 @@ delegate: Item {
     Image {
         visible: modelData.isImage
         source: modelData.path
+    }
+}
+```
+
+---
+
+# DesktopAction
+
+Represents a desktop action from a .desktop file (e.g., "New Window", "New Private Window"). **Cannot be created directly in QML** - instances are only obtained from `FileSystemEntry.actions`.
+
+Compatible with Quickshell DesktopAction API.
+
+## Properties
+
+All properties are **read-only**.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | `string` | Action identifier |
+| `name` | `string` | Action name (localized) |
+| `execString` | `string` | Raw Exec string for this action |
+| `icon` | `string` | Icon name or path for this action |
+| `command` | `list<string>` | Parsed command array (field codes removed) |
+
+## Usage Example
+
+```qml
+ListView {
+    model: FileSystemModel {
+        filter: FileSystemModel.Applications
+        query: "firefox"
+    }
+
+    delegate: Column {
+        Text { text: modelData.appName }
+
+        // Show available actions
+        Repeater {
+            model: modelData.actions
+            delegate: Button {
+                text: modelData.name
+                onClicked: {
+                    console.log("Execute:", modelData.command)
+                    // Use modelData.command to launch the action
+                }
+            }
+        }
     }
 }
 ```
@@ -487,6 +574,106 @@ ApplicationWindow {
 }
 ```
 
+## Application Launcher
+
+```qml
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QuickSearch
+
+ApplicationWindow {
+    visible: true
+    width: 600
+    height: 400
+
+    Column {
+        anchors.fill: parent
+        spacing: 10
+
+        TextField {
+            id: searchField
+            width: parent.width
+            placeholderText: "Search applications..."
+        }
+
+        ListView {
+            width: parent.width
+            height: parent.height - searchField.height - 10
+
+            model: FileSystemModel {
+                filter: FileSystemModel.Applications
+                query: searchField.text
+                showHidden: false  // Hide NoDisplay apps
+                maxResults: 50
+            }
+
+            delegate: ItemDelegate {
+                width: ListView.view.width
+                height: 80
+
+                contentItem: RowLayout {
+                    spacing: 15
+
+                    // Icon placeholder
+                    Rectangle {
+                        width: 48
+                        height: 48
+                        radius: 8
+                        color: "#3498db"
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: modelData.appIcon
+                            color: "white"
+                        }
+                    }
+
+                    // App info
+                    ColumnLayout {
+                        Layout.fillWidth: true
+
+                        Text {
+                            text: modelData.appName
+                            font.bold: true
+                            font.pointSize: 12
+                        }
+
+                        Text {
+                            text: modelData.comment
+                            font.pointSize: 9
+                            color: "#666"
+                            elide: Text.ElideRight
+                            Layout.fillWidth: true
+                        }
+
+                        // Show actions if available
+                        Row {
+                            spacing: 5
+                            visible: modelData.actions.length > 0
+
+                            Repeater {
+                                model: modelData.actions
+                                delegate: Button {
+                                    text: modelData.name
+                                    height: 20
+                                    font.pointSize: 8
+                                }
+                            }
+                        }
+                    }
+                }
+
+                onClicked: {
+                    console.log("Launch:", modelData.command)
+                    // Execute: modelData.command
+                }
+            }
+        }
+    }
+}
+```
+
 ## Image Gallery with Caching
 
 ```qml
@@ -554,10 +741,11 @@ FileSystemModel {
 ## Filter Enum Values
 
 ```
-FileSystemModel.NoFilter  - All entries
-FileSystemModel.Files     - Only files
-FileSystemModel.Dirs      - Only directories
-FileSystemModel.Images    - Only images
+FileSystemModel.NoFilter       - All entries
+FileSystemModel.Files          - Only files
+FileSystemModel.Dirs           - Only directories
+FileSystemModel.Images         - Only images
+FileSystemModel.Applications   - Installed applications (XDG)
 ```
 
 ## Property Change Signals

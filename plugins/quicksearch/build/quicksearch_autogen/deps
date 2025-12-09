@@ -7,6 +7,8 @@ quicksearch_autogen/timestamp: \
 	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearchplugin_QuickSearchPlugin_in.cpp \
 	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.cpp \
 	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.hpp \
+	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp \
+	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.hpp \
 	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.cpp \
 	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.hpp \
 	/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/fuzzysearch.cpp \
@@ -290,6 +292,7 @@ quicksearch_autogen/timestamp: \
 	/usr/include/qt6/QtCore/QList \
 	/usr/include/qt6/QtCore/QObject \
 	/usr/include/qt6/QtCore/QRect \
+	/usr/include/qt6/QtCore/QSettings \
 	/usr/include/qt6/QtCore/QSize \
 	/usr/include/qt6/QtCore/QSizeF \
 	/usr/include/qt6/QtCore/QString \
@@ -416,6 +419,7 @@ quicksearch_autogen/timestamp: \
 	/usr/include/qt6/QtCore/qscopedpointer.h \
 	/usr/include/qt6/QtCore/qscopeguard.h \
 	/usr/include/qt6/QtCore/qset.h \
+	/usr/include/qt6/QtCore/qsettings.h \
 	/usr/include/qt6/QtCore/qshareddata.h \
 	/usr/include/qt6/QtCore/qshareddata_impl.h \
 	/usr/include/qt6/QtCore/qsharedpointer.h \

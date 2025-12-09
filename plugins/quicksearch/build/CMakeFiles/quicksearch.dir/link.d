@@ -7,6 +7,7 @@ libquicksearch.so: \
   CMakeFiles/quicksearch.dir/quicksearch.cpp.o \
   CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o \
   CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o \
+  CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o \
   CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o \
   /usr/lib64/libQt6Quick.so.6.9.3 \
   /usr/lib64/libQt6Concurrent.so.6.9.3 \
@@ -60,6 +61,8 @@ CMakeFiles/quicksearch.dir/quicksearch.cpp.o:
 CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o:
 
 CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o:
+
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o:
 
 CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o:
 

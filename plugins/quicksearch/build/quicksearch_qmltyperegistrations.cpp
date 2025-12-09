@@ -10,6 +10,9 @@
 #if __has_include(<cachingimagemanager.hpp>)
 #  include <cachingimagemanager.hpp>
 #endif
+#if __has_include(<desktopentry.hpp>)
+#  include <desktopentry.hpp>
+#endif
 #if __has_include(<filesystemmodel.hpp>)
 #  include <filesystemmodel.hpp>
 #endif
@@ -28,6 +31,7 @@ Q_QMLTYPE_EXPORT void qml_register_types_QuickSearch()
     QT_WARNING_PUSH QT_WARNING_DISABLE_DEPRECATED
     qmlRegisterTypesAndRevisions<QuickSearch>("QuickSearch", 1);
     qmlRegisterTypesAndRevisions<quicksearch::internal::CachingImageManager>("QuickSearch", 1);
+    qmlRegisterTypesAndRevisions<quicksearch::models::DesktopAction>("QuickSearch", 1);
     qmlRegisterTypesAndRevisions<quicksearch::models::FileSystemEntry>("QuickSearch", 1);
     qmlRegisterTypesAndRevisions<quicksearch::models::FileSystemModel>("QuickSearch", 1);
     qmlRegisterAnonymousType<QAbstractItemModel, 254>("QuickSearch", 1);

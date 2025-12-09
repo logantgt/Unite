@@ -417,6 +417,30 @@ internal/cachingimagemanager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/quicksearch.dir/build.make CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.s
 .PHONY : internal/cachingimagemanager.cpp.s
 
+models/desktopentry.o: models/desktopentry.cpp.o
+.PHONY : models/desktopentry.o
+
+# target to build an object file
+models/desktopentry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/quicksearch.dir/build.make CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o
+.PHONY : models/desktopentry.cpp.o
+
+models/desktopentry.i: models/desktopentry.cpp.i
+.PHONY : models/desktopentry.i
+
+# target to preprocess a source file
+models/desktopentry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/quicksearch.dir/build.make CMakeFiles/quicksearch.dir/models/desktopentry.cpp.i
+.PHONY : models/desktopentry.cpp.i
+
+models/desktopentry.s: models/desktopentry.cpp.s
+.PHONY : models/desktopentry.s
+
+# target to generate assembly for a file
+models/desktopentry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/quicksearch.dir/build.make CMakeFiles/quicksearch.dir/models/desktopentry.cpp.s
+.PHONY : models/desktopentry.cpp.s
+
 models/filesystemmodel.o: models/filesystemmodel.cpp.o
 .PHONY : models/filesystemmodel.o
 
@@ -619,6 +643,9 @@ help:
 	@echo "... internal/cachingimagemanager.o"
 	@echo "... internal/cachingimagemanager.i"
 	@echo "... internal/cachingimagemanager.s"
+	@echo "... models/desktopentry.o"
+	@echo "... models/desktopentry.i"
+	@echo "... models/desktopentry.s"
 	@echo "... models/filesystemmodel.o"
 	@echo "... models/filesystemmodel.i"
 	@echo "... models/filesystemmodel.s"

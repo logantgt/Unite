@@ -1,3 +1,4 @@
 /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/include/../EGDWYGFDBT/moc_cachingimagemanager.cpp.json
 /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/include/../EWIEGA46WW/moc_quicksearch.cpp.json
+/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/include/../IVK4DJNV27/moc_desktopentry.cpp.json
 /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/include/../IVK4DJNV27/moc_filesystemmodel.cpp.json

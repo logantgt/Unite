@@ -1,5 +1,6 @@
 /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/IVK4DJNV27/moc_filesystemmodel.cpp: /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.hpp \
   /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/moc_predefs.h \
+  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -273,6 +274,11 @@
   /usr/include/linux/types.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
+  /usr/include/qt6/QtCore/QList \
+  /usr/include/qt6/QtCore/QObject \
+  /usr/include/qt6/QtCore/QSettings \
+  /usr/include/qt6/QtCore/QString \
+  /usr/include/qt6/QtCore/QStringList \
   /usr/include/qt6/QtCore/q17memory.h \
   /usr/include/qt6/QtCore/q20algorithm.h \
   /usr/include/qt6/QtCore/q20functional.h \
@@ -391,6 +397,7 @@
   /usr/include/qt6/QtCore/qscopedpointer.h \
   /usr/include/qt6/QtCore/qscopeguard.h \
   /usr/include/qt6/QtCore/qset.h \
+  /usr/include/qt6/QtCore/qsettings.h \
   /usr/include/qt6/QtCore/qshareddata.h \
   /usr/include/qt6/QtCore/qshareddata_impl.h \
   /usr/include/qt6/QtCore/qsharedpointer.h \

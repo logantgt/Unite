@@ -86,6 +86,55 @@ Module {
         }
     }
     Component {
+        file: "desktopentry.hpp"
+        name: "quicksearch::models::DesktopAction"
+        accessSemantics: "reference"
+        prototype: "QObject"
+        exports: ["QuickSearch/DesktopAction 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [256]
+        Property {
+            name: "id"
+            type: "QString"
+            read: "id"
+            index: 0
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "name"
+            type: "QString"
+            read: "name"
+            index: 1
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "execString"
+            type: "QString"
+            read: "execString"
+            index: 2
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "icon"
+            type: "QString"
+            read: "icon"
+            index: 3
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "command"
+            type: "QStringList"
+            read: "command"
+            index: 4
+            isReadonly: true
+            isPropertyConstant: true
+        }
+    }
+    Component {
         file: "filesystemmodel.hpp"
         name: "quicksearch::models::FileSystemEntry"
         accessSemantics: "reference"
@@ -173,6 +222,127 @@ Module {
             isReadonly: true
             isPropertyConstant: true
         }
+        Property {
+            name: "isDesktopEntry"
+            type: "bool"
+            read: "isDesktopEntry"
+            index: 10
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "appName"
+            type: "QString"
+            read: "appName"
+            index: 11
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "genericName"
+            type: "QString"
+            read: "genericName"
+            index: 12
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "comment"
+            type: "QString"
+            read: "comment"
+            index: 13
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "appIcon"
+            type: "QString"
+            read: "appIcon"
+            index: 14
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "command"
+            type: "QStringList"
+            read: "command"
+            index: 15
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "execString"
+            type: "QString"
+            read: "execString"
+            index: 16
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "categories"
+            type: "QStringList"
+            read: "categories"
+            index: 17
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "keywords"
+            type: "QStringList"
+            read: "keywords"
+            index: 18
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "actions"
+            type: "quicksearch::models::DesktopAction"
+            isList: true
+            read: "actions"
+            index: 19
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "desktopId"
+            type: "QString"
+            read: "desktopId"
+            index: 20
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "noDisplay"
+            type: "bool"
+            read: "noDisplay"
+            index: 21
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "runInTerminal"
+            type: "bool"
+            read: "runInTerminal"
+            index: 22
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "workingDirectory"
+            type: "QString"
+            read: "workingDirectory"
+            index: 23
+            isReadonly: true
+            isPropertyConstant: true
+        }
+        Property {
+            name: "startupClass"
+            type: "QString"
+            read: "startupClass"
+            index: 24
+            isReadonly: true
+            isPropertyConstant: true
+        }
         Signal { name: "relativePathChanged" }
     }
     Component {
@@ -184,7 +354,7 @@ Module {
         exportMetaObjectRevisions: [256]
         Enum {
             name: "Filter"
-            values: ["NoFilter", "Images", "Files", "Dirs"]
+            values: ["NoFilter", "Images", "Files", "Dirs", "Applications"]
         }
         Property {
             name: "path"

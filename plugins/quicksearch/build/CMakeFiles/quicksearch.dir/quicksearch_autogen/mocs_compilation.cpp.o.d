@@ -368,6 +368,12 @@ CMakeFiles/quicksearch.dir/quicksearch_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCore/qtmocconstants.h \
  /usr/include/qt6/QtCore/q20algorithm.h \
  /usr/include/qt6/QtCore/q23type_traits.h \
+ /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/IVK4DJNV27/moc_desktopentry.cpp \
+ /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/IVK4DJNV27/../../../models/desktopentry.hpp \
+ /usr/include/qt6/QtCore/QObject /usr/include/qt6/QtCore/QString \
+ /usr/include/qt6/QtCore/qstring.h /usr/include/qt6/QtCore/QStringList \
+ /usr/include/qt6/QtCore/qstringlist.h /usr/include/qt6/QtCore/QList \
+ /usr/include/qt6/QtCore/QSettings /usr/include/qt6/QtCore/qsettings.h \
  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/IVK4DJNV27/moc_filesystemmodel.cpp \
  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/IVK4DJNV27/../../../models/filesystemmodel.hpp \
  /usr/include/qt6/QtCore/qabstractitemmodel.h \
@@ -426,8 +432,5 @@ CMakeFiles/quicksearch.dir/quicksearch_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCore/qmimetype.h /usr/include/qt6/QtQml/qqmllist.h \
  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/EWIEGA46WW/moc_quicksearch.cpp \
  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/EWIEGA46WW/../../../quicksearch.h \
- /usr/include/qt6/QtCore/QObject /usr/include/qt6/QtCore/QStringList \
- /usr/include/qt6/QtCore/qstringlist.h \
  /home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/quicksearch_autogen/EWIEGA46WW/../../../models/fuzzysearch.hpp \
- /usr/include/qt6/QtCore/QString /usr/include/qt6/QtCore/qstring.h \
  /usr/include/qt6/QtCore/QVector /usr/include/qt6/QtCore/qvector.h

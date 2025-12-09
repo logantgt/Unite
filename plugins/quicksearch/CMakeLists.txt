@@ -13,6 +13,7 @@ qt_add_qml_module(quicksearch
         quicksearch.cpp quicksearch.h
         models/filesystemmodel.cpp models/filesystemmodel.hpp
         models/fuzzysearch.cpp models/fuzzysearch.hpp
+        models/desktopentry.cpp models/desktopentry.hpp
         internal/cachingimagemanager.cpp internal/cachingimagemanager.hpp
 )
 

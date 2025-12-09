@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "quicksearch_autogen/timestamp" "custom" "quicksearch_autogen/deps"
   "/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/.qt/rcc/qrc_qmake_QuickSearch.cpp" "CMakeFiles/quicksearch.dir/build/.qt/rcc/qrc_qmake_QuickSearch.cpp.o" "gcc" "CMakeFiles/quicksearch.dir/build/.qt/rcc/qrc_qmake_QuickSearch.cpp.o.d"
   "/home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.cpp" "CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o" "gcc" "CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o.d"
+  "/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp" "CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o" "gcc" "CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o.d"
   "/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.cpp" "CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o" "gcc" "CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o.d"
   "/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/fuzzysearch.cpp" "CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o" "gcc" "CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o.d"
   "/home/logan/Documents/GitHub/Unite/plugins/quicksearch/quicksearch.cpp" "CMakeFiles/quicksearch.dir/quicksearch.cpp.o" "gcc" "CMakeFiles/quicksearch.dir/quicksearch.cpp.o.d"

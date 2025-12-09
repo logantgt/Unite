@@ -204,10 +204,24 @@ CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/fuzzysearch.cpp -o CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.s
 
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o: CMakeFiles/quicksearch.dir/flags.make
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o: /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o: CMakeFiles/quicksearch.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o -MF CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o.d -o CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o -c /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp
+
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/quicksearch.dir/models/desktopentry.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp > CMakeFiles/quicksearch.dir/models/desktopentry.cpp.i
+
+CMakeFiles/quicksearch.dir/models/desktopentry.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/quicksearch.dir/models/desktopentry.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp -o CMakeFiles/quicksearch.dir/models/desktopentry.cpp.s
+
 CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o: CMakeFiles/quicksearch.dir/flags.make
 CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o: /home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.cpp
 CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o: CMakeFiles/quicksearch.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o -MF CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o.d -o CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o -c /home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.cpp
 
 CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.i: cmake_force
@@ -226,6 +240,7 @@ quicksearch_OBJECTS = \
 "CMakeFiles/quicksearch.dir/quicksearch.cpp.o" \
 "CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o" \
 "CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o" \
+"CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o" \
 "CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o"
 
 # External object files for target quicksearch
@@ -237,6 +252,7 @@ libquicksearch.so: CMakeFiles/quicksearch.dir/build/.qt/rcc/qrc_qmake_QuickSearc
 libquicksearch.so: CMakeFiles/quicksearch.dir/quicksearch.cpp.o
 libquicksearch.so: CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o
 libquicksearch.so: CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o
+libquicksearch.so: CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o
 libquicksearch.so: CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o
 libquicksearch.so: CMakeFiles/quicksearch.dir/build.make
 libquicksearch.so: CMakeFiles/quicksearch.dir/compiler_depend.ts
@@ -253,7 +269,7 @@ libquicksearch.so: /usr/lib64/libGLX.so
 libquicksearch.so: /usr/lib64/libOpenGL.so
 libquicksearch.so: /usr/lib64/libQt6Core.so.6.9.3
 libquicksearch.so: CMakeFiles/quicksearch.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX shared library libquicksearch.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX shared library libquicksearch.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/quicksearch.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

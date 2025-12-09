@@ -3,9 +3,12 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QuickSearch
 
-Rectangle {
+ApplicationWindow {
     id: root
     visible: true
+    width: 800
+    height: 600
+    title: "QuickSearch Applications Test"
 
     FileSystemModel {
         id: appModel

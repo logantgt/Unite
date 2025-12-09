@@ -1017,6 +1017,12 @@
 			null
 		],
 		[
+			"/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.hpp",
+			"Mu",
+			"IVK4DJNV27/moc_desktopentry.cpp",
+			null
+		],
+		[
 			"/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/filesystemmodel.hpp",
 			"Mu",
 			"IVK4DJNV27/moc_filesystemmodel.cpp",
@@ -1123,6 +1129,11 @@
 	[
 		[
 			"/home/logan/Documents/GitHub/Unite/plugins/quicksearch/internal/cachingimagemanager.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/logan/Documents/GitHub/Unite/plugins/quicksearch/models/desktopentry.cpp",
 			"Mu",
 			null
 		],

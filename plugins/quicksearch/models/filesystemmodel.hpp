@@ -12,6 +12,9 @@
 #include <qobject.h>
 #include <qqmlintegration.h>
 #include <qqmllist.h>
+#include <optional>
+
+#include "desktopentry.hpp"
 
 namespace quicksearch::models {
 
@@ -31,6 +34,23 @@ namespace quicksearch::models {
         Q_PROPERTY(bool isImage READ isImage CONSTANT)
         Q_PROPERTY(QString mimeType READ mimeType CONSTANT)
 
+        // Desktop entry properties
+        Q_PROPERTY(bool isDesktopEntry READ isDesktopEntry CONSTANT)
+        Q_PROPERTY(QString appName READ appName CONSTANT)
+        Q_PROPERTY(QString genericName READ genericName CONSTANT)
+        Q_PROPERTY(QString comment READ comment CONSTANT)
+        Q_PROPERTY(QString appIcon READ appIcon CONSTANT)
+        Q_PROPERTY(QStringList command READ command CONSTANT)
+        Q_PROPERTY(QString execString READ execString CONSTANT)
+        Q_PROPERTY(QStringList categories READ categories CONSTANT)
+        Q_PROPERTY(QStringList keywords READ keywords CONSTANT)
+        Q_PROPERTY(QQmlListProperty<quicksearch::models::DesktopAction> actions READ actions CONSTANT)
+        Q_PROPERTY(QString desktopId READ desktopId CONSTANT)
+        Q_PROPERTY(bool noDisplay READ noDisplay CONSTANT)
+        Q_PROPERTY(bool runInTerminal READ runInTerminal CONSTANT)
+        Q_PROPERTY(QString workingDirectory READ workingDirectory CONSTANT)
+        Q_PROPERTY(QString startupClass READ startupClass CONSTANT)
+
     public:
         explicit FileSystemEntry(const QString& path, const QString& relativePath, QObject* parent = nullptr);
 
@@ -44,6 +64,23 @@ namespace quicksearch::models {
         [[nodiscard]] bool isDir() const;
         [[nodiscard]] bool isImage() const;
         [[nodiscard]] QString mimeType() const;
+
+        // Desktop entry getters
+        [[nodiscard]] bool isDesktopEntry() const;
+        [[nodiscard]] QString appName() const;
+        [[nodiscard]] QString genericName() const;
+        [[nodiscard]] QString comment() const;
+        [[nodiscard]] QString appIcon() const;
+        [[nodiscard]] QStringList command() const;
+        [[nodiscard]] QString execString() const;
+        [[nodiscard]] QStringList categories() const;
+        [[nodiscard]] QStringList keywords() const;
+        [[nodiscard]] QQmlListProperty<quicksearch::models::DesktopAction> actions() const;
+        [[nodiscard]] QString desktopId() const;
+        [[nodiscard]] bool noDisplay() const;
+        [[nodiscard]] bool runInTerminal() const;
+        [[nodiscard]] QString workingDirectory() const;
+        [[nodiscard]] QString startupClass() const;
 
         void updateRelativePath(const QDir& dir);
 
@@ -61,6 +98,11 @@ namespace quicksearch::models {
 
         mutable QString m_mimeType;
         mutable bool m_mimeTypeInitialised;
+
+        mutable std::optional<DesktopEntryData> m_desktopData;
+        mutable bool m_desktopDataInitialised;
+
+        void ensureDesktopDataLoaded() const;
     };
 
     class FileSystemModel : public QAbstractListModel {
@@ -86,7 +128,8 @@ namespace quicksearch::models {
             NoFilter,
             Images,
             Files,
-            Dirs
+            Dirs,
+            Applications
         };
         Q_ENUM(Filter)
 

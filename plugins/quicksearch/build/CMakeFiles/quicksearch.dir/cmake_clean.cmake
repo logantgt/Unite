@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/quicksearch.dir/build/.qt/rcc/qrc_qmake_QuickSearch.cpp.o.d"
   "CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o"
   "CMakeFiles/quicksearch.dir/internal/cachingimagemanager.cpp.o.d"
+  "CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o"
+  "CMakeFiles/quicksearch.dir/models/desktopentry.cpp.o.d"
   "CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o"
   "CMakeFiles/quicksearch.dir/models/filesystemmodel.cpp.o.d"
   "CMakeFiles/quicksearch.dir/models/fuzzysearch.cpp.o"
