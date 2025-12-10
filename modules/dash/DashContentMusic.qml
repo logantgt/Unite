@@ -48,7 +48,7 @@ Item {
                     model: FileSystemModel {
                         filter: FileSystemModel.Files
                         nameFilters: ["*.mp3", "*.flac", "*.m4a", "*.ogg", "*.wav"]
-                        path: "/home/logan/Music"
+                        path: "/home/" + Quickshell.env("USER") + "/Music"
                         recursive: true
                         query: searchBar.text
                         minScore: 0.5

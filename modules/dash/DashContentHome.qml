@@ -114,7 +114,7 @@ Item {
                     expanded: false
                     model: FileSystemModel {
                         filter: FileSystemModel.Files
-                        path: "/home/logan/"
+                        path: "/home/" + Quickshell.env("USER") + "/"
                         showHidden: false
                         query: searchBar.text
                         recursive: false

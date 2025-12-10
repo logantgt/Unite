@@ -44,12 +44,12 @@ Item {
                     expanded: false
                     model: FileSystemModel {
                         filter: FileSystemModel.Files
-                        path: "/home/logan/"
+                        path: "/home/" + Quickshell.env("USER") + "/"
                         showHidden: false
                         query: searchBar.text
                         recursive: true
                         minScore: 0.5
-                        maxResults: 600
+                        maxResults: 100
                         maxDepth: 6
                         sort: true
                         sortReverse: false
@@ -69,12 +69,12 @@ Item {
                     expanded: false
                     model: FileSystemModel {
                         filter: FileSystemModel.Dirs
-                        path: "/home/logan/"
+                        path: "/home/" + Quickshell.env("USER") + "/"
                         recursive: true
                         query: searchBar.text
                         minScore: 0.5
                         maxDepth: 6
-                        maxResults: 600
+                        maxResults: 100
                         sort: true
                         sortReverse: false
                         sortProperty: "fileName"

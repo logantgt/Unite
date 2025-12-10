@@ -47,7 +47,7 @@ Item {
                     expanded: true
                     model: FileSystemModel {
                         filter: FileSystemModel.Files
-                        path: "/home/logan/Pictures"
+                        path: "/home/" + Quickshell.env("USER") + "/Pictures"
                         recursive: true
                         query: searchBar.text
                         minScore: 0.5

@@ -48,7 +48,7 @@ Item {
                     model: FileSystemModel {
                         filter: FileSystemModel.Files
                         nameFilters: ["*.mp4", "*.mkv", "*.mov", "*.avi"]
-                        path: "/home/logan/Videos"
+                        path: "/home/" + Quickshell.env("USER") + "/Videos"
                         recursive: true
                         query: searchBar.text
                         minScore: 0.5
