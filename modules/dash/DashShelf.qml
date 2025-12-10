@@ -4,8 +4,9 @@ import qs
 
 Item {
     id: root
+    clip: true
 
-    implicitHeight: header.implicitHeight + flowbox.implicitHeight + 10
+    implicitHeight: expanded ? header.implicitHeight + flowbox.implicitHeight + 10 : (header.implicitHeight / 2) + shelfItemSize
     required property var model
     required property bool expanded
     required property int shelfItemSize
@@ -17,15 +18,13 @@ Item {
 
     property var headerSubText
     property var amount: expanded ? model.length : Math.floor(root.width / root.shelfItemSize)
-    property var trimmedModel: model.slice(0, amount)
-    property var currentModel: expanded ? model : trimmedModel
 
     Component.onCompleted: {
         if(headerInteractive) {
             if(expanded) {
                 this.headerSubText = "See fewer results   ▾";
             } else {
-                this.headerSubText = "See %1 more results   ▸".arg(model.length - amount)
+                this.headerSubText = "See more results   ▸"
             }
         }
     }
@@ -78,11 +77,11 @@ Item {
         }
 
         Repeater {
-            model: root.headerInteractive ? root.currentModel : root.model
+            model: root.model
 
             DashShelfItem {
                 size: shelfItemSize
-                spacing: 1 // Math.floor(((parent.width / shelfItemSize) / Math.floor(parent.width / shelfItemSize)) * 100) / 100 // THIS CAUSES A POLISH LOOP!!!
+                spacing: 1
             }
         }
     }

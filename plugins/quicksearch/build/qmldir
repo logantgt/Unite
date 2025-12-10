@@ -1,8 +1,0 @@
-module QuickSearch
-linktarget quicksearchplugin
-optional plugin quicksearchplugin
-classname QuickSearchPlugin
-typeinfo quicksearch.qmltypes
-prefer :/QuickSearch/
-depends QtQuick
-

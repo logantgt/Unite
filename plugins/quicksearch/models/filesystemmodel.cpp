@@ -4,6 +4,7 @@
 #include "filesystemmodel.hpp"
 #include "fuzzysearch.hpp"
 
+#include <qcryptographichash.h>
 #include <qdiriterator.h>
 #include <qfuturewatcher.h>
 #include <qprocess.h>
@@ -17,6 +18,11 @@ namespace quicksearch::models {
     , m_path(path)
     , m_relativePath(relativePath)
     , m_isImageInitialised(false)
+    , m_imageThumbnailInitialised(false)
+    , m_isVideoInitialised(false)
+    , m_videoThumbnailInitialised(false)
+    , m_isMusicInitialised(false)
+    , m_musicThumbnailInitialised(false)
     , m_mimeTypeInitialised(false)
     , m_desktopDataInitialised(false) {}
 
@@ -59,6 +65,294 @@ namespace quicksearch::models {
             m_isImageInitialised = true;
         }
         return m_isImage;
+    }
+
+    QString FileSystemEntry::imageThumbnail() const {
+        if (!m_imageThumbnailInitialised) {
+            m_imageThumbnailInitialised = true;
+
+            // Only generate thumbnails for image files
+            if (!isImage()) {
+                m_imageThumbnail = QString();
+                return m_imageThumbnail;
+            }
+
+            // Generate cache directory path
+            const QString cacheDir = QDir::homePath() + "/.cache/unite/image-thumbnails";
+            QDir().mkpath(cacheDir);
+
+            // Generate unique filename based on image path and modification time
+            QCryptographicHash hash(QCryptographicHash::Sha256);
+            hash.addData(m_path.toUtf8());
+            hash.addData(QString::number(m_fileInfo.lastModified().toMSecsSinceEpoch()).toUtf8());
+            const QString hashStr = QString(hash.result().toHex());
+            const QString thumbnailPath = cacheDir + "/" + hashStr + ".png";
+
+            // Check if thumbnail already exists
+            if (QFileInfo::exists(thumbnailPath)) {
+                m_imageThumbnail = thumbnailPath;
+                return m_imageThumbnail;
+            }
+
+            // Load the original image
+            QImage image(m_path);
+            if (image.isNull()) {
+                m_imageThumbnail = QString();
+                return m_imageThumbnail;
+            }
+
+            // Scale image to 512px max dimension while preserving aspect ratio
+            const int maxSize = 512;
+            QImage thumbnail;
+            if (image.width() > maxSize || image.height() > maxSize) {
+                thumbnail = image.scaled(maxSize, maxSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            } else {
+                // If image is already small, just use it as-is
+                thumbnail = image;
+            }
+
+            // Save the thumbnail as PNG to preserve transparency
+            if (thumbnail.save(thumbnailPath, "PNG")) {
+                m_imageThumbnail = thumbnailPath;
+            } else {
+                // If saving fails, return the original path
+                m_imageThumbnail = m_path;
+            }
+        }
+        return m_imageThumbnail;
+    }
+
+    bool FileSystemEntry::isVideo() const {
+        if (!m_isVideoInitialised) {
+            // Check MIME type to determine if it's a video
+            const QMimeDatabase db;
+            const QString mime = db.mimeTypeForFile(m_path).name();
+            m_isVideo = mime.startsWith("video/");
+            m_isVideoInitialised = true;
+        }
+        return m_isVideo;
+    }
+
+    QString FileSystemEntry::videoThumbnail() const {
+        if (!m_videoThumbnailInitialised) {
+            m_videoThumbnailInitialised = true;
+
+            // Only generate thumbnails for video files
+            if (!isVideo()) {
+                m_videoThumbnail = QString();
+                return m_videoThumbnail;
+            }
+
+            // Generate cache directory path
+            const QString cacheDir = QDir::homePath() + "/.cache/unite/video-thumbnails";
+            QDir().mkpath(cacheDir);
+
+            // Generate unique filename based on video path
+            QCryptographicHash hash(QCryptographicHash::Sha256);
+            hash.addData(m_path.toUtf8());
+            const QString hashStr = QString(hash.result().toHex());
+            const QString thumbnailPath = cacheDir + "/" + hashStr + ".jpg";
+
+            // Check if thumbnail already exists and is not mostly black
+            if (QFileInfo::exists(thumbnailPath)) {
+                QImage existingImage(thumbnailPath);
+                if (!existingImage.isNull() && !isMostlyBlack(existingImage)) {
+                    m_videoThumbnail = thumbnailPath;
+                    return m_videoThumbnail;
+                }
+                // If existing thumbnail is mostly black, delete it and regenerate
+                QFile::remove(thumbnailPath);
+            }
+
+            // Try different timestamps to avoid black frames
+            QStringList timestamps = {"10%", "20%", "30%", "5%"};
+
+            // Try to generate thumbnail using ffmpegthumbnailer first
+            for (const QString& timestamp : timestamps) {
+                QProcess ffmpegthumbnailer;
+                ffmpegthumbnailer.start("ffmpegthumbnailer", QStringList()
+                    << "-i" << m_path
+                    << "-o" << thumbnailPath
+                    << "-s" << "512"
+                    << "-t" << timestamp);
+
+                if (ffmpegthumbnailer.waitForFinished(5000) && ffmpegthumbnailer.exitCode() == 0) {
+                    // Check if the generated thumbnail is mostly black
+                    QImage thumbnail(thumbnailPath);
+                    if (!thumbnail.isNull() && !isMostlyBlack(thumbnail)) {
+                        m_videoThumbnail = thumbnailPath;
+                        return m_videoThumbnail;
+                    }
+                    // If mostly black, try next timestamp
+                    QFile::remove(thumbnailPath);
+                }
+            }
+
+            // Fallback to ffmpeg if ffmpegthumbnailer is not available or all attempts failed
+            QStringList ffmpegTimestamps = {"00:00:03", "00:00:05", "00:00:10", "00:00:01"};
+            for (const QString& timestamp : ffmpegTimestamps) {
+                QProcess ffmpeg;
+                ffmpeg.start("ffmpeg", QStringList()
+                    << "-ss" << timestamp
+                    << "-i" << m_path
+                    << "-vframes" << "1"
+                    << "-vf" << "scale=512:-1"
+                    << thumbnailPath
+                    << "-y");
+
+                if (ffmpeg.waitForFinished(5000) && ffmpeg.exitCode() == 0) {
+                    // Check if the generated thumbnail is mostly black
+                    QImage thumbnail(thumbnailPath);
+                    if (!thumbnail.isNull() && !isMostlyBlack(thumbnail)) {
+                        m_videoThumbnail = thumbnailPath;
+                        return m_videoThumbnail;
+                    }
+                    // If mostly black, try next timestamp
+                    QFile::remove(thumbnailPath);
+                }
+            }
+
+            // If all attempts fail, return empty string
+            m_videoThumbnail = QString();
+        }
+        return m_videoThumbnail;
+    }
+
+    bool FileSystemEntry::isMostlyBlack(const QImage& image) const {
+        if (image.isNull() || image.width() == 0 || image.height() == 0) {
+            return true;
+        }
+
+        // Sample pixels to check if image is mostly black
+        // We don't need to check every pixel - sampling is faster
+        const int sampleRate = 8; // Check every 8th pixel
+        int blackPixels = 0;
+        int totalSamples = 0;
+
+        for (int y = 0; y < image.height(); y += sampleRate) {
+            for (int x = 0; x < image.width(); x += sampleRate) {
+                QColor pixel = image.pixelColor(x, y);
+                totalSamples++;
+
+                // Consider a pixel "black" if its brightness is very low
+                // Calculate brightness as average of RGB
+                int brightness = (pixel.red() + pixel.green() + pixel.blue()) / 3;
+
+                if (brightness < 25) { // Very dark threshold (0-255 scale)
+                    blackPixels++;
+                }
+            }
+        }
+
+        // Return true if more than 50% of sampled pixels are black
+        return totalSamples > 0 && (static_cast<double>(blackPixels) / totalSamples) > 0.5;
+    }
+
+    bool FileSystemEntry::isMusic() const {
+        if (!m_isMusicInitialised) {
+            // Check MIME type to determine if it's an audio file
+            const QMimeDatabase db;
+            const QString mime = db.mimeTypeForFile(m_path).name();
+            m_isMusic = mime.startsWith("audio/");
+            m_isMusicInitialised = true;
+        }
+        return m_isMusic;
+    }
+
+    QString FileSystemEntry::musicThumbnail() const {
+        if (!m_musicThumbnailInitialised) {
+            m_musicThumbnailInitialised = true;
+
+            // Only generate thumbnails for music files
+            if (!isMusic()) {
+                m_musicThumbnail = QString();
+                return m_musicThumbnail;
+            }
+
+            // Generate cache directory path
+            const QString cacheDir = QDir::homePath() + "/.cache/unite/music-thumbnails";
+            QDir().mkpath(cacheDir);
+
+            // Generate unique filename based on music file path
+            QCryptographicHash hash(QCryptographicHash::Sha256);
+            hash.addData(m_path.toUtf8());
+            const QString hashStr = QString(hash.result().toHex());
+            const QString thumbnailPath = cacheDir + "/" + hashStr + ".jpg";
+
+            // Check if thumbnail already exists in cache
+            if (QFileInfo::exists(thumbnailPath)) {
+                m_musicThumbnail = thumbnailPath;
+                return m_musicThumbnail;
+            }
+
+            // Try to extract embedded album art using ffmpeg
+            QProcess ffmpeg;
+            ffmpeg.start("ffmpeg", QStringList()
+                << "-i" << m_path
+                << "-an"  // Disable audio
+                << "-vcodec" << "copy"  // Copy video stream (album art)
+                << thumbnailPath
+                << "-y");
+
+            if (ffmpeg.waitForFinished(5000) && ffmpeg.exitCode() == 0 && QFileInfo::exists(thumbnailPath)) {
+                // Successfully extracted embedded art
+                m_musicThumbnail = thumbnailPath;
+                return m_musicThumbnail;
+            }
+
+            // If no embedded art, look for folder.* in the same directory
+            const QDir musicDir = m_fileInfo.absoluteDir();
+            const QStringList imageExtensions = {"jpg", "jpeg", "png", "gif", "bmp", "webp"};
+
+            for (const QString& ext : imageExtensions) {
+                const QString folderImagePath = musicDir.filePath("folder." + ext);
+                if (QFileInfo::exists(folderImagePath)) {
+                    // Found a folder image, create a cached copy
+                    QImage folderImage(folderImagePath);
+                    if (!folderImage.isNull()) {
+                        // Scale to 512px and save to cache
+                        const int maxSize = 512;
+                        QImage thumbnail;
+                        if (folderImage.width() > maxSize || folderImage.height() > maxSize) {
+                            thumbnail = folderImage.scaled(maxSize, maxSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                        } else {
+                            thumbnail = folderImage;
+                        }
+
+                        if (thumbnail.save(thumbnailPath, "JPG", 85)) {
+                            m_musicThumbnail = thumbnailPath;
+                            return m_musicThumbnail;
+                        }
+                    }
+                }
+            }
+
+            // Also check for uppercase extensions
+            for (const QString& ext : imageExtensions) {
+                const QString folderImagePath = musicDir.filePath("folder." + ext.toUpper());
+                if (QFileInfo::exists(folderImagePath)) {
+                    QImage folderImage(folderImagePath);
+                    if (!folderImage.isNull()) {
+                        const int maxSize = 512;
+                        QImage thumbnail;
+                        if (folderImage.width() > maxSize || folderImage.height() > maxSize) {
+                            thumbnail = folderImage.scaled(maxSize, maxSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                        } else {
+                            thumbnail = folderImage;
+                        }
+
+                        if (thumbnail.save(thumbnailPath, "JPG", 85)) {
+                            m_musicThumbnail = thumbnailPath;
+                            return m_musicThumbnail;
+                        }
+                    }
+                }
+            }
+
+            // No thumbnail found
+            m_musicThumbnail = QString();
+        }
+        return m_musicThumbnail;
     }
 
     QString FileSystemEntry::mimeType() const {
@@ -207,7 +501,8 @@ namespace quicksearch::models {
     , m_filter(NoFilter)
     , m_minScore(0.3)
     , m_maxDepth(-1)
-    , m_maxResults(-1) {
+    , m_maxResults(-1)
+    , m_taskGeneration(0) {
         connect(&m_watcher, &QFileSystemWatcher::directoryChanged, this, &FileSystemModel::watchDirIfRecursive);
         connect(&m_watcher, &QFileSystemWatcher::directoryChanged, this, &FileSystemModel::updateEntriesForDir);
     }
@@ -240,6 +535,7 @@ namespace quicksearch::models {
         }
 
         m_path = path;
+        ++m_taskGeneration;
         emit pathChanged();
 
         m_dir.setPath(m_path);
@@ -261,6 +557,7 @@ namespace quicksearch::models {
         }
 
         m_recursive = recursive;
+        ++m_taskGeneration;
         emit recursiveChanged();
 
         update();
@@ -291,6 +588,7 @@ namespace quicksearch::models {
         }
 
         m_showHidden = showHidden;
+        ++m_taskGeneration;
         emit showHiddenChanged();
 
         update();
@@ -366,6 +664,7 @@ namespace quicksearch::models {
         }
 
         m_filter = filter;
+        ++m_taskGeneration;
         emit filterChanged();
 
         update();
@@ -381,6 +680,7 @@ namespace quicksearch::models {
         }
 
         m_nameFilters = nameFilters;
+        ++m_taskGeneration;
         emit nameFiltersChanged();
 
         update();
@@ -396,6 +696,7 @@ namespace quicksearch::models {
         }
 
         m_query = query;
+        ++m_taskGeneration;
         m_scoreCache.clear();
         emit queryChanged();
 
@@ -421,6 +722,7 @@ namespace quicksearch::models {
         }
 
         m_minScore = minScore;
+        ++m_taskGeneration;
         emit minScoreChanged();
 
         update();
@@ -436,6 +738,7 @@ namespace quicksearch::models {
         }
 
         m_maxDepth = maxDepth;
+        ++m_taskGeneration;
         emit maxDepthChanged();
 
         update();
@@ -451,6 +754,7 @@ namespace quicksearch::models {
         }
 
         m_maxResults = maxResults;
+        ++m_taskGeneration;
         emit maxResultsChanged();
 
         update();
@@ -458,6 +762,29 @@ namespace quicksearch::models {
 
     QQmlListProperty<FileSystemEntry> FileSystemModel::entries() {
         return QQmlListProperty<FileSystemEntry>(this, &m_entries);
+    }
+
+    int FileSystemModel::length() const {
+        return m_entries.size();
+    }
+
+    QList<QObject*> FileSystemModel::slice(int start, int count) {
+        QList<QObject*> result;
+
+        // Validate start index
+        if (start < 0 || start >= m_entries.size()) {
+            return result;
+        }
+
+        // Calculate actual count (don't go past the end)
+        const int actualCount = qMin(count, m_entries.size() - start);
+
+        // Slice the entries
+        for (int i = 0; i < actualCount; ++i) {
+            result.append(m_entries[start + i]);
+        }
+
+        return result;
     }
 
     void FileSystemModel::watchDirIfRecursive(const QString& path) {
@@ -516,6 +843,7 @@ namespace quicksearch::models {
                 m_entries.clear();
                 endResetModel();
                 emit entriesChanged();
+                emit lengthChanged();
             }
 
             return;
@@ -531,6 +859,8 @@ namespace quicksearch::models {
     }
 
     void FileSystemModel::updateEntriesForDir(const QString& dir) {
+        // Capture generation number FIRST to validate results before applying
+        const auto taskGeneration = m_taskGeneration;
         const auto recursive = m_recursive;
         const auto showHidden = m_showHidden;
         const auto filter = m_filter;
@@ -618,11 +948,15 @@ namespace quicksearch::models {
 
             std::optional<QDirIterator> iter;
 
+            // Images filter: Generate patterns for all supported image formats.
+            // Note: nameFilters is intentionally IGNORED for specialized filters (Images, Applications)
+            // to provide complete filter specifications. Users should use filter: Files with nameFilters
+            // if they want to restrict to specific image formats.
             if (filter == Images) {
-                QStringList extraNameFilters = nameFilters;
+                QStringList imageNameFilters;  // Start with empty list (don't use nameFilters)
                 const auto formats = QImageReader::supportedImageFormats();
                 for (const auto& format : formats) {
-                    extraNameFilters << "*." + format;
+                    imageNameFilters << "*." + format;
                 }
 
                 QDir::Filters filters = QDir::Files;
@@ -630,7 +964,7 @@ namespace quicksearch::models {
                     filters |= QDir::Hidden;
                 }
 
-                iter.emplace(dir, extraNameFilters, filters, flags);
+                iter.emplace(dir, imageNameFilters, filters, flags);
             } else {
                 QDir::Filters filters;
 
@@ -714,10 +1048,18 @@ namespace quicksearch::models {
 
         const auto watcher = new QFutureWatcher<QPair<QSet<QString>, QSet<QString>>>(this);
 
-        connect(watcher, &QFutureWatcher<QPair<QSet<QString>, QSet<QString>>>::finished, this, [dir, watcher, this]() {
+        connect(watcher, &QFutureWatcher<QPair<QSet<QString>, QSet<QString>>>::finished, this, [dir, watcher, taskGeneration, this]() {
             m_futures.remove(dir);
 
             if (!watcher->future().isResultReadyAt(0)) {
+                watcher->deleteLater();
+                return;
+            }
+
+            // VALIDATE: Only apply results if generation matches
+            // This prevents race condition where properties changed between task start and completion
+            if (taskGeneration != m_taskGeneration) {
+                // Results are stale - discard them
                 watcher->deleteLater();
                 return;
             }
@@ -770,64 +1112,35 @@ namespace quicksearch::models {
 
         // Create new entries
         QList<FileSystemEntry*> newEntries;
+
+        // Build a set of existing paths to prevent duplicates
+        QSet<QString> existingPaths;
+        for (const auto& entry : std::as_const(m_entries)) {
+            existingPaths.insert(entry->path());
+        }
+
+        // Only create entries for paths that don't already exist
         for (const auto& path : addedPaths) {
-            newEntries << new FileSystemEntry(path, m_dir.relativeFilePath(path), this);
+            if (!existingPaths.contains(path)) {
+                newEntries << new FileSystemEntry(path, m_dir.relativeFilePath(path), this);
+            }
         }
 
-        // Only sort if sorting is enabled
-        if (m_sort) {
-            std::sort(newEntries.begin(), newEntries.end(), [this](const FileSystemEntry* a, const FileSystemEntry* b) {
-                return compareEntries(a, b);
-            });
+        // Append new entries to the list
+        if (!newEntries.isEmpty()) {
+            const int startRow = m_entries.size();
+            beginInsertRows(QModelIndex(), startRow, startRow + newEntries.size() - 1);
+            m_entries.append(newEntries);
+            endInsertRows();
         }
 
-        // Batch insert new entries
-        if (m_sort) {
-            // Insert entries in sorted order using binary search
-            int insertStart = -1;
-            QList<FileSystemEntry*> batchItems;
-            for (const auto& entry : std::as_const(newEntries)) {
-                const auto it = std::lower_bound(
-                    m_entries.begin(), m_entries.end(), entry, [this](const FileSystemEntry* a, const FileSystemEntry* b) {
-                        return compareEntries(a, b);
-                    });
-                const auto row = static_cast<int>(it - m_entries.begin());
-
-                if (insertStart == -1) {
-                    insertStart = row;
-                    batchItems << entry;
-                } else if (row == insertStart + batchItems.size()) {
-                    batchItems << entry;
-                } else {
-                    beginInsertRows(QModelIndex(), insertStart, insertStart + static_cast<int>(batchItems.size()) - 1);
-                    for (int i = 0; i < batchItems.size(); ++i) {
-                        m_entries.insert(insertStart + i, batchItems[i]);
-                    }
-                    endInsertRows();
-
-                    insertStart = row;
-                    batchItems.clear();
-                    batchItems << entry;
-                }
-            }
-            if (!batchItems.isEmpty()) {
-                beginInsertRows(QModelIndex(), insertStart, insertStart + static_cast<int>(batchItems.size()) - 1);
-                for (int i = 0; i < batchItems.size(); ++i) {
-                    m_entries.insert(insertStart + i, batchItems[i]);
-                }
-                endInsertRows();
-            }
-        } else {
-            // Just append entries to the end without sorting
-            if (!newEntries.isEmpty()) {
-                const int startRow = m_entries.size();
-                beginInsertRows(QModelIndex(), startRow, startRow + newEntries.size() - 1);
-                m_entries.append(newEntries);
-                endInsertRows();
-            }
+        // If sorting is enabled, re-sort the entire list after adding new entries
+        if (m_sort && !newEntries.isEmpty()) {
+            resortEntries();
         }
 
         emit entriesChanged();
+        emit lengthChanged();
     }
 
     void FileSystemModel::resortEntries() {
@@ -838,6 +1151,7 @@ namespace quicksearch::models {
             });
             endResetModel();
             emit entriesChanged();
+            emit lengthChanged();
         }
     }
 

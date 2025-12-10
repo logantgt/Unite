@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/QuickSearch">/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build</file>
-
-  </qresource>
-</RCC>

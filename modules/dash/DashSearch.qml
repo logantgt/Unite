@@ -39,7 +39,7 @@ Item {
     }
 
     MouseArea {
-        anchors.fill: parent
+        anchors.fill: hoverHighlight
         hoverEnabled: true
 
         onEntered: {
@@ -85,6 +85,7 @@ Item {
                 top: parent.top
                 left: searchIcon.right
                 bottom: parent.bottom
+                right: parent.right
                 leftMargin: -10
             }
 
@@ -96,6 +97,7 @@ Item {
             font.family: "Ubuntu"
             font.pixelSize: 20
             font.italic: true
+            color: "white"
 
             onTextChanged: { root.searchTextChanged() }
         }

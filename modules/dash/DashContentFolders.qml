@@ -3,45 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import qs
+import QuickSearch
 
 Item {
     id: root
     property var dashShelfItemSize
-
-    function createUserFolderEntries() {
-        const folders = [
-            { name: "Home", icon: "user-home", path: "./" },
-            { name: "Documents", icon: "folder-documents", path: "Documents" },
-            { name: "Downloads", icon: "folder-downloads", path: "Downloads" },
-            { name: "Music", icon: "folder-music", path: "Music" },
-            { name: "Pictures", icon: "folder-pictures", path: "Pictures" },
-            { name: "Videos", icon: "folder-videos", path: "Videos" },
-            { name: "Desktop", icon: "user-desktop", path: "Desktop" }
-        ];
-
-        const entries = folders.map(folder => {
-
-            return {
-                name: folder.name,
-                icon: folder.icon,
-                execString: `xdg-open "${folder.path}"`,
-                execute: () => {
-                    Quickshell.execDetached({
-                        command: ["xdg-open", folder.path]
-                    })
-                },
-                noDisplay: false,
-                desktopId: `user-folder-${folder.name.toLowerCase()}`,
-                                    genericName: folder.name,
-                                    comment: `Open ${folder.name} folder`,
-                                    categories: ["Utility", "FileManager"]
-            };
-        });
-
-        return {
-            values: entries
-        };
-    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -67,13 +33,29 @@ Item {
                     top: parent.top
                 }
 
-                QuickSearchTest {
+                DashShelf {
                     anchors {
                         left: parent.left
                         right: parent.right
                     }
-
-                    implicitHeight: 500
+                    headerText: "Files"
+                    iconSource: Config.themePath + "/icons/lens-nav-file.svg"
+                    headerInteractive: true
+                    expanded: false
+                    model: FileSystemModel {
+                        filter: FileSystemModel.Files
+                        path: "/home/logan/"
+                        showHidden: false
+                        query: searchBar.text
+                        recursive: true
+                        minScore: 0.5
+                        maxResults: 600
+                        maxDepth: 6
+                        sort: true
+                        sortReverse: false
+                        sortProperty: "fileName"
+                    }
+                    shelfItemSize: root.dashShelfItemSize
                 }
 
                 DashShelf {
@@ -82,10 +64,21 @@ Item {
                         right: parent.right
                     }
                     headerText: "Folders"
-                    iconSource: Config.themePath + "/icons/lens-nav-file.svg"
-                    headerInteractive: false
+                    iconSource: Config.themePath + "/icons/lens-nav-folder.svg"
+                    headerInteractive: true
                     expanded: false
-                    model: root.createUserFolderEntries().values
+                    model: FileSystemModel {
+                        filter: FileSystemModel.Dirs
+                        path: "/home/logan/"
+                        recursive: true
+                        query: searchBar.text
+                        minScore: 0.5
+                        maxDepth: 6
+                        maxResults: 600
+                        sort: true
+                        sortReverse: false
+                        sortProperty: "fileName"
+                    }//root.createUserFolderEntries().values
                     shelfItemSize: root.dashShelfItemSize
                 }
             }

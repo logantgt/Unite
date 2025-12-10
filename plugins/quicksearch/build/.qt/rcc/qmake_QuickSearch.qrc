@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/QuickSearch">
-    <file alias="qmldir">/home/logan/Documents/GitHub/Unite/plugins/quicksearch/build/qmldir</file>
-  </qresource>
-</RCC>
-

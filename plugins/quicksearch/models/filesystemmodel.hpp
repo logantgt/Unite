@@ -7,6 +7,7 @@
 #include <qdir.h>
 #include <qfilesystemwatcher.h>
 #include <qfuture.h>
+#include <qimage.h>
 #include <qimagereader.h>
 #include <qmimedatabase.h>
 #include <qobject.h>
@@ -32,6 +33,11 @@ namespace quicksearch::models {
         Q_PROPERTY(qint64 size READ size CONSTANT)
         Q_PROPERTY(bool isDir READ isDir CONSTANT)
         Q_PROPERTY(bool isImage READ isImage CONSTANT)
+        Q_PROPERTY(QString imageThumbnail READ imageThumbnail CONSTANT)
+        Q_PROPERTY(bool isVideo READ isVideo CONSTANT)
+        Q_PROPERTY(QString videoThumbnail READ videoThumbnail CONSTANT)
+        Q_PROPERTY(bool isMusic READ isMusic CONSTANT)
+        Q_PROPERTY(QString musicThumbnail READ musicThumbnail CONSTANT)
         Q_PROPERTY(QString mimeType READ mimeType CONSTANT)
 
         // Desktop entry properties
@@ -63,6 +69,11 @@ namespace quicksearch::models {
         [[nodiscard]] qint64 size() const;
         [[nodiscard]] bool isDir() const;
         [[nodiscard]] bool isImage() const;
+        [[nodiscard]] QString imageThumbnail() const;
+        [[nodiscard]] bool isVideo() const;
+        [[nodiscard]] QString videoThumbnail() const;
+        [[nodiscard]] bool isMusic() const;
+        [[nodiscard]] QString musicThumbnail() const;
         [[nodiscard]] QString mimeType() const;
 
         // Desktop entry getters
@@ -98,6 +109,21 @@ namespace quicksearch::models {
         mutable bool m_isImage;
         mutable bool m_isImageInitialised;
 
+        mutable QString m_imageThumbnail;
+        mutable bool m_imageThumbnailInitialised;
+
+        mutable bool m_isVideo;
+        mutable bool m_isVideoInitialised;
+
+        mutable QString m_videoThumbnail;
+        mutable bool m_videoThumbnailInitialised;
+
+        mutable bool m_isMusic;
+        mutable bool m_isMusicInitialised;
+
+        mutable QString m_musicThumbnail;
+        mutable bool m_musicThumbnailInitialised;
+
         mutable QString m_mimeType;
         mutable bool m_mimeTypeInitialised;
 
@@ -105,6 +131,7 @@ namespace quicksearch::models {
         mutable bool m_desktopDataInitialised;
 
         void ensureDesktopDataLoaded() const;
+        [[nodiscard]] bool isMostlyBlack(const QImage& image) const;
     };
 
     class FileSystemModel : public QAbstractListModel {
@@ -126,6 +153,7 @@ namespace quicksearch::models {
         Q_PROPERTY(int maxResults READ maxResults WRITE setMaxResults NOTIFY maxResultsChanged)
 
         Q_PROPERTY(QQmlListProperty<quicksearch::models::FileSystemEntry> entries READ entries NOTIFY entriesChanged)
+        Q_PROPERTY(int length READ length NOTIFY lengthChanged)
 
     public:
         enum Filter {
@@ -183,6 +211,9 @@ namespace quicksearch::models {
         void setMaxResults(int maxResults);
 
         [[nodiscard]] QQmlListProperty<FileSystemEntry> entries();
+        [[nodiscard]] int length() const;
+
+        Q_INVOKABLE QList<QObject*> slice(int start, int count);
 
     signals:
         void pathChanged();
@@ -199,12 +230,14 @@ namespace quicksearch::models {
         void maxDepthChanged();
         void maxResultsChanged();
         void entriesChanged();
+        void lengthChanged();
 
     private:
         QDir m_dir;
         QFileSystemWatcher m_watcher;
         QList<FileSystemEntry*> m_entries;
         QHash<QString, QFuture<QPair<QSet<QString>, QSet<QString>>>> m_futures;
+        uint64_t m_taskGeneration;
 
         QString m_path;
         bool m_recursive;

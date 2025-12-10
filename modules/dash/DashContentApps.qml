@@ -41,7 +41,7 @@ Item {
                     headerText: "Applications"
                     iconSource: Config.themePath + "/icons/lens-nav-app.svg"
                     headerInteractive: false
-                    expanded: false
+                    expanded: true
                     model: FileSystemModel {
                         filter: FileSystemModel.Applications
                         showHidden: false

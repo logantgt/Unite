@@ -1,6 +1,7 @@
 # QuickSearch API Reference
 
 Comprehensive API documentation for the QuickSearch QML plugin - a filesystem search library with fuzzy matching capabilities.
+**Generated with AI, prone to errors, wait for actual documentation.**
 
 ## Import Statement
 
@@ -54,8 +55,8 @@ Controls what types of filesystem entries to include in results.
 | `NoFilter` | `FileSystemModel.NoFilter` | Show all files and directories (default) |
 | `Files` | `FileSystemModel.Files` | Only show files |
 | `Dirs` | `FileSystemModel.Dirs` | Only show directories |
-| `Images` | `FileSystemModel.Images` | Only show readable image files |
-| `Applications` | `FileSystemModel.Applications` | Show installed applications from XDG directories |
+| `Images` | `FileSystemModel.Images` | Only show readable image files (nameFilters ignored) |
+| `Applications` | `FileSystemModel.Applications` | Show installed applications from XDG directories (nameFilters ignored) |
 
 ## Properties
 
@@ -72,7 +73,7 @@ Controls what types of filesystem entries to include in results.
 | Property | Type | Access | Default | Description |
 |----------|------|--------|---------|-------------|
 | `filter` | `Filter` | Read/Write | `NoFilter` | Filter by entry type (see Filter enum) |
-| `nameFilters` | `list<string>` | Read/Write | `[]` | File extension filters (e.g., `["*.txt", "*.md"]`) |
+| `nameFilters` | `list<string>` | Read/Write | `[]` | File extension filters (e.g., `["*.txt", "*.md"]`). **Note:** Specialized filters (`Images`, `Applications`) ignore `nameFilters` as they define complete filter specifications. Use `filter: Files` with `nameFilters` if you need specific image formats. |
 | `showHidden` | `bool` | Read/Write | `false` | Include hidden files in results |
 
 ### Fuzzy Search Scoring
@@ -179,11 +180,24 @@ FileSystemModel {
 ### Search for Images
 
 ```qml
+// Show all supported image formats
 FileSystemModel {
     path: "/home/user/Pictures"
     recursive: true
-    filter: FileSystemModel.Images  // Only readable images
+    filter: FileSystemModel.Images  // Shows all image formats (nameFilters ignored)
     query: "vacation"
+}
+```
+
+### Filter Specific Image Formats
+
+```qml
+// To show only specific image formats, use Files filter with nameFilters
+FileSystemModel {
+    path: "/home/user/Pictures"
+    recursive: true
+    filter: FileSystemModel.Files       // Use Files filter, not Images
+    nameFilters: ["*.jpg", "*.png"]     // Only JPG and PNG images
 }
 ```
 
@@ -250,7 +264,7 @@ All properties are **read-only** and computed from the filesystem.
 |----------|------|-------------|
 | `path` | `string` | Absolute file path |
 | `relativePath` | `string` | Path relative to search root |
-| `name` | `string` | File name with extension |
+| `fileName` | `string` | File name with extension |
 | `baseName` | `string` | File name without extension |
 | `parentDir` | `string` | Parent directory absolute path |
 | `suffix` | `string` | File extension(s) |
@@ -266,7 +280,7 @@ Available when `filter: FileSystemModel.Applications` and `isDesktopEntry` is `t
 | Property | Type | Description |
 |----------|------|-------------|
 | `isDesktopEntry` | `bool` | `true` if this entry is a parsed .desktop file |
-| `appName` | `string` | Application name (localized) |
+| `name` | `string` | Application name (localized) |
 | `genericName` | `string` | Generic application name (e.g., "Web Browser") |
 | `comment` | `string` | Application description/comment |
 | `appIcon` | `string` | Icon name or path |

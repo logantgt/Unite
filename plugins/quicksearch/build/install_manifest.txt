@@ -1,3 +1,0 @@
-/home/logan/.local/lib/qml/QuickSearch/libquicksearch.so
-/home/logan/.local/lib/qml/QuickSearch/libquicksearchplugin.so
-/home/logan/.local/lib/qml/QuickSearch/qmldir
